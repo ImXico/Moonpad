@@ -2,16 +2,26 @@
   "name": "scribbler",
   "version": "0.1.0",
   "private": true,
+  "main": "src/electron.js",
   "dependencies": {
+    "electron-is-dev": "^1.1.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "electron": "^6.0.12",
+    "electron-packager": "^14.0.6",
+    "wait-on": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "prepack-osx": "yarn build",
+    "pack-osx": "electron-packager . --plataform=darwin --out=./dist --overwrite=true --package-manager=yarn"
   },
   "eslintConfig": {
     "extends": "react-app"
