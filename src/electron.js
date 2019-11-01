@@ -6,10 +6,10 @@ let mainWindow = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 720,
-    height: 450,
-    frame: false,
-    resizable: false,
+    width: 820,
+    height: 500,
+    //frame: false,
+    //resizable: false,
   });
 
   mainWindow.loadURL(isDev

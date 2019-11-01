@@ -5,7 +5,8 @@ class TextArea extends React.Component {
 
   render() {
     return (
-      <div contenteditable="true" style={{minHeight:'50px', width:'300px'}} className="TextArea cursor">
+      <div className="TextArea">
+        <div className="actualText" contenteditable="true"></div>
       </div>
     );
   }
