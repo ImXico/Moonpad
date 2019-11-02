@@ -2,15 +2,46 @@
   display: flex;
 }
 
-.TabArea {
+@keyframes tabClosing {
+  from { width: 23%; }
+  to { width: 0%; }
+}
+
+@keyframes tabOpening {
+  from { width: 0%; }
+  to { width: 23%; }
+}
+
+.TabAreaOpen {
   display: flex;
   width: 23%;
   height: 100%;
   height: 99vh; /* 100 when we get rid of the border. */
   border: 2px solid red;
+  animation-name: tabOpening;
+  animation-duration: 0.2s;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.TextArea {
+.TabAreaClosed {
+  display: flex;
+  width: 0%;
+  height: 100%;
+  height: 99vh; /* 100 when we get rid of the border. */
+  border: 2px solid red;
+  animation-name: tabClosing;
+  animation-duration: 0.2s;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.TextAreaLarge {
+  display: flex;
+  flex-grow: 1;
+  max-width: 99%;
+  border: 2px solid lime;
+}
+
+.TextAreaSmall {
   display: flex;
   flex-grow: 1;
   max-width: 76%;
@@ -18,8 +49,7 @@
 }
 
 .actualText {
-  min-width: 1%;
-  max-width: 100%;
+  width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   margin: 15px;

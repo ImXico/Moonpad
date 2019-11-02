@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, globalShortcut, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 
@@ -17,14 +17,20 @@ function createWindow() {
     : `file://${path.join(__dirname, '../build/index.html')}`);
 
   app.setAboutPanelOptions({
-    applicationName: 'Scribbler',
+    applicationName: 'typr',
     applicationVersion: '0.0.1',
   });
 
   mainWindow.on('closed', () => mainWindow = null);
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+});
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
