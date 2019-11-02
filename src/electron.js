@@ -1,4 +1,4 @@
-const { app, globalShortcut, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 
@@ -27,10 +27,6 @@ function createWindow() {
 app.on('ready', () => {
   createWindow();
 });
-
-app.on('will-quit', () => {
-  globalShortcut.unregisterAll();
-})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
