@@ -1,17 +1,21 @@
-const DEFAULT_FILE_NAME = 'test.json';
+const fs = require('fs');
+const path = require('path');
 
-const loadJSONFromFile = async (fileName = DEFAULT_FILE_NAME) => {
-  try {
-    const promiseResponse = await fetch(fileName);
-    const data = await promiseResponse.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
+const DEFAULT_FILE_NAME = '../../../public/test.json';
+const DEFAULT_FILE_PATH = path.join(__dirname, DEFAULT_FILE_NAME);
+
+// fs is Node-specific; calling this code on the client will not work.
+// Thus, we'll call it from ipcMain instead.
+const loadJSONFromFile = (filePath = DEFAULT_FILE_PATH) => {
+  const bufferedData = fs.readFileSync(filePath, 'utf8');
+  return JSON.parse(bufferedData);
 }
 
-const saveJSONToFile = (content, fileName = DEFAULT_FILE_NAME) => {
+const saveJSONToFile = (content, filePath = DEFAULT_FILE_PATH) => {
   // TODO
 }
 
-export { loadJSONFromFile, saveJSONToFile };
+module.exports = {
+  loadJSONFromFile,
+  saveJSONToFile
+}

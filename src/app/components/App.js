@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/App.css';
 import TextArea from './TextArea';
 import TabArea from './TabArea';
-import { loadJSONFromFile } from '../file/JSONHandler';
+const { ipcRenderer } = window.require('electron');
 
 class App extends React.Component {
 
@@ -16,17 +16,19 @@ class App extends React.Component {
     this.onTabSelected = this.onTabSelected.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadAllContent();
     this.registerKeyboardEventListeners();
   }
 
   loadAllContent() {
-    loadJSONFromFile()
-      .then(data => this.setState({
+    ipcRenderer.send('Load-Tabs-And-Content');
+    ipcRenderer.on('Data-Retrieved', (_, data) => (
+      this.setState({
         allContent: data,
         currentlyActiveTab: Object.keys(data)[0]
-      }));
+      })
+    ));
   }
 
   registerKeyboardEventListeners() {

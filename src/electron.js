@@ -8,6 +8,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 820,
     height: 500,
+    webPreferences: { nodeIntegration: true }
     //frame: false,
     //resizable: false,
   });
@@ -39,3 +40,7 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+// --- 
+
+require('./ipc');
