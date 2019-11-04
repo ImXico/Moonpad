@@ -8,6 +8,7 @@ const TabArea = ({ isOpen, tabNames, onTabSelected }) => {
       <div className="tabsContainer">
         {tabNames.map(name => 
           <Tab
+            key={name} // Get a proper key
             name={name}
             isOpen={isOpen}
             onSelect={onTabSelected}
