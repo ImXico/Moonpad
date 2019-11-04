@@ -43,4 +43,4 @@ app.on('activate', () => {
 
 // --- 
 
-require('./ipc');
+require('./app/ipc/ipc');

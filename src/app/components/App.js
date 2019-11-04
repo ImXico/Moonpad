@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/App.css';
 import TextArea from './TextArea';
 import TabArea from './TabArea';
+import { LOAD_TABS_AND_TABS_CONTENT, DATA_RETRIEVED } from '../ipc/constants';
 const { ipcRenderer } = window.require('electron');
 
 class App extends React.Component {
@@ -22,8 +23,8 @@ class App extends React.Component {
   }
 
   loadAllContent() {
-    ipcRenderer.send('Load-Tabs-And-Content');
-    ipcRenderer.on('Data-Retrieved', (_, data) => (
+    ipcRenderer.send(LOAD_TABS_AND_TABS_CONTENT);
+    ipcRenderer.on(DATA_RETRIEVED, (_, data) => (
       this.setState({
         allContent: data,
         currentlyActiveTab: Object.keys(data)[0]
