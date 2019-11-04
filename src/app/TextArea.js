@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
 
-const TextArea = ({ isLarge }) => {
+const TextArea = ({ isLarge, textContent }) => {
   return (
-    <div className={isLarge ? "TextAreaLarge" : "TextAreaSmall"}>
-      <div className="actualText" contenteditable="true"></div>
+    <div className={isLarge ? "textAreaLarge" : "textAreaSmall"}>
+      <div className="actualText" contenteditable="true">
+        {textContent}
+      </div>
     </div>
   );
 }
