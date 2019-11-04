@@ -17,7 +17,7 @@
   width: 23%;
   position: sticky;
   top: 0px;
-  height: 99vh; /* 100 when we get rid of the border. */
+  height: 100vh;
   border: 2px solid red;
   animation-name: tabAreaOpening;
   animation-duration: 0.2s;
@@ -28,7 +28,7 @@
   display: flex;
   width: 0%;
   height: 100%;
-  height: 99vh; /* 100 when we get rid of the border. */
+  height: 100vh;
   border: 2px solid red;
   animation-name: tabAreaClosing;
   animation-duration: 0.2s;
@@ -38,14 +38,14 @@
 .textAreaLarge {
   display: flex;
   flex-grow: 1;
-  max-width: 99%;
+  max-width: 100%;
   border: 2px solid lime;
 }
 
 .textAreaSmall {
   display: flex;
   flex-grow: 1;
-  max-width: 76%;
+  max-width: 77%;
   border: 2px solid lime;
 }
 
