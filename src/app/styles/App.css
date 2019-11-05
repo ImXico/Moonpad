@@ -38,6 +38,7 @@
 .textAreaLarge {
   display: flex;
   flex-grow: 1;
+  width: 100%;
   max-width: 100%;
   border: 2px solid lime;
 }
@@ -89,7 +90,7 @@
 }
 
 
-.actualText {
+.inputText {
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;

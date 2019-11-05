@@ -2,7 +2,8 @@ import React from 'react';
 import '../styles/App.css';
 import TextArea from './TextArea';
 import TabArea from './TabArea';
-import { LOAD_TABS_AND_TABS_CONTENT, DATA_RETRIEVED } from '../ipc/constants';
+import { LOAD_ALL_TABS_NAMES, ALL_TABS_NAMES_RETRIEVED } from '../ipc/constants';
+
 const { ipcRenderer } = window.require('electron');
 
 class App extends React.Component {
@@ -11,25 +12,30 @@ class App extends React.Component {
     super(props);
     this.state = {
       isTabAreaOpen: true,
-      allContent: '',
+      allTabNames: [],
       currentlyActiveTab: ''
     }
     this.onTabSelected = this.onTabSelected.bind(this);
+    this.setupIPC = this.setupIPC.bind(this);
   }
 
-  componentWillMount() {
-    this.loadAllContent();
+  componentDidMount() {
+    this.setupIPC();
+    this.loadAllTabsNames();
     this.registerKeyboardEventListeners();
   }
 
-  loadAllContent() {
-    ipcRenderer.send(LOAD_TABS_AND_TABS_CONTENT);
-    ipcRenderer.on(DATA_RETRIEVED, (_, data) => (
+  setupIPC() {
+    ipcRenderer.on(ALL_TABS_NAMES_RETRIEVED, (_, data) => (
       this.setState({
-        allContent: data,
-        currentlyActiveTab: Object.keys(data)[0]
+        allTabNames: [...data],
+        currentlyActiveTab: data[0]
       })
     ));
+  }
+
+  loadAllTabsNames() {
+    ipcRenderer.send(LOAD_ALL_TABS_NAMES);
   }
 
   registerKeyboardEventListeners() {
@@ -44,21 +50,21 @@ class App extends React.Component {
   }
 
   onTabSelected(tabName) {
-    this.setState({ currentlyActiveTab: tabName });
+    this.setState({ currentlyActiveTab: tabName });
   }
 
   render() {
-    const { isTabAreaOpen, allContent, currentlyActiveTab } = this.state;
-    return (allContent !== '') && (
+    const { isTabAreaOpen, allTabNames, currentlyActiveTab } = this.state;
+    return (allTabNames !== []) && (
       <div className="container">
         <TabArea
           isOpen={isTabAreaOpen}
-          tabNames={Object.keys(allContent)}
+          tabNames={allTabNames}
           onTabSelected={this.onTabSelected}
         />
         <TextArea
           isLarge={!isTabAreaOpen}
-          textContent={allContent[currentlyActiveTab]}
+          activeTabName={currentlyActiveTab}
         />
       </div>
     );

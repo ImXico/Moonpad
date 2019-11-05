@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../styles/App.css';
 import Tab from './Tab';
 
@@ -17,6 +18,12 @@ const TabArea = ({ isOpen, tabNames, onTabSelected }) => {
       </div>
     </div>
   );
+}
+
+TabArea.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  tabNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onTabSelected: PropTypes.func.isRequired
 }
 
 export default TabArea;

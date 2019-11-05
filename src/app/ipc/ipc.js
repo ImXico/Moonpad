@@ -1,8 +1,30 @@
 const { ipcMain } = require('electron');
-const { loadJSONFromFile } = require('../file/JSONHandler');
 const ipcConstants = require('./constants');
+const {
+  loadAllTabsNames,
+  loadAllTabsContent,
+  loadTabContent,
+  updateTabContent
+} = require('../util/JSONHandler');
 
-ipcMain.on(ipcConstants.LOAD_TABS_AND_TABS_CONTENT, (event) => {
-  const dataObject = loadJSONFromFile();
-  event.sender.send(ipcConstants.DATA_RETRIEVED, dataObject);
+ipcMain.on(ipcConstants.LOAD_ALL_TABS_CONTENT, (event) => {
+  const allContent = loadAllTabsContent();
+  event.sender.send(ipcConstants.ALL_TABS_CONTENT_RETRIEVED, allContent);
+});
+
+ipcMain.on(ipcConstants.LOAD_ALL_TABS_NAMES, (event) => {
+  const allNames = loadAllTabsNames();
+  event.sender.send(ipcConstants.ALL_TABS_NAMES_RETRIEVED, allNames);
+});
+
+ipcMain.on(ipcConstants.LOAD_TAB_CONTENT, (event, tabName) => {
+  const tabContent = loadTabContent(tabName);
+  event.sender.send(ipcConstants.TAB_CONTENT_RETRIEVED, {
+    tabName, tabContent
+  });
+});
+
+ipcMain.on(ipcConstants.UPDATE_TAB_CONTENT, (_, data) => {
+  const { nameOfTabToBeUpdated, updatedContent } = data;
+  updateTabContent(nameOfTabToBeUpdated, updatedContent);
 });
