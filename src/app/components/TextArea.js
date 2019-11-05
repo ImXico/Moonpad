@@ -17,6 +17,7 @@ class TextArea extends React.Component {
       textContent: ''
     }
     this.saveUpdatedContent = this.saveUpdatedContent.bind(this);
+    this.onTextChange = this.onTextChange.bind(this);
   }
 
   componentDidMount() {
@@ -24,8 +25,7 @@ class TextArea extends React.Component {
     ipcRenderer.send(LOAD_TAB_CONTENT, this.props.activeTabName);
     // When we change to some tab, we retrieve the most up-to-date information held by tab.
     ipcRenderer.on(TAB_CONTENT_RETRIEVED, (_, data) => {
-      const { tabContent } = data;
-      this.setState({ textContent: tabContent });
+      this.setState({ textContent: data.tabContent });
     });
   }
 
@@ -35,27 +35,29 @@ class TextArea extends React.Component {
     }
   }
 
-  saveUpdatedContent(event) {
+  onTextChange(event) {
+    this.setState({ textContent: event.target.value });
+  }
+
+  saveUpdatedContent() {
     // This is probably not safe. Bare minimum for now, needs review.
-    const updatedContent = event.target.innerText;
     ipcRenderer.send(UPDATE_TAB_CONTENT, {
       nameOfTabToBeUpdated: this.props.activeTabName,
-      updatedContent
+      updatedContent: this.state.textContent
     });
   }
 
   render() {
     const { isLarge } = this.props;
     const { textContent } = this.state;
-    return (
+    return (textContent !== '') && (
       <div className={isLarge ? "textAreaLarge" : "textAreaSmall"}>
-        <div
+        <textarea
           className="inputText"
-          contentEditable={true}
+          value={textContent}
+          onChange={this.onTextChange}
           onBlur={this.saveUpdatedContent}
-        >
-          {textContent}
-        </div>
+        />
       </div>
     );
   }
