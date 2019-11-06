@@ -16,6 +16,7 @@ class TextArea extends React.Component {
     this.state = {
       textContent: ''
     }
+    this.textAreaRef = React.createRef();
     this.saveUpdatedContent = this.saveUpdatedContent.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
   }
@@ -26,12 +27,14 @@ class TextArea extends React.Component {
     // When we change to some tab, we retrieve the most up-to-date information held by tab.
     ipcRenderer.on(TAB_CONTENT_RETRIEVED, (_, data) => {
       this.setState({ textContent: data.tabContent });
+      this.textAreaRef.current.focus();
     });
   }
 
   componentDidUpdate(prevProps, _) {
     if (prevProps.activeTabName !== this.props.activeTabName) {
       ipcRenderer.send(LOAD_TAB_CONTENT, this.props.activeTabName);
+      this.textAreaRef.current.focus();
     }
   }
 
@@ -54,6 +57,7 @@ class TextArea extends React.Component {
         <textarea
           className="inputText"
           value={textContent}
+          ref={this.textAreaRef}
           onChange={this.onTextChange}
           onBlur={this.saveUpdatedContent}
         />
