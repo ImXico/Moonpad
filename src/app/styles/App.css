@@ -89,13 +89,13 @@
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-
 .inputText {
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   margin: 15px;
-  outline: 0px solid transparent;
+  outline: none;
+  resize: none;
   word-wrap: break-word;
   border: 2px solid blue;
 }

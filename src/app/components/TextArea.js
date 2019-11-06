@@ -40,7 +40,6 @@ class TextArea extends React.Component {
   }
 
   saveUpdatedContent() {
-    // This is probably not safe. Bare minimum for now, needs review.
     ipcRenderer.send(UPDATE_TAB_CONTENT, {
       nameOfTabToBeUpdated: this.props.activeTabName,
       updatedContent: this.state.textContent
@@ -50,7 +49,7 @@ class TextArea extends React.Component {
   render() {
     const { isLarge } = this.props;
     const { textContent } = this.state;
-    return (textContent !== '') && (
+    return (
       <div className={isLarge ? "textAreaLarge" : "textAreaSmall"}>
         <textarea
           className="inputText"

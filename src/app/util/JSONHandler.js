@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+const NO_CONTENT = "";
 const DEFAULT_FILE_PATH = '/Users/franciscocunha/Pictures/test.json';
 
 const loadAllTabsNames = (filePath = DEFAULT_FILE_PATH) => {
@@ -25,9 +26,14 @@ const updateTabContent = (tabName, newContent, filePath = DEFAULT_FILE_PATH) => 
   });
 }
 
+const createNewTab = (tabName, filePath = DEFAULT_FILE_PATH) => {
+  updateTabContent(tabName, NO_CONTENT, filePath);
+}
+
 module.exports = {
   loadAllTabsContent,
   loadAllTabsNames,
   loadTabContent,
-  updateTabContent
+  updateTabContent,
+  createNewTab
 }

@@ -4,7 +4,8 @@ const {
   loadAllTabsNames,
   loadAllTabsContent,
   loadTabContent,
-  updateTabContent
+  updateTabContent,
+  createNewTab
 } = require('../util/JSONHandler');
 
 ipcMain.on(ipcConstants.LOAD_ALL_TABS_CONTENT, (event) => {
@@ -28,3 +29,7 @@ ipcMain.on(ipcConstants.UPDATE_TAB_CONTENT, (_, data) => {
   const { nameOfTabToBeUpdated, updatedContent } = data;
   updateTabContent(nameOfTabToBeUpdated, updatedContent);
 });
+
+ipcMain.on(ipcConstants.CREATE_NEW_TAB, (_, tabName) => {
+  createNewTab(tabName);
+})

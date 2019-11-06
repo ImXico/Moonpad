@@ -2,7 +2,11 @@ import React from 'react';
 import '../styles/App.css';
 import TextArea from './TextArea';
 import TabArea from './TabArea';
-import { LOAD_ALL_TABS_NAMES, ALL_TABS_NAMES_RETRIEVED } from '../ipc/constants';
+import {
+  LOAD_ALL_TABS_NAMES,
+  ALL_TABS_NAMES_RETRIEVED,
+  CREATE_NEW_TAB
+} from '../ipc/constants';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -15,8 +19,9 @@ class App extends React.Component {
       allTabNames: [],
       currentlyActiveTab: ''
     }
-    this.onTabSelected = this.onTabSelected.bind(this);
     this.setupIPC = this.setupIPC.bind(this);
+    this.onTabSelected = this.onTabSelected.bind(this);
+    this.onCreateNewTabClicked = this.onCreateNewTabClicked.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +58,17 @@ class App extends React.Component {
     this.setState({ currentlyActiveTab: tabName });
   }
 
+  onCreateNewTabClicked() {
+    const newTabName = `Tab${this.state.allTabNames.length + 1}`;
+    ipcRenderer.send(CREATE_NEW_TAB, newTabName);
+    this.setState(prevState => {
+      return {
+        allTabNames: [...prevState.allTabNames, newTabName],
+        currentlyActiveTab: newTabName
+      }
+    });
+  }
+
   render() {
     const { isTabAreaOpen, allTabNames, currentlyActiveTab } = this.state;
     return (allTabNames !== []) && (
@@ -61,6 +77,7 @@ class App extends React.Component {
           isOpen={isTabAreaOpen}
           tabNames={allTabNames}
           onTabSelected={this.onTabSelected}
+          onCreateNewTabClicked={this.onCreateNewTabClicked}
         />
         <TextArea
           isLarge={!isTabAreaOpen}

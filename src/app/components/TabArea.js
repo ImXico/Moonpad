@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/App.css';
 import Tab from './Tab';
+import NewTabButton from './NewTabButton';
 
-const TabArea = ({ isOpen, tabNames, onTabSelected }) => {
+const TabArea = ({ isOpen, tabNames, onTabSelected, onCreateNewTabClicked }) => {
   return (
     <div className={isOpen ? "tabAreaOpen" : "tabAreaClosed"}>
       <div className="tabsContainer">
@@ -15,6 +16,7 @@ const TabArea = ({ isOpen, tabNames, onTabSelected }) => {
             onSelect={onTabSelected}
           />
         )}
+        <NewTabButton onClick={onCreateNewTabClicked} />
       </div>
     </div>
   );
