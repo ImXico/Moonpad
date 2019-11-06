@@ -19,6 +19,7 @@ class TextArea extends React.Component {
     this.textAreaRef = React.createRef();
     this.saveUpdatedContent = this.saveUpdatedContent.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
+    this.focusTextArea = this.focusTextArea.bind(this);
   }
 
   componentDidMount() {
@@ -27,15 +28,19 @@ class TextArea extends React.Component {
     // When we change to some tab, we retrieve the most up-to-date information held by tab.
     ipcRenderer.on(TAB_CONTENT_RETRIEVED, (_, data) => {
       this.setState({ textContent: data.tabContent });
-      this.textAreaRef.current.focus();
+      this.focusTextArea();
     });
   }
 
   componentDidUpdate(prevProps, _) {
     if (prevProps.activeTabName !== this.props.activeTabName) {
       ipcRenderer.send(LOAD_TAB_CONTENT, this.props.activeTabName);
-      this.textAreaRef.current.focus();
+      this.focusTextArea();
     }
+  }
+
+  focusTextArea() {
+    this.textAreaRef.current.focus();
   }
 
   onTextChange(event) {
