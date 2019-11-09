@@ -14,11 +14,15 @@ class TextArea extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      textContent: ''
+      textContent: '',
+      mirroredTextContent: ''
     }
     this.textAreaRef = React.createRef();
+    this.moveEmulatedCaret = this.moveEmulatedCaret.bind(this);
     this.saveUpdatedContent = this.saveUpdatedContent.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
+    this.onTextAreaClick = this.onTextAreaClick.bind(this);
+    this.onArrowKeyPress = this.onArrowKeyPress.bind(this);
     this.focusTextArea = this.focusTextArea.bind(this);
   }
 
@@ -43,8 +47,28 @@ class TextArea extends React.Component {
     this.textAreaRef.current.focus();
   }
 
+  moveEmulatedCaret() {
+    const caretPosition = this.textAreaRef.current.selectionStart;
+    if (!caretPosition) return;
+    console.log(caretPosition, this.state.textContent.substring(0, caretPosition));
+    this.setState(prevState => {
+      return {
+        mirroredTextContent: prevState.textContent.substring(0, caretPosition)
+      }
+    });
+  }
+
   onTextChange(event) {
     this.setState({ textContent: event.target.value });
+    this.moveEmulatedCaret();
+  }
+
+  onTextAreaClick() {
+    this.moveEmulatedCaret();
+  }
+
+  onArrowKeyPress() {
+    this.moveEmulatedCaret();
   }
 
   saveUpdatedContent() {
@@ -56,14 +80,20 @@ class TextArea extends React.Component {
 
   render() {
     const { isLarge } = this.props;
-    const { textContent } = this.state;
+    const { textContent, mirroredTextContent } = this.state;
     return (
       <div className={isLarge ? "textAreaLarge" : "textAreaSmall"}>
+        <div className="mirrorTextBox fontStyle">
+          {mirroredTextContent}
+        </div>
         <textarea
-          className="inputText"
+          className="inputTextBox fontStyle"
           value={textContent}
           ref={this.textAreaRef}
           onChange={this.onTextChange}
+          onKeyUp={this.onArrowKeyPress}
+          onKeyDown={this.onArrowKeyPress}
+          onClick={this.onTextAreaClick}
           onBlur={this.saveUpdatedContent}
         />
       </div>

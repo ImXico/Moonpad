@@ -89,13 +89,53 @@
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.inputText {
+.inputTextBox {
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  margin: 15px;
+  margin: 3%;
   outline: none;
+  background-color: transparent;
   resize: none;
+  white-space: pre-wrap;
   word-wrap: break-word;
   border: 2px solid blue;
+  /* caret-color: transparent; */
+}
+
+.mirrorTextBox {
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  margin: 3% -97% 3% 3%;
+  color: green;
+  white-space: pre-wrap;
+  word-wrap: break-word;  /* Very important to keep in sync with the one in inputTextBox. */
+  border: 4px solid yellow;
+}
+
+/* .mirrorTextBox::after {
+  content: "";
+  display: inline-block;
+  background-color: blue;
+  vertical-align: top;
+  width: 3px;
+  height: 20px;
+  animation: blink 0.75s step-end infinite;
+} */
+
+@-webkit-keyframes blink {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+@keyframes blink {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+.fontStyle {
+  font-size: large;
 }
