@@ -1,5 +1,15 @@
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('../../JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+* {
+  font-family: 'JetBrainsMono', Fallback, sans-serif;
+}
+
 .container {
   display: flex;
+  margin: 5vh 0;
 }
 
 @keyframes tabAreaClosing {
@@ -17,7 +27,7 @@
   width: 23%;
   position: sticky;
   top: 0px;
-  height: 100vh;
+  height: 90vh;
   border: 2px solid red;
   animation-name: tabAreaOpening;
   animation-duration: 0.2s;
@@ -28,7 +38,7 @@
   display: flex;
   width: 0%;
   height: 100%;
-  height: 100vh;
+  height: 90vh; /* This is 100-5-5 (container) */
   border: 2px solid red;
   animation-name: tabAreaClosing;
   animation-duration: 0.2s;
@@ -40,6 +50,7 @@
   flex-grow: 1;
   width: 100%;
   max-width: 100%;
+  overflow: hidden;
   border: 2px solid lime;
 }
 
@@ -47,6 +58,7 @@
   display: flex;
   flex-grow: 1;
   max-width: 77%;
+  overflow: hidden;
   border: 2px solid lime;
 }
 
@@ -55,7 +67,9 @@
   flex-direction: column;
   width: 100%;
   height: auto;
-  margin: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 10%;
   border: 2px solid slateblue;
 }
 
@@ -91,30 +105,31 @@
 
 .inputTextBox {
   width: 100%;
+  margin: 20px 0px 20px 20px; /* We want the scrollbar to stick to the right side. */
+  padding-right: 25px;
   overflow-y: auto;
-  overflow-x: hidden;
-  margin: 3%;
   outline: none;
   background-color: transparent;
   resize: none;
   white-space: pre-wrap;
   word-wrap: break-word;
   border: 2px solid blue;
+  font-size: 1em;
   /* caret-color: transparent; */
 }
 
 .mirrorTextBox {
   width: 100%;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow: hidden;
   margin: 3% -97% 3% 3%;
+  padding-right: 10px;
   color: green;
   white-space: pre-wrap;
   word-wrap: break-word;  /* Very important to keep in sync with the one in inputTextBox. */
   border: 4px solid yellow;
 }
 
-/* .mirrorTextBox::after {
+.mirrorTextBox::after {
   content: "";
   display: inline-block;
   background-color: blue;
@@ -122,7 +137,7 @@
   width: 3px;
   height: 20px;
   animation: blink 0.75s step-end infinite;
-} */
+}
 
 @-webkit-keyframes blink {
   0% { opacity: 1.0; }
@@ -134,8 +149,4 @@
   0% { opacity: 1.0; }
   50% { opacity: 0.0; }
   100% { opacity: 1.0; }
-}
-
-.fontStyle {
-  font-size: large;
 }

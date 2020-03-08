@@ -50,7 +50,6 @@ class TextArea extends React.Component {
   moveEmulatedCaret() {
     const caretPosition = this.textAreaRef.current.selectionStart;
     if (!caretPosition) return;
-    console.log(caretPosition, this.state.textContent.substring(0, caretPosition));
     this.setState(prevState => {
       return {
         mirroredTextContent: prevState.textContent.substring(0, caretPosition)
@@ -59,7 +58,10 @@ class TextArea extends React.Component {
   }
 
   onTextChange(event) {
-    this.setState({ textContent: event.target.value });
+    this.setState({
+      textContent: event.target.value,
+      mirroredTextContent: event.target.value
+    });
     this.moveEmulatedCaret();
   }
 
@@ -83,11 +85,11 @@ class TextArea extends React.Component {
     const { textContent, mirroredTextContent } = this.state;
     return (
       <div className={isLarge ? "textAreaLarge" : "textAreaSmall"}>
-        <div className="mirrorTextBox fontStyle">
+        {/* <div className="mirrorTextBox fontStyle">
           {mirroredTextContent}
-        </div>
+        </div> */}
         <textarea
-          className="inputTextBox fontStyle"
+          className="inputTextBox"
           value={textContent}
           ref={this.textAreaRef}
           onChange={this.onTextChange}

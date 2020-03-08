@@ -8,8 +8,9 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 820,
     height: 500,
-    webPreferences: { nodeIntegration: true }
-    //frame: false,
+    webPreferences: { nodeIntegration: true },
+    //titleBarStyle: 'hiddenInset',
+    frame: false,
     //resizable: false,
   });
 
