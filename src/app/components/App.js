@@ -72,18 +72,21 @@ class App extends React.Component {
   render() {
     const { isTabAreaOpen, allTabNames, currentlyActiveTab } = this.state;
     return (allTabNames !== []) && (
-      <div className="container">
-        <TabArea
-          isOpen={isTabAreaOpen}
-          tabNames={allTabNames}
-          onTabSelected={this.onTabSelected}
-          onCreateNewTabClicked={this.onCreateNewTabClicked}
-        />
-        <TextArea
-          isLarge={!isTabAreaOpen}
-          activeTabName={currentlyActiveTab}
-        />
-      </div>
+      <>
+        <div className="title-bar"></div>
+        <div className="container">
+          <TabArea
+            isOpen={isTabAreaOpen}
+            tabNames={allTabNames}
+            onTabSelected={this.onTabSelected}
+            onCreateNewTabClicked={this.onCreateNewTabClicked}
+          />
+          <TextArea
+            isLarge={!isTabAreaOpen}
+            activeTabName={currentlyActiveTab}
+          />
+        </div>
+      </>
     );
   }
 }

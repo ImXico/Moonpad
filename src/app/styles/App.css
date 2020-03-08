@@ -5,11 +5,19 @@
 
 * {
   font-family: 'JetBrainsMono', Fallback, sans-serif;
+  -webkit-app-region: no-drag;
+}
+
+.title-bar {
+  -webkit-app-region: drag;
+  border: 2px solid yellow;
+  width: 100%;
+  height: 5vh; /* This must match the containers's bottom margin... Set SCSS vars for this later. */
 }
 
 .container {
   display: flex;
-  margin: 5vh 0;
+  margin: 0 0 5vh 0;
 }
 
 @keyframes tabAreaClosing {
