@@ -1,0 +1,116 @@
+@import './variables.scss';
+@import './animations.scss';
+
+.__title-bar {
+  width: 100%;
+  height: $draggable-height;
+  -webkit-app-region: drag;
+  // border: 2px solid yellow;
+}
+
+.__working-area-container {
+  display: flex;
+  overflow: hidden;
+  // border: 2px solid orchid;
+
+  .TabsPane {
+    display: flex;
+    position: sticky;
+    height: $full-working-height;
+    // border: 2px solid red;
+
+    &--open {
+      width: $tab-pane-width;
+      animation-name: TabsAreaOpening;
+      animation-duration: $tab-area-slide-animation-duration;
+      animation-timing-function: $tab-area-slide-animation-func;
+    }
+
+    &--closed {
+      width: 0%;
+      animation-name: TabsAreaClosing;
+      animation-duration: $tab-area-slide-animation-duration;
+      animation-timing-function: $tab-area-slide-animation-func;
+    }
+
+    .TabsContainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: 45px 0px 0px 0px;
+      // border: 2px solid slateblue;
+
+      .Tab {
+        border: none;
+        margin-bottom: 15px;
+        padding: 10px 0;
+        font-size: 0.75em;
+        // border: 2px solid red;
+        // background-color: #4C566A;
+
+        &--open {
+          animation-name: TabOpening;
+          animation-duration: $tab-area-slide-animation-duration;
+          animation-timing-function: $tab-area-slide-animation-func;
+          color: rgba(76,86,106, 1);
+          width: 100%;
+        }
+
+        &--closed {
+          animation-name: TabClosing;
+          animation-duration: $tab-area-slide-animation-duration;
+          animation-timing-function: $tab-area-slide-animation-func;
+          color: rgba(76,86,106, 0);
+          width: 0%;
+        }
+      }
+
+      .NewTabButton {
+        border: none;
+        color: #E5E9F0;
+        // For aesthetic reasons, allow to scroll past the NewTabButton
+        padding-bottom: 150px;
+      }
+    }
+  }
+
+  .__right-pane-area-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .TextEditorPane {
+      width: 100%;
+      height: 100%;
+      padding: 50px 0px 50px 60px;
+      // border: 2px solid lime;
+
+      .TextEditor {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        resize: none;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        font-size: 1em;
+        line-height: 1.5em;
+        font-weight: 500;
+        color: #D8DEE9;
+        /* caret-color: transparent; */
+        // border: 2px solid blue;
+      }
+    }
+
+    .BottomPane {
+      width: 100%;
+      height: $draggable-height;
+      padding-left: 50px;
+      color: #D8DEE9;
+    }
+  }
+}

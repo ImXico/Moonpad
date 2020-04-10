@@ -1,0 +1,25 @@
+@import './variables.scss';
+
+/* TabsArea */
+
+@keyframes TabsAreaOpening {
+  from  { width: 0%; }
+  to    { width: $tab-pane-width; }
+}
+
+@keyframes TabsAreaClosing {
+  from  { width: $tab-pane-width; }
+  to    { width: 0%; }
+}
+
+/* Tabs */
+
+@keyframes TabOpening {
+  from  { color: rgba(76,86,106, 0); width: 0% }
+  to    { color: rgba(76,86,106, 1); width: 100% }
+}
+
+@keyframes TabClosing {
+  from  { color: rgba(76,86,106, 1); width: 100% }
+  to    { color: rgba(76,86,106, 0); width: 0% }
+}

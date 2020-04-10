@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/App.css';
+import '../styles/app.scss';
 import Tab from './Tab';
 import NewTabButton from './NewTabButton';
 
 const TabArea = ({ isOpen, tabNames, onTabSelected, onCreateNewTabClicked }) => {
   return (
-    <div className={isOpen ? "tabAreaOpen" : "tabAreaClosed"}>
-      <div className="tabsContainer">
+    <div className={`TabsPane TabsPane--${isOpen ? 'open' : 'closed'}`}>
+      <div className="TabsContainer">
         {tabNames.map(name => 
           <Tab
-            key={name} // Get a proper key
+            key={name}
             name={name}
             isOpen={isOpen}
             onSelect={onTabSelected}

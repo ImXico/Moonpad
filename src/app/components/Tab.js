@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Tab = ({ name, isOpen, onSelect }) => {
   return (
     <button
-      className={isOpen ? "tabOpen" : "tabClosed"}
+      className={`Tab Tab--${isOpen ? 'open' : 'closed'}`}
       onClick={() => onSelect(name)}
     >
       {name}

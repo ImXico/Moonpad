@@ -1,7 +1,8 @@
 import React from 'react';
-import '../styles/App.css';
-import TextArea from './TextArea';
+import '../styles/app.scss';
+import BottomPane from './BottomPane';
 import TabArea from './TabArea';
+import TextArea from './TextArea';
 import {
   LOAD_ALL_TABS_NAMES,
   ALL_TABS_NAMES_RETRIEVED,
@@ -73,17 +74,18 @@ class App extends React.Component {
     const { isTabAreaOpen, allTabNames, currentlyActiveTab } = this.state;
     return (allTabNames !== []) && (
       <>
-        <div className="title-bar"></div>
-        <div className="container">
+        <div className="__title-bar"></div>
+        <div className="__working-area-container">
           <TabArea
             isOpen={isTabAreaOpen}
             tabNames={allTabNames}
             onTabSelected={this.onTabSelected}
             onCreateNewTabClicked={this.onCreateNewTabClicked}
           />
-          <TextArea
-            activeTabName={currentlyActiveTab}
-          />
+          <div className="__right-pane-area-container">
+            <TextArea activeTabName={currentlyActiveTab} />
+            <BottomPane />
+          </div>
         </div>
       </>
     );

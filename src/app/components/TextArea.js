@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/App.css';
+import '../styles/app.scss';
 import {
   TAB_CONTENT_RETRIEVED,
   LOAD_TAB_CONTENT,
@@ -83,12 +83,12 @@ class TextArea extends React.Component {
   render() {
     const { textContent, mirroredTextContent } = this.state;
     return (
-      <div className={"textArea"}>
+      <div className="TextEditorPane">
         {/* <div className="mirrorTextBox fontStyle">
           {mirroredTextContent}
         </div> */}
         <textarea
-          className="inputTextBox"
+          className="TextEditor"
           value={textContent}
           ref={this.textAreaRef}
           onChange={this.onTextChange}
