@@ -1,71 +1,54 @@
-@font-face {
-  font-family: 'JetBrainsMono';
-  src: url('../../JetBrainsMono-Regular.woff2') format('woff2');
-}
-
-* {
-  font-family: 'JetBrainsMono', Fallback, sans-serif;
-  -webkit-app-region: no-drag;
-}
-
 .title-bar {
   -webkit-app-region: drag;
-  border: 2px solid yellow;
   width: 100%;
-  height: 5vh; /* This must match the containers's bottom margin... Set SCSS vars for this later. */
+  height: 8vh; /* This must match the containers's bottom margin... Set SCSS vars for this later. */
+  border: 2px solid yellow;
 }
 
 .container {
   display: flex;
   margin: 0 0 5vh 0;
+  overflow: hidden;
+  border: 2px solid orchid;
 }
 
 @keyframes tabAreaClosing {
-  from  { width: 23%; }
+  from  { width: 28%; }
   to    { width: 0%; }
 }
 
 @keyframes tabAreaOpening {
   from  { width: 0%; }
-  to    { width: 23%; }
+  to    { width: 28%; }
 }
 
 .tabAreaOpen {
   display: flex;
-  width: 23%;
+  width: 28%;
   position: sticky;
   top: 0px;
-  height: 90vh;
-  border: 2px solid red;
+  height: 86vh;
   animation-name: tabAreaOpening;
-  animation-duration: 0.2s;
+  animation-duration: 0.25s;
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 2px solid red;
 }
 
 .tabAreaClosed {
   display: flex;
   width: 0%;
-  height: 100%;
-  height: 90vh; /* This is 100-5-5 (container) */
-  border: 2px solid red;
+  height: 86vh; /*This is 100-7-7 (container)*/
   animation-name: tabAreaClosing;
-  animation-duration: 0.2s;
+  animation-duration: 0.25s;
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 2px solid red;
 }
 
-.textAreaLarge {
+.textArea {
   display: flex;
   flex-grow: 1;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
-  border: 2px solid lime;
-}
-
-.textAreaSmall {
-  display: flex;
-  flex-grow: 1;
-  max-width: 77%;
   overflow: hidden;
   border: 2px solid lime;
 }
@@ -77,53 +60,66 @@
   height: auto;
   overflow-y: auto;
   overflow-x: hidden;
-  margin: 10%;
+  margin: 45px 0px 20px 0px;
   border: 2px solid slateblue;
 }
 
 @keyframes tabClosing {
-  from  { color: rgba(1, 1, 1, 1); width: 100% }
-  to    { color: rgba(0, 0, 0, 0); width: 0% }
+  from  { color: rgba(229,233,240, 1); width: 100% }
+  to    { color: rgba(229,233,240, 0); width: 0% }
 }
 
 @keyframes tabOpening {
-  from  { color: rgba(0, 0, 0, 0); width: 0% }
-  to    { color: rgba(1, 1, 1, 1); width: 100% }
+  from  { color: rgba(229,233,240, 0); width: 0% }
+  to    { color: rgba(229,233,240, 1); width: 100% }
 }
 
 .tabOpen {
+  border: none;
   margin-bottom: 15px;
   padding: 10px 0;
-  background-color: steelblue;
-  color: rgba(1, 1, 1, 1);
+  font-size: 0.75em;
+  /* background-color: steelblue; */
+  color: #E5E9F0;
   animation-name: tabOpening;
-  animation-duration: 0.1s;
+  animation-duration: 0.25s;
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .tabClosed {
+  border: none;
   margin-bottom: 15px;
   padding: 10px 0;
-  background-color: steelblue;
-  color: rgba(0, 0, 0, 0);
+  font-size: 0.75em;
+  /* background-color: steelblue; */
+  color: rgba(229,233,240, 0);
   animation-name: tabClosing;
-  animation-duration: 0.1s;
+  animation-duration: 0.25s;
   animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.newTabButton {
+  border: none;
+  color: #E5E9F0;
 }
 
 .inputTextBox {
   width: 100%;
-  margin: 20px 0px 20px 20px; /* We want the scrollbar to stick to the right side. */
-  padding-right: 25px;
+  margin: 50px 0px 30px 60px; /* We want the scrollbar to stick to the right side. */
+  padding-right: 55px;
   overflow-y: auto;
   outline: none;
+  border: none;
   background-color: transparent;
   resize: none;
   white-space: pre-wrap;
   word-wrap: break-word;
-  border: 2px solid blue;
   font-size: 1em;
+  line-height: 1.5em;
+  font-weight: 500;
+  color: #D8DEE9;
   /* caret-color: transparent; */
+  /* border: 2px solid blue; */
 }
 
 .mirrorTextBox {
@@ -134,7 +130,7 @@
   color: green;
   white-space: pre-wrap;
   word-wrap: break-word;  /* Very important to keep in sync with the one in inputTextBox. */
-  border: 4px solid yellow;
+  /* border: 4px solid yellow; */
 }
 
 .mirrorTextBox::after {

@@ -81,10 +81,9 @@ class TextArea extends React.Component {
   }
 
   render() {
-    const { isLarge } = this.props;
     const { textContent, mirroredTextContent } = this.state;
     return (
-      <div className={isLarge ? "textAreaLarge" : "textAreaSmall"}>
+      <div className={"textArea"}>
         {/* <div className="mirrorTextBox fontStyle">
           {mirroredTextContent}
         </div> */}
@@ -104,7 +103,6 @@ class TextArea extends React.Component {
 }
 
 TextArea.propTypes = {
-  isLarge: PropTypes.bool.isRequired,
   activeTabName: PropTypes.string.isRequired
 }
 

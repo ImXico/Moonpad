@@ -46,7 +46,7 @@ class App extends React.Component {
   registerKeyboardEventListeners() {
     // TODO: Remove the listener on componentWillUnmount.
     window.addEventListener('keydown', (event) => {
-      if (event.metaKey && event.key === 'x') {
+      if (event.metaKey && event.key === 'e') {
         this.setState(prevState => {
           return { isTabAreaOpen: !prevState.isTabAreaOpen };
         });
@@ -82,7 +82,6 @@ class App extends React.Component {
             onCreateNewTabClicked={this.onCreateNewTabClicked}
           />
           <TextArea
-            isLarge={!isTabAreaOpen}
             activeTabName={currentlyActiveTab}
           />
         </div>

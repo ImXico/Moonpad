@@ -5,6 +5,7 @@
   "main": "src/electron.js",
   "dependencies": {
     "electron-is-dev": "^1.1.0",
+    "node-sass": "^4.13.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0"

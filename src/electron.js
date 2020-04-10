@@ -6,10 +6,11 @@ let mainWindow = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 820,
-    height: 500,
+    width: 770,
+    height: 450,
     webPreferences: { nodeIntegration: true },
-    //titleBarStyle: 'hiddenInset',
+    // titleBarStyle: 'hidden',
+    titleBarStyle: 'hiddenInset',
     frame: false,
     //resizable: false,
   });

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const NewTabButton = ({ onClick }) => {
   return (
-    <button onClick={onClick}>+</button>
+    <button className="newTabButton" onClick={onClick}>+</button>
   );
 }
 
