@@ -79,6 +79,7 @@ class App extends React.Component {
           <TabArea
             isOpen={isTabAreaOpen}
             tabNames={allTabNames}
+            currentlySelectedTab={currentlyActiveTab}
             onTabSelected={this.onTabSelected}
             onCreateNewTabClicked={this.onCreateNewTabClicked}
           />

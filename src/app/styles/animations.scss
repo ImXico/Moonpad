@@ -14,12 +14,50 @@
 
 /* Tabs */
 
-@keyframes TabOpening {
-  from  { color: rgba(76,86,106, 0); width: 0% }
-  to    { color: rgba(76,86,106, 1); width: 100% }
+@keyframes OpeningSelectedTab {
+  from {
+    background-color: rgba(67,76,94,0);
+    color: rgba(229, 233, 240, 0);
+    width: 0%;
+  }
+  to {
+    background-color: rgba(67,76,94,1);
+    color: rgba(229, 233, 240, 1);
+    width: 100%;
+  }
 }
 
-@keyframes TabClosing {
-  from  { color: rgba(76,86,106, 1); width: 100% }
-  to    { color: rgba(76,86,106, 0); width: 0% }
+@keyframes ClosingSelectedTab {
+  from {
+    background-color: rgba(67,76,94,1);
+    color: rgba(229, 233, 240, 1);
+    width: 100%;
+  }
+  to {
+    background-color: rgba(67,76,94,0);
+    color: rgba(229, 233, 240, 0);
+    width: 0%
+  }
+}
+
+@keyframes OpeningUnselectedTab {
+  from {
+    color: rgba(76,86,106, 0);
+    width: 0%
+  }
+  to {
+    color: rgba(76,86,106, 1);
+    width: 100%
+  }
+}
+
+@keyframes ClosingUnselectedTab {
+  from {
+    color: rgba(76,86,106, 1);
+    width: 100%
+  }
+  to {
+    color: rgba(76,86,106, 0);
+    width: 0%
+  }
 }

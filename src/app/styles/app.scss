@@ -48,22 +48,62 @@
         padding: 10px 0;
         font-size: 0.75em;
         // border: 2px solid red;
-        // background-color: #4C566A;
 
-        &--open {
-          animation-name: TabOpening;
-          animation-duration: $tab-area-slide-animation-duration;
-          animation-timing-function: $tab-area-slide-animation-func;
-          color: rgba(76,86,106, 1);
+        &--selected {
+          color: rgba(229, 233, 240, 1);
+          background-color: rgba(67,76,94,1);
           width: 100%;
+
+          &--opening {
+            animation-name: OpeningSelectedTab;
+            animation-duration: $tab-area-slide-animation-duration;
+            animation-timing-function: $tab-area-slide-animation-func;
+          }
+
+          &--open {
+            background-color: rgba(67,76,94,1);
+            color: rgba(229, 233, 240, 1);
+            width: 100%;
+          }
+
+          &--closing {
+            animation-name: ClosingSelectedTab;
+            animation-duration: $tab-area-slide-animation-duration;
+            animation-timing-function: $tab-area-slide-animation-func;
+          }
+
+          &--closed {
+            background-color: rgba(67,76,94,0);
+            color: rgba(229, 233, 240, 0);
+            width: 0%
+          }
         }
 
-        &--closed {
-          animation-name: TabClosing;
-          animation-duration: $tab-area-slide-animation-duration;
-          animation-timing-function: $tab-area-slide-animation-func;
-          color: rgba(76,86,106, 0);
-          width: 0%;
+        &--unselected {
+          color: rgba(76,86,106, 1);
+          width: 100%;
+
+          &--opening {
+            animation-name: OpeningUnselectedTab;
+            animation-duration: $tab-area-slide-animation-duration;
+            animation-timing-function: $tab-area-slide-animation-func;
+          }
+
+          &--open {
+            color: rgba(76,86,106, 1);
+            width: 100%
+          }
+
+          &--closing {
+            animation-name: ClosingUnselectedTab;
+            animation-duration: $tab-area-slide-animation-duration;
+            animation-timing-function: $tab-area-slide-animation-func;
+          }
+
+          &--closed {
+            color: rgba(76,86,106, 0);
+            width: 0%
+          }
         }
       }
 
@@ -99,7 +139,6 @@
         word-wrap: break-word;
         font-size: 1em;
         line-height: 1.5em;
-        font-weight: 500;
         color: #D8DEE9;
         /* caret-color: transparent; */
         // border: 2px solid blue;

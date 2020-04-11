@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tab = ({ name, isOpen, onSelect }) => {
+const Tab = ({ name, visibility, isSelected, onSelect }) => {
+  const selectedStyle = isSelected ? 'selected' : 'unselected';
+  const className = `Tab Tab--${selectedStyle} Tab--${selectedStyle}--${visibility}`;
   return (
     <button
-      className={`Tab Tab--${isOpen ? 'open' : 'closed'}`}
+      className={className}
       onClick={() => onSelect(name)}
     >
       {name}
@@ -14,7 +16,8 @@ const Tab = ({ name, isOpen, onSelect }) => {
 
 Tab.propTypes = {
   name: PropTypes.string.isRequired,
-  isOpen: PropTypes.bool.isRequired,
+  visibility: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired
 }
 
