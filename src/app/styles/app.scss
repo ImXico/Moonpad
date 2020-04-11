@@ -49,10 +49,15 @@
         font-size: 0.75em;
         // border: 2px solid red;
 
+        &:focus {
+          outline: none;
+        }
+
         &--selected {
           color: rgba(229, 233, 240, 1);
           background-color: rgba(67,76,94,1);
           width: 100%;
+          // transition: background-color 300ms linear;
 
           &--opening {
             animation-name: OpeningSelectedTab;
@@ -80,7 +85,8 @@
         }
 
         &--unselected {
-          color: rgba(76,86,106, 1);
+          color: rgba(76,86,106,1);
+          transition: color 100ms linear;
           width: 100%;
 
           &--opening {
@@ -90,7 +96,7 @@
           }
 
           &--open {
-            color: rgba(76,86,106, 1);
+            color: rgba(76,86,106,1);
             width: 100%
           }
 
@@ -101,8 +107,13 @@
           }
 
           &--closed {
-            color: rgba(76,86,106, 0);
+            color: rgba(76,86,106,0);
             width: 0%
+          }
+
+          &:hover {
+            color: #D8DEE9;
+            transition: color 100ms linear;
           }
         }
       }
