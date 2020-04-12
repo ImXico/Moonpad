@@ -50,14 +50,14 @@
         // border: 2px solid red;
 
         &:focus {
-          outline: none;
+          outline-offset: -2px;
+          outline: 2px solid rgba(67,76,94,1);
         }
 
         &--selected {
           color: rgba(229, 233, 240, 1);
           background-color: rgba(67,76,94,1);
           width: 100%;
-          // transition: background-color 300ms linear;
 
           &--opening {
             animation-name: OpeningSelectedTab;
@@ -120,9 +120,12 @@
 
       .NewTabButton {
         border: none;
+        font-size: medium;
         color: #E5E9F0;
-        // For aesthetic reasons, allow to scroll past the NewTabButton
-        padding-bottom: 150px;
+      }
+
+      .__tab-area-scroll-past {
+        margin-top: 150px;
       }
     }
   }
@@ -135,7 +138,7 @@
     .TextEditorPane {
       width: 100%;
       height: 100%;
-      padding: 50px 0px 50px 60px;
+      padding: 50px 0px 50px 65px;
       // border: 2px solid lime;
 
       .TextEditor {

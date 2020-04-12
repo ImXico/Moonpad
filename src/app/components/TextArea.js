@@ -81,7 +81,7 @@ class TextArea extends React.Component {
   }
 
   render() {
-    const { textContent, mirroredTextContent } = this.state;
+    const { textContent } = this.state;
     return (
       <div className="TextEditorPane">
         {/* <div className="mirrorTextBox fontStyle">
