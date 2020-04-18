@@ -65,7 +65,7 @@ class TabArea extends React.Component {
             />
           )}
           <NewTabButton onClick={onCreateNewTabClicked} />
-          <div className="__tab-area-scroll-past"></div>
+          <div className="__tab-area-scroll-past" />
         </div>
       </div>
     );

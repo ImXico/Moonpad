@@ -4,9 +4,9 @@ import BottomPane from './BottomPane';
 import TabArea from './TabArea';
 import TextArea from './TextArea';
 import {
-  LOAD_ALL_TABS_NAMES,
-  ALL_TABS_NAMES_RETRIEVED,
-  CREATE_NEW_TAB
+  ALL_TABS_CONTENT_RETRIEVED,
+  CREATE_NEW_TAB,
+  LOAD_ALL_TABS_CONTENT
 } from '../ipc/constants';
 
 const { ipcRenderer } = window.require('electron');
@@ -16,9 +16,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isTabAreaOpen: true,
-      allTabNames: [],
-      currentlyActiveTab: ''
+      tabsAndContent: undefined,
+      currentlyActiveTab: undefined,
+      isTabAreaOpen: true
     }
     this.setupIPC = this.setupIPC.bind(this);
     this.onTabSelected = this.onTabSelected.bind(this);
@@ -27,21 +27,25 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setupIPC();
-    this.loadAllTabsNames();
+    this.loadAllTabsAndContent();
     this.registerKeyboardEventListeners();
   }
 
   setupIPC() {
-    ipcRenderer.on(ALL_TABS_NAMES_RETRIEVED, (_, data) => (
-      this.setState({
-        allTabNames: [...data],
-        currentlyActiveTab: data[0]
+    ipcRenderer.on(ALL_TABS_CONTENT_RETRIEVED, (_, data) => (
+      this.setState(prevState => {
+        return {
+          tabsAndContent: {...data},
+          currentlyActiveTab: prevState.currentlyActiveTab === undefined 
+            ? Object.keys(data)[0]
+            : prevState.currentlyActiveTab
+        }
       })
     ));
   }
 
-  loadAllTabsNames() {
-    ipcRenderer.send(LOAD_ALL_TABS_NAMES);
+  loadAllTabsAndContent() {
+    ipcRenderer.send(LOAD_ALL_TABS_CONTENT);
   }
 
   registerKeyboardEventListeners() {
@@ -56,35 +60,44 @@ class App extends React.Component {
   }
 
   onTabSelected(tabName) {
-    this.setState({ currentlyActiveTab: tabName });
+    if (tabName !== this.state.currentlyActiveTab) {
+      this.setState({ currentlyActiveTab: tabName });
+      // Refresh tha "all content" data here to prevent any flicks when 
+      // switching to some other tab in the future.
+      this.loadAllTabsAndContent(); 
+    }
   }
 
   onCreateNewTabClicked() {
-    const newTabName = `Tab${this.state.allTabNames.length + 1}`;
+    const currentNumTabs = Object.keys(this.state.tabsAndContent).length;
+    const newTabName = `Tab${currentNumTabs + 1}`;
     ipcRenderer.send(CREATE_NEW_TAB, newTabName);
     this.setState(prevState => {
       return {
-        allTabNames: [...prevState.allTabNames, newTabName],
+        tabsAndContent: {...prevState.tabsAndContent, [newTabName]: ""},
         currentlyActiveTab: newTabName
       }
     });
   }
 
   render() {
-    const { isTabAreaOpen, allTabNames, currentlyActiveTab } = this.state;
-    return (allTabNames !== []) && (
+    const { isTabAreaOpen, tabsAndContent, currentlyActiveTab } = this.state;
+    return (tabsAndContent !== undefined) && (
       <>
         <div className="__title-bar"></div>
         <div className="__working-area-container">
           <TabArea
             isOpen={isTabAreaOpen}
-            tabNames={allTabNames}
+            tabNames={Object.keys(tabsAndContent)}
             currentlySelectedTab={currentlyActiveTab}
             onTabSelected={this.onTabSelected}
             onCreateNewTabClicked={this.onCreateNewTabClicked}
           />
           <div className="__right-pane-area-container">
-            <TextArea activeTabName={currentlyActiveTab} />
+            <TextArea
+              activeTabName={currentlyActiveTab}
+              activeTabContent={tabsAndContent[currentlyActiveTab]}
+            />
             <BottomPane />
           </div>
         </div>

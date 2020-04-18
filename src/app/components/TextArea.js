@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/app.scss';
-import {
-  TAB_CONTENT_RETRIEVED,
-  LOAD_TAB_CONTENT,
-  UPDATE_TAB_CONTENT
-} from '../ipc/constants';
+import { UPDATE_TAB_CONTENT } from '../ipc/constants';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -14,8 +10,8 @@ class TextArea extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      textContent: '',
-      mirroredTextContent: ''
+      textContent: this.props.activeTabContent,
+      mirroredTextContent: this.props.activeTabContent
     }
     this.textAreaRef = React.createRef();
     this.moveEmulatedCaret = this.moveEmulatedCaret.bind(this);
@@ -26,19 +22,9 @@ class TextArea extends React.Component {
     this.focusTextArea = this.focusTextArea.bind(this);
   }
 
-  componentDidMount() {
-    // Fetch tab content for the first time.
-    ipcRenderer.send(LOAD_TAB_CONTENT, this.props.activeTabName);
-    // When we change to some tab, we retrieve the most up-to-date information held by tab.
-    ipcRenderer.on(TAB_CONTENT_RETRIEVED, (_, data) => {
-      this.setState({ textContent: data.tabContent });
-      this.focusTextArea();
-    });
-  }
-
   componentDidUpdate(prevProps, _) {
-    if (prevProps.activeTabName !== this.props.activeTabName) {
-      ipcRenderer.send(LOAD_TAB_CONTENT, this.props.activeTabName);
+    if (this.props.activeTabName !== prevProps.activeTabName) {
+      this.setState({ textContent: this.props.activeTabContent });
       this.focusTextArea();
     }
   }
@@ -103,7 +89,8 @@ class TextArea extends React.Component {
 }
 
 TextArea.propTypes = {
-  activeTabName: PropTypes.string.isRequired
+  activeTabName: PropTypes.string.isRequired,
+  activeTabContent: PropTypes.string.isRequired
 }
 
 export default TextArea;
