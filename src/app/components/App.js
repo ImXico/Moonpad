@@ -70,12 +70,12 @@ class App extends React.Component {
 
   onCreateNewTabClicked() {
     const currentNumTabs = Object.keys(this.state.tabsAndContent).length;
-    const newTabName = `Tab${currentNumTabs + 1}`;
-    ipcRenderer.send(CREATE_NEW_TAB, newTabName);
+    const newTabDefaultName = `Tab${currentNumTabs + 1}`;
+    ipcRenderer.send(CREATE_NEW_TAB, newTabDefaultName);
     this.setState(prevState => {
       return {
-        tabsAndContent: {...prevState.tabsAndContent, [newTabName]: ""},
-        currentlyActiveTab: newTabName
+        tabsAndContent: {...prevState.tabsAndContent, [newTabDefaultName]: ""},
+        currentlyActiveTab: newTabDefaultName
       }
     });
   }

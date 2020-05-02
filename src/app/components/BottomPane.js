@@ -4,7 +4,6 @@ import React from 'react';
 const BottomPane = () => {
   return (
     <div className="BottomPane">
-      ---
     </div>
   );
 }

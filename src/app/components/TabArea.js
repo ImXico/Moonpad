@@ -18,6 +18,10 @@ class TabArea extends React.Component {
     this.state = {
       visibility: props.isOpen ? TabPaneVisibility.Open : TabPaneVisibility.Closed
     }
+    // For performance reasons, this component is only mounted and umnounted
+    // once throughout each use of the app. When it gets collapsed/expanded,
+    // it is not actually being unmounted/mounted; instead, it's appearance
+    // is purely manipulated via CSS.
     this.onAnimationStart = this.onAnimationStart.bind(this);
     this.onAnimationEnd = this.onAnimationEnd.bind(this);
   }
