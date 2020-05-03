@@ -17,7 +17,7 @@
     display: flex;
     position: sticky;
     height: $full-working-height;
-    // border: 2px solid red;
+    // border: 1px solid red;
 
     &--open {
       width: $tab-pane-width;
@@ -141,7 +141,7 @@
       width: 100%;
       height: 100%;
       padding: 50px 0px 50px 65px;
-      // border: 2px solid lime;
+      // border: 1px solid lime;
 
       .TextEditor {
         width: 100%;
@@ -155,9 +155,10 @@
         word-wrap: break-word;
         font-size: 1em;
         line-height: 1.5em;
-        color: #D8DEE9;
+        // letter-spacing: 0.05em;
+        color: #c0c6d1;
         /* caret-color: transparent; */
-        // border: 2px solid blue;
+        // border: 1px solid blue;
       }
     }
 
@@ -167,42 +168,5 @@
       padding-left: 50px;
       color: #D8DEE9;
     }
-  }
-
-  .ContextMenu {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 15px;
-    border-radius: 3px;
-    // border-radius: 0px 5px 5px 5px;
-    background-color: #3B4252;
-    box-shadow: 5px 5px 30px -3px rgba(0,0,0,0.22);
-    position: absolute;
-    z-index: 1;
-    width: 150px;
-
-    &:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 0;
-      height: 0;
-      border: 10px solid transparent;
-      border-right-color: #3B4252;
-      border-left: 0;
-      margin-top: -42px;
-      margin-left: -6px;
-    }
-  }
-
-  .ContextMenuItem {
-    text-align: left;
-    color: #D8DEE9;
-    background-color: #3B4252;
-    padding: 10px;
-    border: none;
-    user-select: none; // prevents selection highlighting
   }
 }
