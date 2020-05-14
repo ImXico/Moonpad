@@ -2,18 +2,58 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PopupMenu from './framework/PopupMenu/PopupMenu';
 
+const { ipcRenderer } = window.require('electron');
+
 class Tab extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      tabName: props.name,
       isPopupMenuOpen: false,
-      popupMenuOpeningPosition: undefined
+      popupMenuOpeningPosition: undefined,
+      isNameBeingEdited: false,
+      tabNameInEditionValue: ""
     }
+
     this.tabRef = React.createRef();
+    this.closeAndResetPopupMenu = this.closeAndResetPopupMenu.bind(this);
+    this.closeAndResetNameEditMode = this.closeAndResetNameEditMode.bind(this);
     this.calculatePopupElementPosition = this.calculatePopupElementPosition.bind(this);
     this.handleTopLevelContextMenuOpen = this.handleTopLevelContextMenuOpen.bind(this);
     this.handleDocumentWideClick = this.handleDocumentWideClick.bind(this);
+    this.handleTabNameEdit = this.handleTabNameEdit.bind(this);
+    this.handlePotentialTabNameEditFinish = this.handlePotentialTabNameEditFinish.bind(this);
+    this.popupMenuEntries = [
+      {
+        text: "Move up",
+        onEntrySelected: () => {
+          // TODO
+          this.closeAndResetPopupMenu();
+        }
+      },
+      {
+        text: "Move down",
+        onEntrySelected: () => {
+          // TODO
+          this.closeAndResetPopupMenu();
+        }
+      },
+      {
+        text: "Edit name",
+        onEntrySelected: () => {
+          this.setState({ isNameBeingEdited: true });
+          this.closeAndResetPopupMenu();
+        }
+      },
+      {
+        text: "Delete tab",
+        onEntrySelected: () => {
+          // TODO
+          this.closeAndResetPopupMenu();
+        }
+      },
+    ]
   }
 
   componentWillMount() {
@@ -27,19 +67,36 @@ class Tab extends React.Component {
   /**
    * This is a bit of a hack: we need to check if there was a click
    * outside this component in order to close any context menu that is open.
+   * We also use it to cancel out a "tab in edition" operation, if it is being done.
    * @param {*} event the mousedown event fired
    */
   handleDocumentWideClick(event) {
-    if (this.state.isPopupMenuOpen && !this.tabRef.current.contains(event.target)) {
-      this.setState({
-        isPopupMenuOpen: false,
-        popupMenuOpeningPosition: undefined
-      })
+    if (!this.tabRef.current.contains(event.target)) {
+      if (this.state.isPopupMenuOpen) {
+        this.closeAndResetPopupMenu();
+      }
+      if (this.state.isNameBeingEdited) {
+        this.closeAndResetNameEditMode();
+      }
     }
   }
 
+  closeAndResetPopupMenu() {
+    this.setState({
+      isPopupMenuOpen: false,
+      popupMenuOpeningPosition: undefined
+    });
+  }
+
+  closeAndResetNameEditMode() {
+    this.setState({
+      isNameBeingEdited: false,
+      tabNameInEditionValue: ""
+    })
+  }
+
   calculatePopupElementPosition() {
-    const TOP_TWEAK_PX = 10;
+    const TOP_TWEAK_PX = 17;
     const LEFT_TWEAK_PX = 15;
     const ref = this.tabRef.current;
     const tabsContainerVerticalScroll = ref.parentElement.scrollTop;
@@ -57,28 +114,63 @@ class Tab extends React.Component {
     });
   }
 
+  handleTabNameEdit(event) {
+    this.setState({ tabNameInEditionValue: event.target.value });
+  }
+
+  handlePotentialTabNameEditFinish(event) {
+    if (event.key === 'Enter') {
+      this.setState({ isNameBeingEdited: false, tabName: this.state.tabNameInEditionValue });
+      // We need to save update the tab's new name in the file we're reading from
+      ipcRenderer.send(UPDATE_TAB_NAME, {
+        nameOfTabToBeUpdated: this.props.activeTabName,
+        updatedContent: this.state.textContent
+      });
+    } else if (event.key === 'Escape') {
+      this.closeAndResetNameEditMode();
+    }
+  }
+
+  saveUpdatedContent() {
+    
+  }
+
   render() {
-    const { name, visibility, isSelected, onSelect } = this.props;
-    const { isPopupMenuOpen, popupMenuOpeningPosition } = this.state;
+    const { visibility, isSelected, onSelect } = this.props;
+    const {
+      tabName,
+      isPopupMenuOpen,
+      popupMenuOpeningPosition,
+      isNameBeingEdited,
+      tabNameInEditionValue
+    } = this.state;
     const selectedStyle = isSelected ? 'selected' : 'unselected';
     const className = `Tab Tab--${selectedStyle} Tab--${selectedStyle}--${visibility}`;
     return (
       <div ref={this.tabRef}>
-        <button
-          className={className}
-          onClick={() => onSelect(name)}
-          onContextMenu={this.handleTopLevelContextMenuOpen}
-        >
-          {name}
-        </button>
+        {isNameBeingEdited
+          ? <input
+              className={"Tab Tab--editing-name"}
+              autoFocus
+              type="text"
+              minLength={1}
+              maxLength={12}
+              value={tabNameInEditionValue}
+              onChange={event => this.handleTabNameEdit(event)}
+              onKeyDown={event => this.handlePotentialTabNameEditFinish(event)}
+            />
+          : <button
+              className={className}
+              onClick={() => onSelect(tabName)}
+              onContextMenu={this.handleTopLevelContextMenuOpen}
+            >
+              {tabName}
+            </button>
+        }
         {isPopupMenuOpen &&
           <PopupMenu
             position={popupMenuOpeningPosition}
-            entries={[
-              { text: "Move to top ", onEntrySelected: () => console.log("Move to top clicked") },
-              { text: "Edit name", onEntrySelected: () => console.log("Edit Name clicked") },
-              { text: "Delete tab", onEntrySelected: () => console.log("Delete clicked") },
-            ]}
+            entries={this.popupMenuEntries}
           />
         }
       </div>
@@ -90,7 +182,8 @@ Tab.propTypes = {
   name: PropTypes.string.isRequired,
   visibility: PropTypes.string.isRequired,
   isSelected: PropTypes.bool.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
+  // onDelete: PropTypes.func.isRequired
 }
 
 export default Tab;

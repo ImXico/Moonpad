@@ -28,7 +28,7 @@ class App extends React.Component {
   componentDidMount() {
     this.setupIPC();
     this.loadAllTabsAndContent();
-    this.registerKeyboardEventListeners();
+    this.registerKeyboardEventsListener();
   }
 
   setupIPC() {
@@ -48,7 +48,7 @@ class App extends React.Component {
     ipcRenderer.send(LOAD_ALL_TABS_CONTENT);
   }
 
-  registerKeyboardEventListeners() {
+  registerKeyboardEventsListener() {
     // TODO: Remove the listener on componentWillUnmount.
     window.addEventListener('keydown', (event) => {
       if (event.metaKey && event.key === 'e') {

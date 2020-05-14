@@ -1,5 +1,9 @@
 const fs = require('fs');
 
+// TODO: This way of managing tabs and content is very bad, needs to be redone
+// Some actions don't here (and on IPC/IPC Constants) don't make sense anymore
+// Should also take this opportunity to introduce order indices on the entries
+
 const NO_CONTENT = "";
 const DEFAULT_FILE_PATH = '/Users/franciscocunha/Pictures/test.json';
 
@@ -18,6 +22,16 @@ const loadTabContent = (tabName, filePath = DEFAULT_FILE_PATH) => {
   return loadAllTabsContent(filePath)[tabName];
 }
 
+const updateTabName = (oldTabName, newTabName) => {
+  // const oldFullData = loadAllTabsContent();
+  // const tabContent = oldFullData[oldTabName];
+  // delete oldFullData[oldTabName];
+  // createNewTab(newTabName, tabContent);
+  // fs.writeFile(DEFAULT_FILE_PATH, JSON.stringify(updatedObject, null, 2), error => {
+  //   if (error) throw error;
+  // });
+}
+
 const updateTabContent = (tabName, newContent, filePath = DEFAULT_FILE_PATH) => {
   const oldFullData = loadAllTabsContent();
   const updatedObject = { ...oldFullData, [tabName]: newContent };
@@ -26,14 +40,15 @@ const updateTabContent = (tabName, newContent, filePath = DEFAULT_FILE_PATH) => 
   });
 }
 
-const createNewTab = (tabName, filePath = DEFAULT_FILE_PATH) => {
-  updateTabContent(tabName, NO_CONTENT, filePath);
+const createNewTab = (tabName, tabContent = NO_CONTENT, filePath = DEFAULT_FILE_PATH) => {
+  updateTabContent(tabName, tabContent, filePath);
 }
 
 module.exports = {
   loadAllTabsContent,
   loadAllTabsNames,
   loadTabContent,
+  updateTabName,
   updateTabContent,
   createNewTab
 }

@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   position: absolute;
-  width: 150px;
+  width: 140px;
   z-index: 1;
   padding: 10px 15px;
   border-radius: 3px;
@@ -20,7 +20,7 @@
     border: 10px solid transparent;
     border-right-color: #3B4252;
     border-left: 0;
-    margin-top: -42px;
+    margin-top: -63px;
     margin-left: -6px;
   }
 }
@@ -32,5 +32,7 @@
   background-color: #3B4252;
   padding: 10px;
   border: none;
+  margin: 2px 0;
   user-select: none; // prevents selection highlighting
+  cursor: pointer;
 }

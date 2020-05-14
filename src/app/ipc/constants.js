@@ -6,6 +6,7 @@ const CREATE_NEW_TAB = 'Create-New-Tab';
 const TAB_CONTENT_RETRIEVED = 'Tab-Content-Retrieved';
 const ALL_TABS_CONTENT_RETRIEVED = 'All-Tabs-Content-Retrieved';
 const ALL_TABS_NAMES_RETRIEVED = 'All-Tabs-Names-Retrieved';
+const UPDATE_TAB_NAME = 'Update-Tab-Name';
 
 module.exports = {
   LOAD_ALL_TABS_NAMES,
@@ -15,5 +16,6 @@ module.exports = {
   CREATE_NEW_TAB,
   TAB_CONTENT_RETRIEVED,
   ALL_TABS_CONTENT_RETRIEVED,
-  ALL_TABS_NAMES_RETRIEVED
+  ALL_TABS_NAMES_RETRIEVED,
+  UPDATE_TAB_NAME
 }

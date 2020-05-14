@@ -49,11 +49,15 @@
         padding: 10px 0;
         font-size: 0.75em;
         user-select: none; // prevents selection highlighting
-        // border: 2px solid red;
 
         &:focus {
           outline-offset: -2px;
           outline: 2px solid rgba(67,76,94,1);
+        }
+
+        &--editing-name {
+          text-align: center;
+          color: #A3BE8C;
         }
 
         &--selected {
@@ -153,7 +157,7 @@
         resize: none;
         white-space: pre-wrap;
         word-wrap: break-word;
-        font-size: 1em;
+        font-size: $text-editor-font-size;
         line-height: 1.5em;
         // letter-spacing: 0.05em;
         color: #c0c6d1;
