@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/app.scss';
-import { UPDATE_TAB_CONTENT } from '../ipc/constants';
+import { UPDATE_TAB_CONTENT } from '../data/ipc-actions';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -61,8 +61,8 @@ class TextArea extends React.Component {
 
   saveUpdatedContent() {
     ipcRenderer.send(UPDATE_TAB_CONTENT, {
-      nameOfTabToBeUpdated: this.props.activeTabName,
-      updatedContent: this.state.textContent
+      name: this.props.activeTabName,
+      newContent: this.state.textContent
     });
   }
 

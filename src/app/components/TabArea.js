@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/app.scss';
-import Tab from './Tab';
+import Tab, { TabObjectShape } from './Tab';
 import NewTabButton from './NewTabButton';
 
 const TabPaneVisibility = {
@@ -64,7 +64,7 @@ class TabArea extends React.Component {
               key={name}
               name={name}
               visibility={this.state.visibility}
-              isSelected={name === currentlySelectedTab}
+              isSelected={name === currentlySelectedTab.name}
               onSelect={onTabSelected}
             />
           )}
@@ -79,7 +79,7 @@ class TabArea extends React.Component {
 TabArea.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   tabNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currentlySelectedTab: PropTypes.string.isRequired,
+  currentlySelectedTab: PropTypes.objectOf(TabObjectShape).isRequired,
   onTabSelected: PropTypes.func.isRequired,
   onCreateNewTabClicked: PropTypes.func.isRequired
 }

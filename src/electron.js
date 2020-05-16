@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron');
+const { initDatabaseWithDefaults } = require('./app/data/db-handler');
 const isDev = require('electron-is-dev');
 const path = require('path');
 
@@ -9,10 +10,8 @@ function createWindow() {
     width: 770,
     height: 450,
     webPreferences: { nodeIntegration: true },
-    // titleBarStyle: 'hidden',
     titleBarStyle: 'hiddenInset',
     frame: false,
-    //resizable: false,
   });
 
   mainWindow.loadURL(isDev
@@ -43,6 +42,8 @@ app.on('activate', () => {
   }
 });
 
-// --- 
+// Initialize local database
+initDatabaseWithDefaults();
 
-require('./app/ipc/ipc');
+// Setup IPC hooks
+require('./app/data/ipc-hooks');

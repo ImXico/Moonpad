@@ -1,0 +1,19 @@
+{
+  "tabs": [
+    {
+      "index": 0,
+      "name": "Tab1",
+      "content": "It worked!"
+    },
+    {
+      "index": 1,
+      "name": "Tab2",
+      "content": "Heeey!"
+    },
+    {
+      "index": 2,
+      "name": "Tab3",
+      "content": "woo!"
+    }
+  ]
+}

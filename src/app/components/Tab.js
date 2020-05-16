@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PopupMenu from './framework/PopupMenu/PopupMenu';
-
+import { UPDATE_TAB_NAME } from '../data/ipc-actions';
 const { ipcRenderer } = window.require('electron');
+
+export const TabObjectShape = {
+  index: PropTypes.number,
+  name: PropTypes.string,
+  content: PropTypes.string
+}
 
 class Tab extends React.Component {
 
@@ -23,7 +29,7 @@ class Tab extends React.Component {
     this.handleTopLevelContextMenuOpen = this.handleTopLevelContextMenuOpen.bind(this);
     this.handleDocumentWideClick = this.handleDocumentWideClick.bind(this);
     this.handleTabNameEdit = this.handleTabNameEdit.bind(this);
-    this.handlePotentialTabNameEditFinish = this.handlePotentialTabNameEditFinish.bind(this);
+    this.handleTabNameEditFinish = this.handleTabNameEditFinish.bind(this);
     this.popupMenuEntries = [
       {
         text: "Move up",
@@ -118,21 +124,22 @@ class Tab extends React.Component {
     this.setState({ tabNameInEditionValue: event.target.value });
   }
 
-  handlePotentialTabNameEditFinish(event) {
+  handleTabNameEditFinish(event) {
     if (event.key === 'Enter') {
-      this.setState({ isNameBeingEdited: false, tabName: this.state.tabNameInEditionValue });
+      const newName = this.state.tabNameInEditionValue;
+      this.setState({
+        isNameBeingEdited: false,
+        tabName: newName,
+        tabNameInEditionValue: ""
+      });
       // We need to save update the tab's new name in the file we're reading from
       ipcRenderer.send(UPDATE_TAB_NAME, {
-        nameOfTabToBeUpdated: this.props.activeTabName,
-        updatedContent: this.state.textContent
+        oldName: this.props.name,
+        newName: newName
       });
     } else if (event.key === 'Escape') {
       this.closeAndResetNameEditMode();
     }
-  }
-
-  saveUpdatedContent() {
-    
   }
 
   render() {
@@ -157,7 +164,7 @@ class Tab extends React.Component {
               maxLength={12}
               value={tabNameInEditionValue}
               onChange={event => this.handleTabNameEdit(event)}
-              onKeyDown={event => this.handlePotentialTabNameEditFinish(event)}
+              onKeyDown={event => this.handleTabNameEditFinish(event)}
             />
           : <button
               className={className}

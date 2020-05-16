@@ -4,10 +4,10 @@ import BottomPane from './BottomPane';
 import TabArea from './TabArea';
 import TextArea from './TextArea';
 import {
-  ALL_TABS_CONTENT_RETRIEVED,
-  CREATE_NEW_TAB,
-  LOAD_ALL_TABS_CONTENT
-} from '../ipc/constants';
+  LOAD_ALL_TABS,
+  ALL_TABS_RETRIEVED,
+  CREATE_TAB
+} from '../data/ipc-actions';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -16,7 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabsAndContent: undefined,
+      tabs: undefined,
       currentlyActiveTab: undefined,
       isTabAreaOpen: true
     }
@@ -32,20 +32,20 @@ class App extends React.Component {
   }
 
   setupIPC() {
-    ipcRenderer.on(ALL_TABS_CONTENT_RETRIEVED, (_, data) => (
+    ipcRenderer.on(ALL_TABS_RETRIEVED, (_, tabsArray) => {
       this.setState(prevState => {
         return {
-          tabsAndContent: {...data},
-          currentlyActiveTab: prevState.currentlyActiveTab === undefined 
-            ? Object.keys(data)[0]
+          tabs: [...tabsArray],
+          currentlyActiveTab: prevState.currentlyActiveTab === undefined
+            ? {...tabsArray[0]}
             : prevState.currentlyActiveTab
         }
       })
-    ));
+    });
   }
 
   loadAllTabsAndContent() {
-    ipcRenderer.send(LOAD_ALL_TABS_CONTENT);
+    ipcRenderer.send(LOAD_ALL_TABS);
   }
 
   registerKeyboardEventsListener() {
@@ -60,43 +60,48 @@ class App extends React.Component {
   }
 
   onTabSelected(tabName) {
-    if (tabName !== this.state.currentlyActiveTab) {
-      this.setState({ currentlyActiveTab: tabName });
-      // Refresh tha "all content" data here to prevent any flicks when 
-      // switching to some other tab in the future.
-      this.loadAllTabsAndContent(); 
+    if (tabName !== this.state.currentlyActiveTab.tabName) {
+      const newSelectedTab = this.state.tabs.find(tab => tab.name === tabName);
+      if (newSelectedTab !== undefined) {
+        this.setState({ currentlyActiveTab: newSelectedTab });
+        // Refresh the "all content" data here to prevent any flicks when 
+        // switching to some other tab in the future.
+        this.loadAllTabsAndContent(); 
+      }
     }
   }
 
   onCreateNewTabClicked() {
-    const currentNumTabs = Object.keys(this.state.tabsAndContent).length;
-    const newTabDefaultName = `Tab${currentNumTabs + 1}`;
-    ipcRenderer.send(CREATE_NEW_TAB, newTabDefaultName);
+    const index = this.state.tabs.length;
+    const name = `Tab${Math.random(1000)}`;
+    const newTab = { index, name, content: "" };
+    ipcRenderer.send(CREATE_TAB, { index, name });
+
     this.setState(prevState => {
       return {
-        tabsAndContent: {...prevState.tabsAndContent, [newTabDefaultName]: ""},
-        currentlyActiveTab: newTabDefaultName
+        tabs: [...prevState.tabs, newTab],
+        currentlyActiveTab: newTab
       }
     });
   }
 
   render() {
-    const { isTabAreaOpen, tabsAndContent, currentlyActiveTab } = this.state;
-    return (tabsAndContent !== undefined) && (
+    const { isTabAreaOpen, tabs, currentlyActiveTab } = this.state;
+    return (tabs !== undefined) && (
       <>
         <div className="__title-bar"></div>
         <div className="__working-area-container">
           <TabArea
             isOpen={isTabAreaOpen}
-            tabNames={Object.keys(tabsAndContent)}
+            tabNames={tabs.map(tab => tab.name)}
             currentlySelectedTab={currentlyActiveTab}
             onTabSelected={this.onTabSelected}
             onCreateNewTabClicked={this.onCreateNewTabClicked}
           />
           <div className="__right-pane-area-container">
             <TextArea
-              activeTabName={currentlyActiveTab}
-              activeTabContent={tabsAndContent[currentlyActiveTab]}
+              activeTabName={currentlyActiveTab.name}
+              activeTabContent={currentlyActiveTab.content}
             />
             <BottomPane />
           </div>
