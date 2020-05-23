@@ -5,7 +5,7 @@ import TabArea from './TabArea';
 import TextArea from './TextArea';
 import {
   LOAD_ALL_TABS,
-  ALL_TABS_RETRIEVED,
+  TABS_REFRESHED,
   CREATE_TAB
 } from '../data/ipc-actions';
 
@@ -32,7 +32,7 @@ class App extends React.Component {
   }
 
   setupIPC() {
-    ipcRenderer.on(ALL_TABS_RETRIEVED, (_, tabsArray) => {
+    ipcRenderer.on(TABS_REFRESHED, (_, tabsArray) => {
       this.setState(prevState => {
         return {
           tabs: [...tabsArray],
@@ -59,9 +59,9 @@ class App extends React.Component {
     });
   }
 
-  onTabSelected(tabName) {
-    if (tabName !== this.state.currentlyActiveTab.tabName) {
-      const newSelectedTab = this.state.tabs.find(tab => tab.name === tabName);
+  onTabSelected(tabIndex) {
+    if (tabIndex !== this.state.currentlyActiveTab.tabIndex) {
+      const newSelectedTab = this.state.tabs.find(tab => tab.index === tabIndex);
       if (newSelectedTab !== undefined) {
         this.setState({ currentlyActiveTab: newSelectedTab });
         // Refresh the "all content" data here to prevent any flicks when 
@@ -73,7 +73,7 @@ class App extends React.Component {
 
   onCreateNewTabClicked() {
     const index = this.state.tabs.length;
-    const name = `Tab${Math.random(1000)}`;
+    const name = `Tab${Math.floor(Math.random(1000))}`;
     const newTab = { index, name, content: "" };
     ipcRenderer.send(CREATE_TAB, { index, name });
 
@@ -93,7 +93,12 @@ class App extends React.Component {
         <div className="__working-area-container">
           <TabArea
             isOpen={isTabAreaOpen}
-            tabNames={tabs.map(tab => tab.name)}
+            tabs={tabs.map(tab => {
+              return {
+                index: tab.index,
+                name: tab.name
+              }
+            })}
             currentlySelectedTab={currentlyActiveTab}
             onTabSelected={this.onTabSelected}
             onCreateNewTabClicked={this.onCreateNewTabClicked}

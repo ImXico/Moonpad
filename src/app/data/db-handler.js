@@ -31,9 +31,9 @@ const loadAllTabs = () => {
  * @param {*} name - name of the new tab to be created.
  */
 const createNewTab = (index, name) => {
-    db.get('tabs')
-      .push({ index: index, name: name, content: "" })
-      .write();
+  db.get('tabs')
+    .push({ index: index, name: name, content: "" })
+    .write();
 }
 
 /**
@@ -61,15 +61,15 @@ const updateTabName = (oldName, newName) => {
 }
 
 /**
- * Updates the index of a tab (identified by name) with a new index.
- * @param {*} name - name of the tab.
- * @param {*} newIndex - new index of the tab.
+ * Swaps the indices of two tabs.
+ * @param {*} index1 - original index of one tab.
+ * @param {*} index2  - original index of the other tab.
  */
-const updateTabIndex = (name, newIndex) => {
-  db.get('tabs')
-    .find({ name: name })
-    .assign({ index: newIndex })
-    .write();
+const swapTabsIndices = (index1, index2) => {
+  const tab1 = db.get('tabs').find({ index: index1 }).value();
+  const tab2 = db.get('tabs').find({ index: index2 }).value();
+  tab1.assign({ index: index2 }).write();
+  tab2.assign({ index: index1 }).write();
 }
 
 /**
@@ -88,6 +88,6 @@ module.exports = {
   createNewTab,
   updateTabContent,
   updateTabName,
-  updateTabIndex,
+  swapTabsIndices,
   deleteTab,
 }

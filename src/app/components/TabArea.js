@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { objectOf } from 'prop-types';
 import '../styles/app.scss';
-import Tab, { TabObjectShape } from './Tab';
+import Tab, { TabObjectShape, TabObjectSimpleShape } from './Tab';
 import NewTabButton from './NewTabButton';
 
 const TabPaneVisibility = {
@@ -24,6 +24,9 @@ class TabArea extends React.Component {
     // is purely manipulated via CSS.
     this.onAnimationStart = this.onAnimationStart.bind(this);
     this.onAnimationEnd = this.onAnimationEnd.bind(this);
+    this.canTabBeMovedUp = this.canTabBeMovedUp.bind(this);
+    this.canTabBeMovedDown = this.canTabBeMovedDown.bind(this);
+    this.onAfterTabDeleted = this.onAfterTabDeleted.bind(this);
   }
 
   onAnimationStart(event) {
@@ -44,10 +47,36 @@ class TabArea extends React.Component {
     }
   }
 
+  /**
+   * A tab can always be moved up except when it is the one with the smallest index already.
+   * @param {*} indexOfTabToMoveUp
+   */
+  canTabBeMovedUp(indexOfTabToMoveUp) {
+    const allTabIndexes = this.props.tabs.map(tab => tab.index);
+    return allTabIndexes.some(index => index < indexOfTabToMoveUp);
+  }
+
+  onTabMovedUp(indexOfTabToMoveUp) {
+    
+  }
+
+  /**
+   * A tab can always be moved down except when it is the one with the highest index already.
+   * @param {*} indexOfTabToMoveDown 
+   */
+  canTabBeMovedDown(indexOfTabToMoveDown) {
+    const allTabIndexes = this.props.tabs.map(tab => tab.index);
+    return allTabIndexes.some(index => index > indexOfTabToMoveDown);
+  }
+
+  onAfterTabDeleted() {
+    // TODO: Select some other tab or something
+  }
+
   render() {
     const {
       isOpen,
-      tabNames,
+      tabs,
       onTabSelected,
       currentlySelectedTab,
       onCreateNewTabClicked
@@ -59,13 +88,18 @@ class TabArea extends React.Component {
         onAnimationEnd={event => this.onAnimationEnd(event)}
       >
         <div className="TabsContainer">
-          {tabNames.map(name => 
+          {tabs.map(tab => 
             <Tab
-              key={name}
-              name={name}
+              key={tab.index}
+              index={tab.index}
+              name={tab.name}
               visibility={this.state.visibility}
-              isSelected={name === currentlySelectedTab.name}
+              isSelected={tab.index === currentlySelectedTab.index}
               onSelect={onTabSelected}
+              canTabBeMovedUp={this.canTabBeMovedUp}
+              onTabMoveUp={this.onTabMovedUp}
+              canTabBeMovedDown={this.canTabBeMovedDown}
+              onAfterTabDeleted={this.onAfterTabDeleted}
             />
           )}
           <NewTabButton onClick={onCreateNewTabClicked} />
@@ -78,7 +112,7 @@ class TabArea extends React.Component {
 
 TabArea.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  tabNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tabs: PropTypes.arrayOf(objectOf(TabObjectSimpleShape)).isRequired,
   currentlySelectedTab: PropTypes.objectOf(TabObjectShape).isRequired,
   onTabSelected: PropTypes.func.isRequired,
   onCreateNewTabClicked: PropTypes.func.isRequired

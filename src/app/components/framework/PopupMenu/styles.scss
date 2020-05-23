@@ -35,4 +35,13 @@
   margin: 2px 0;
   user-select: none; // prevents selection highlighting
   cursor: pointer;
+
+  &--disabled {
+    cursor: default;
+    color: #4C566A;
+
+    &:focus {
+      outline: 0;
+    }
+  }
 }

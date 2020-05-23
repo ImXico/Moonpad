@@ -4,7 +4,7 @@ const dbActions = require('./db-handler');
 
 ipcMain.on(ipcActions.LOAD_ALL_TABS, (event) => {
   const allTabs = dbActions.loadAllTabs();
-  event.sender.send(ipcActions.ALL_TABS_RETRIEVED, allTabs);
+  event.sender.send(ipcActions.TABS_REFRESHED, allTabs);
 });
 
 ipcMain.on(ipcActions.CREATE_TAB, (_, payload) => {
@@ -17,9 +17,9 @@ ipcMain.on(ipcActions.UPDATE_TAB_NAME, (_, payload) => {
   dbActions.updateTabName(oldName, newName);
 });
 
-ipcMain.on(ipcActions.UPDATE_TAB_INDEX, (_, payload) => {
-  const { name, newIndex } = payload;
-  dbActions.updateTabIndex(name, newIndex);
+ipcMain.on(ipcActions.SWAP_TABS_INDICES, (_, payload) => {
+  const { index1, index2 } = payload;
+  dbActions.swapTabsIndices(index1, index2);
 });
 
 ipcMain.on(ipcActions.UPDATE_TAB_CONTENT, (_, payload) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PopupMenu from './framework/PopupMenu/PopupMenu';
-import { UPDATE_TAB_NAME } from '../data/ipc-actions';
+import { UPDATE_TAB_NAME, SWAP_TABS_INDICES } from '../data/ipc-actions';
 const { ipcRenderer } = window.require('electron');
 
 export const TabObjectShape = {
@@ -10,11 +10,17 @@ export const TabObjectShape = {
   content: PropTypes.string
 }
 
+export const TabObjectSimpleShape = {
+  index: PropTypes.number,
+  name: PropTypes.string,
+}
+
 class Tab extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      tabIndex: props.index,
       tabName: props.name,
       isPopupMenuOpen: false,
       popupMenuOpeningPosition: undefined,
@@ -33,13 +39,15 @@ class Tab extends React.Component {
     this.popupMenuEntries = [
       {
         text: "Move up",
+        isEnabled: this.props.canTabBeMovedUp(this.state.tabIndex),
         onEntrySelected: () => {
-          // TODO
+          this.props.onTabMoveUp(this.props.tabIndex);
           this.closeAndResetPopupMenu();
         }
       },
       {
         text: "Move down",
+        isEnabled: this.props.canTabBeMovedDown(this.state.tabIndex),
         onEntrySelected: () => {
           // TODO
           this.closeAndResetPopupMenu();
@@ -47,6 +55,7 @@ class Tab extends React.Component {
       },
       {
         text: "Edit name",
+        isEnabled: true,
         onEntrySelected: () => {
           this.setState({ isNameBeingEdited: true });
           this.closeAndResetPopupMenu();
@@ -54,6 +63,7 @@ class Tab extends React.Component {
       },
       {
         text: "Delete tab",
+        isEnabled: true,
         onEntrySelected: () => {
           // TODO
           this.closeAndResetPopupMenu();
@@ -112,7 +122,7 @@ class Tab extends React.Component {
   }
 
   handleTopLevelContextMenuOpen() {
-    // TODO: If we're too close to the vertical bounds of the screen, auto-scroll a bit
+    // TODO: If we're too close to the vertical bounds of the window, auto-scroll a bit
     const { top, left } = this.calculatePopupElementPosition();
     this.setState({ 
       isPopupMenuOpen: true,
@@ -132,7 +142,7 @@ class Tab extends React.Component {
         tabName: newName,
         tabNameInEditionValue: ""
       });
-      // We need to save update the tab's new name in the file we're reading from
+      // We need to persist those changes in the database
       ipcRenderer.send(UPDATE_TAB_NAME, {
         oldName: this.props.name,
         newName: newName
@@ -145,6 +155,7 @@ class Tab extends React.Component {
   render() {
     const { visibility, isSelected, onSelect } = this.props;
     const {
+      tabIndex,
       tabName,
       isPopupMenuOpen,
       popupMenuOpeningPosition,
@@ -168,7 +179,7 @@ class Tab extends React.Component {
             />
           : <button
               className={className}
-              onClick={() => onSelect(tabName)}
+              onClick={() => onSelect(tabIndex)}
               onContextMenu={this.handleTopLevelContextMenuOpen}
             >
               {tabName}
@@ -186,11 +197,15 @@ class Tab extends React.Component {
 }
 
 Tab.propTypes = {
+  index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   visibility: PropTypes.string.isRequired,
   isSelected: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,
-  // onDelete: PropTypes.func.isRequired
+  canTabBeMovedUp: PropTypes.func.isRequired,
+  onTabMoveUp: PropTypes.func.isRequired,
+  canTabBeMovedDown: PropTypes.func.isRequired,
+  onAfterTabDeleted: PropTypes.func.isRequired,
 }
 
 export default Tab;

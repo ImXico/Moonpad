@@ -7,9 +7,13 @@ export const PopupMenuItemShape = {
   onEntrySelected: PropTypes.func
 }
 
-const PopupMenuItem = ({ text, onEntrySelected }) => {
+const PopupMenuItem = ({ text, isEnabled, onEntrySelected }) => {
+  const style = `PopupMenuItem ${!isEnabled && "PopupMenuItem--disabled"}`;
   return (
-    <button className="PopupMenuItem" onClick={() => onEntrySelected()}>
+    <button
+      className={style}
+      onClick={() => isEnabled && onEntrySelected()}
+    >
       {text}
     </button>
   );
@@ -17,6 +21,7 @@ const PopupMenuItem = ({ text, onEntrySelected }) => {
 
 PopupMenuItem.propTypes = {
   text: PropTypes.string.isRequired,
+  isEnabled: PropTypes.bool.isRequired,
   onEntrySelected: PropTypes.func.isRequired
 }
 
