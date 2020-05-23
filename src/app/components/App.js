@@ -33,6 +33,7 @@ class App extends React.Component {
 
   setupIPC() {
     ipcRenderer.on(TABS_REFRESHED, (_, tabsArray) => {
+      console.log('refreshed!')
       this.setState(prevState => {
         return {
           tabs: [...tabsArray],

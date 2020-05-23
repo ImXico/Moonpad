@@ -66,8 +66,11 @@ const updateTabName = (oldName, newName) => {
  * @param {*} index2  - original index of the other tab.
  */
 const swapTabsIndices = (index1, index2) => {
-  const tab1 = db.get('tabs').find({ index: index1 }).value();
-  const tab2 = db.get('tabs').find({ index: index2 }).value();
+  console.log(index1);
+  console.log(index2);
+
+  const tab1 = db.get('tabs').find({ index: index1 });
+  const tab2 = db.get('tabs').find({ index: index2 });
   tab1.assign({ index: index2 }).write();
   tab2.assign({ index: index1 }).write();
 }

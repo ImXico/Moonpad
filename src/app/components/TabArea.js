@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes, { objectOf } from 'prop-types';
 import '../styles/app.scss';
 import Tab, { TabObjectShape, TabObjectSimpleShape } from './Tab';
+import { SWAP_TABS_INDICES } from '../data/ipc-actions';
 import NewTabButton from './NewTabButton';
+
+const { ipcRenderer } = window.require('electron');
 
 const TabPaneVisibility = {
   Opening: "opening",
@@ -57,7 +60,11 @@ class TabArea extends React.Component {
   }
 
   onTabMovedUp(indexOfTabToMoveUp) {
-    
+    console.log(indexOfTabToMoveUp)
+    ipcRenderer.send(SWAP_TABS_INDICES, {
+      index1: indexOfTabToMoveUp,
+      index2: indexOfTabToMoveUp - 1
+    })
   }
 
   /**
@@ -97,7 +104,7 @@ class TabArea extends React.Component {
               isSelected={tab.index === currentlySelectedTab.index}
               onSelect={onTabSelected}
               canTabBeMovedUp={this.canTabBeMovedUp}
-              onTabMoveUp={this.onTabMovedUp}
+              onTabMovedUp={this.onTabMovedUp}
               canTabBeMovedDown={this.canTabBeMovedDown}
               onAfterTabDeleted={this.onAfterTabDeleted}
             />

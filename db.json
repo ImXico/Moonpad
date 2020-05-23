@@ -1,7 +1,7 @@
 {
   "tabs": [
     {
-      "index": 0,
+      "index": 2,
       "name": "Tab1",
       "content": "It worked!"
     },
@@ -11,7 +11,7 @@
       "content": "Heeey!"
     },
     {
-      "index": 2,
+      "index": 0,
       "name": "Tab3",
       "content": "woo!"
     },

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PopupMenu from './framework/PopupMenu/PopupMenu';
-import { UPDATE_TAB_NAME, SWAP_TABS_INDICES } from '../data/ipc-actions';
+import { UPDATE_TAB_NAME } from '../data/ipc-actions';
 const { ipcRenderer } = window.require('electron');
 
 export const TabObjectShape = {
@@ -20,7 +20,6 @@ class Tab extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabIndex: props.index,
       tabName: props.name,
       isPopupMenuOpen: false,
       popupMenuOpeningPosition: undefined,
@@ -39,15 +38,15 @@ class Tab extends React.Component {
     this.popupMenuEntries = [
       {
         text: "Move up",
-        isEnabled: this.props.canTabBeMovedUp(this.state.tabIndex),
+        isEnabled: this.props.canTabBeMovedUp(this.props.index),
         onEntrySelected: () => {
-          this.props.onTabMoveUp(this.props.tabIndex);
+          this.props.onTabMovedUp(this.props.index);
           this.closeAndResetPopupMenu();
         }
       },
       {
         text: "Move down",
-        isEnabled: this.props.canTabBeMovedDown(this.state.tabIndex),
+        isEnabled: this.props.canTabBeMovedDown(this.props.index),
         onEntrySelected: () => {
           // TODO
           this.closeAndResetPopupMenu();
@@ -153,9 +152,8 @@ class Tab extends React.Component {
   }
 
   render() {
-    const { visibility, isSelected, onSelect } = this.props;
+    const { index, visibility, isSelected, onSelect } = this.props;
     const {
-      tabIndex,
       tabName,
       isPopupMenuOpen,
       popupMenuOpeningPosition,
@@ -179,7 +177,7 @@ class Tab extends React.Component {
             />
           : <button
               className={className}
-              onClick={() => onSelect(tabIndex)}
+              onClick={() => onSelect(index)}
               onContextMenu={this.handleTopLevelContextMenuOpen}
             >
               {tabName}
@@ -203,7 +201,7 @@ Tab.propTypes = {
   isSelected: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,
   canTabBeMovedUp: PropTypes.func.isRequired,
-  onTabMoveUp: PropTypes.func.isRequired,
+  onTabMovedUp: PropTypes.func.isRequired,
   canTabBeMovedDown: PropTypes.func.isRequired,
   onAfterTabDeleted: PropTypes.func.isRequired,
 }
