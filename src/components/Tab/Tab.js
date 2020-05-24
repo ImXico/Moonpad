@@ -2,10 +2,10 @@ import React from 'react';
 import PopupMenu from '../PopupMenu/PopupMenu';
 import './Tab.scss';
 
-const MENU_OPTION_MOVE_UP = "Move up";
-const MENU_OPTION_MOVE_DOWN = "Move down";
-const MENU_OPTION_EDIT_NAME = "Edit name"
-const MENU_OPTION_DELETE = "Delete";
+const MENU_OPTION_MOVE_UP = 'Move up';
+const MENU_OPTION_MOVE_DOWN = 'Move down';
+const MENU_OPTION_EDIT_NAME = 'Edit name';
+const MENU_OPTION_DELETE = 'Delete';
 
 class Tab extends React.Component {
 

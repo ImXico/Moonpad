@@ -8,7 +8,7 @@ const mapStateToProps = state => {
     currentlyActiveTab: selectedTab,
     currentTabContent: selectedTab !== null
       ? tabs.find(tab => tab.id === selectedTab).content
-      : ""
+      : ''
   }
 }
 

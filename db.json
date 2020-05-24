@@ -25,36 +25,12 @@
       "content": ""
     },
     {
-      "id": "New Tab|1590350128538",
+      "id": "New Tab|1590353020000",
       "index": 5,
-      "name": "Tab5",
-      "content": ""
-    },
-    {
-      "id": "New Tab|1590350160952",
-      "index": 6,
-      "name": "Tab6",
-      "content": ""
-    },
-    {
-      "id": "New Tab|1590350700024",
-      "index": 7,
-      "name": "New Tab",
-      "content": ""
-    },
-    {
-      "id": "New Tab|1590350703162",
-      "index": 8,
-      "name": "New Tab",
-      "content": ""
-    },
-    {
-      "id": "New Tab|1590350709999",
-      "index": 9,
       "name": "New Tab",
       "content": ""
     }
   ],
   "isTabAreaOpen": true,
-  "selectedTab": "Tab3|1590268381291"
+  "selectedTab": "New Tab|1590353020000"
 }

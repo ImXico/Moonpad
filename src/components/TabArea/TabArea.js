@@ -4,10 +4,10 @@ import NewTabButton from '../NewTabButton/NewTabButton';
 import './TabArea.scss';
 
 const TabPaneVisibility = {
-  Opening: "opening",
-  Open: "open",
-  Closing: "closing",
-  Closed: "closed"
+  Opening: 'opening',
+  Open: 'open',
+  Closing: 'closing',
+  Closed: 'closed'
 }
 
 class TabArea extends React.Component {
@@ -21,38 +21,48 @@ class TabArea extends React.Component {
     this.onAnimationEnd = this.onAnimationEnd.bind(this);
     this.handleOnCreateTab = this.handleOnCreateTab.bind(this);
     this.handleOnDeleteTab = this.handleOnDeleteTab.bind(this);
+    this.handleKeydownEvents = this.handleKeydownEvents.bind(this);
   }
 
   componentDidMount() {
-    // TODO: Remove the listener on componentWillUnmount.
-    window.addEventListener('keydown', event => {
-      if (event.metaKey && event.key === 'e') {
+    window.addEventListener('keydown', this.handleKeydownEvents);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeydownEvents);
+  }
+
+  handleKeydownEvents(event) {
+    if (event.metaKey) {
+      if (event.key === 'e') {
         this.props.toggleOpenTabArea(!this.props.isOpen);
+      } else if (event.key === 'n') {
+        this.handleOnCreateTab();
       }
-    });
+    }
   }
 
   onAnimationStart(event) {
     const animationName = event.animationName;
-    if (animationName === "TabsAreaOpening") {
+    if (animationName === 'TabsAreaOpening') {
       this.setState({ visibility: TabPaneVisibility.Opening })
-    } else if (animationName === "TabsAreaClosing") {
+    } else if (animationName === 'TabsAreaClosing') {
       this.setState({ visibility: TabPaneVisibility.Closing })
     }
   }
 
   onAnimationEnd(event) {
     const animationName = event.animationName;
-    if (animationName === "TabsAreaOpening") {
+    if (animationName === 'TabsAreaOpening') {
       this.setState({ visibility: TabPaneVisibility.Open })
-    } else if (animationName === "TabsAreaClosing") {
+    } else if (animationName === 'TabsAreaClosing') {
       this.setState({ visibility: TabPaneVisibility.Closed })
     }
   }
 
   handleOnCreateTab() {
     const { tabs, createTab, selectTab } = this.props;
-    const defaultNewTabName = "New Tab";
+    const defaultNewTabName = 'New Tab';
     const newTabId = `${defaultNewTabName}|${Date.now()}`;
     const newTabIndex = tabs.length + 1;
     createTab(newTabId, newTabIndex, defaultNewTabName);
