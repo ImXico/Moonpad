@@ -1,29 +1,42 @@
 {
   "tabs": [
     {
-      "index": 2,
-      "name": "Tab1",
-      "content": "It worked!"
-    },
-    {
+      "id": "Tab1|1590268381291",
       "index": 1,
-      "name": "Tab2",
-      "content": "Heeey!"
+      "name": "Tab1",
+      "content": "Tab 1 text"
     },
     {
-      "index": 0,
-      "name": "Tab3",
-      "content": "woo!"
+      "id": "Tab2|1590268381291",
+      "index": 2,
+      "name": "Tab222",
+      "content": "And tab 2 text here... still here! But now renamed!"
     },
     {
-      "index": 3,
-      "name": "Tab0",
-      "content": ""
-    },
-    {
+      "id": "Tab3|1590268381291",
       "index": 4,
-      "name": "Tab0",
+      "name": "Tab3",
+      "content": "Hey!"
+    },
+    {
+      "id": "Hello!|1590319877338",
+      "index": 5,
+      "name": "Hello!",
       "content": ""
+    },
+    {
+      "id": "NewSongBby|1590321106723",
+      "index": 6,
+      "name": "NewSongBby",
+      "content": ""
+    },
+    {
+      "id": "NewSongBby|1590321176608",
+      "index": 3,
+      "name": "NewSongBby",
+      "content": "hee"
     }
-  ]
+  ],
+  "isTabAreaOpen": true,
+  "selectedTab": "Tab1|1590268381291"
 }

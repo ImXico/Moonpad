@@ -1,26 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import PopupMenu from './framework/PopupMenu/PopupMenu';
-import { UPDATE_TAB_NAME } from '../data/ipc-actions';
-const { ipcRenderer } = window.require('electron');
 
-export const TabObjectShape = {
-  index: PropTypes.number,
-  name: PropTypes.string,
-  content: PropTypes.string
-}
-
-export const TabObjectSimpleShape = {
-  index: PropTypes.number,
-  name: PropTypes.string,
-}
+const MENU_OPTION_MOVE_UP = "Move up";
+const MENU_OPTION_MOVE_DOWN = "Move down";
+const MENU_OPTION_EDIT_NAME = "Edit name"
+const MENU_OPTION_DELETE = "Delete";
 
 class Tab extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      tabName: props.name,
       isPopupMenuOpen: false,
       popupMenuOpeningPosition: undefined,
       isNameBeingEdited: false,
@@ -35,40 +25,6 @@ class Tab extends React.Component {
     this.handleDocumentWideClick = this.handleDocumentWideClick.bind(this);
     this.handleTabNameEdit = this.handleTabNameEdit.bind(this);
     this.handleTabNameEditFinish = this.handleTabNameEditFinish.bind(this);
-    this.popupMenuEntries = [
-      {
-        text: "Move up",
-        isEnabled: this.props.canTabBeMovedUp(this.props.index),
-        onEntrySelected: () => {
-          this.props.onTabMovedUp(this.props.index);
-          this.closeAndResetPopupMenu();
-        }
-      },
-      {
-        text: "Move down",
-        isEnabled: this.props.canTabBeMovedDown(this.props.index),
-        onEntrySelected: () => {
-          // TODO
-          this.closeAndResetPopupMenu();
-        }
-      },
-      {
-        text: "Edit name",
-        isEnabled: true,
-        onEntrySelected: () => {
-          this.setState({ isNameBeingEdited: true });
-          this.closeAndResetPopupMenu();
-        }
-      },
-      {
-        text: "Delete tab",
-        isEnabled: true,
-        onEntrySelected: () => {
-          // TODO
-          this.closeAndResetPopupMenu();
-        }
-      },
-    ]
   }
 
   componentWillMount() {
@@ -77,6 +33,47 @@ class Tab extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleDocumentWideClick, false);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.popupMenuEntries && (prevProps.index === this.props.index)) {
+      return;
+    }
+
+    this.popupMenuEntries = [
+      {
+        text: MENU_OPTION_MOVE_UP,
+        isEnabled: this.props.canTabBeMovedUp(this.props.index),
+        onEntrySelected: () => {
+          this.props.onMoveTabUp(this.props.id);
+          this.closeAndResetPopupMenu();
+        }
+      },
+      {
+        text: MENU_OPTION_MOVE_DOWN,
+        isEnabled: this.props.canTabBeMovedDown(this.props.index),
+        onEntrySelected: () => {
+          this.props.onMoveTabDown(this.props.id);
+          this.closeAndResetPopupMenu();
+        }
+      },
+      {
+        text: MENU_OPTION_EDIT_NAME,
+        isEnabled: true,
+        onEntrySelected: () => {
+          this.setState({ isNameBeingEdited: true });
+          this.closeAndResetPopupMenu();
+        }
+      },
+      {
+        text: MENU_OPTION_DELETE,
+        isEnabled: true,
+        onEntrySelected: () => {
+          this.props.onDelete(this.props.id);
+          this.closeAndResetPopupMenu();
+        }
+      },
+    ]
   }
 
   /**
@@ -130,7 +127,9 @@ class Tab extends React.Component {
   }
 
   handleTabNameEdit(event) {
-    this.setState({ tabNameInEditionValue: event.target.value });
+    this.setState({
+      tabNameInEditionValue: event.target.value
+    });
   }
 
   handleTabNameEditFinish(event) {
@@ -138,30 +137,26 @@ class Tab extends React.Component {
       const newName = this.state.tabNameInEditionValue;
       this.setState({
         isNameBeingEdited: false,
-        tabName: newName,
         tabNameInEditionValue: ""
       });
-      // We need to persist those changes in the database
-      ipcRenderer.send(UPDATE_TAB_NAME, {
-        oldName: this.props.name,
-        newName: newName
-      });
+      this.props.onUpdateTabName(this.props.id, newName);
     } else if (event.key === 'Escape') {
       this.closeAndResetNameEditMode();
     }
   }
 
   render() {
-    const { index, visibility, isSelected, onSelect } = this.props;
+    const { id, name, visibility, isSelected, onSelect } = this.props;
     const {
-      tabName,
       isPopupMenuOpen,
       popupMenuOpeningPosition,
       isNameBeingEdited,
       tabNameInEditionValue
     } = this.state;
+
     const selectedStyle = isSelected ? 'selected' : 'unselected';
     const className = `Tab Tab--${selectedStyle} Tab--${selectedStyle}--${visibility}`;
+
     return (
       <div ref={this.tabRef}>
         {isNameBeingEdited
@@ -177,10 +172,10 @@ class Tab extends React.Component {
             />
           : <button
               className={className}
-              onClick={() => onSelect(index)}
+              onClick={() => onSelect(id)}
               onContextMenu={this.handleTopLevelContextMenuOpen}
             >
-              {tabName}
+              {name}
             </button>
         }
         {isPopupMenuOpen &&
@@ -192,18 +187,6 @@ class Tab extends React.Component {
       </div>
     );
   }
-}
-
-Tab.propTypes = {
-  index: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  visibility: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onSelect: PropTypes.func.isRequired,
-  canTabBeMovedUp: PropTypes.func.isRequired,
-  onTabMovedUp: PropTypes.func.isRequired,
-  canTabBeMovedDown: PropTypes.func.isRequired,
-  onAfterTabDeleted: PropTypes.func.isRequired,
 }
 
 export default Tab;

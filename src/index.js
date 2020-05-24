@@ -1,12 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+import { Provider } from 'react-redux';
+import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
+import * as ipcActions from './data/ipc-actions';
 import * as serviceWorker from './serviceWorker';
-import './app/styles/reset.scss';
-import App from './app/components/App';
+import './styles/reset.scss';
+import App from './components/App'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const { ipcRenderer } = window.require('electron');
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+/**
+ * Set the initial state based on what we have on our local database.
+ * This request needs to be done synchronously, and the ipcMain will
+ * only listen to it once (and unregister after that).
+ */
+const persistedInitialState = ipcRenderer.sendSync(ipcActions.LOAD_PERSISTED_DATA);
+
+const store = createStore(
+  rootReducer,
+  persistedInitialState,
+  applyMiddleware(thunk, createLogger())
+);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+
 serviceWorker.unregister();

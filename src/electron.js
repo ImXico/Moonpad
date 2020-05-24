@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron');
-const { initDatabaseWithDefaults } = require('./app/data/db-handler');
+const { initDatabaseWithDefaults } = require('./data/db-handler');
 const isDev = require('electron-is-dev');
 const path = require('path');
 
@@ -46,4 +46,4 @@ app.on('activate', () => {
 initDatabaseWithDefaults();
 
 // Setup IPC hooks
-require('./app/data/ipc-hooks');
+require('./data/ipc-hooks');

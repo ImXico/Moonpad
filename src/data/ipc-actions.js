@@ -1,17 +1,19 @@
-const LOAD_ALL_TABS = "Load All Tabs";
-const TABS_REFRESHED = "Tabs Refreshed";
+const LOAD_PERSISTED_DATA = "Load Persisted Data";
 const CREATE_TAB = "Create Tab";
 const UPDATE_TAB_NAME = "Update Tab Name";
 const UPDATE_TAB_CONTENT = "Update Tab Content";
-const SWAP_TABS_INDICES = "Swap Tabs Indices";
+const SELECT_TAB = "Select Tab";
+const SWAP_TABS = "Swap Tabs";
 const DELETE_TAB = "Delete Tab";
+const TOGGLE_OPEN_TAB_AREA = "Toggle Open Tab Area";
 
 module.exports = {
-  LOAD_ALL_TABS,
-  TABS_REFRESHED,
+  LOAD_PERSISTED_DATA,
   CREATE_TAB,
   UPDATE_TAB_NAME,
-  SWAP_TABS_INDICES,
+  SELECT_TAB,
+  SWAP_TABS,
   UPDATE_TAB_CONTENT,
   DELETE_TAB,
+  TOGGLE_OPEN_TAB_AREA,
 }
