@@ -105,7 +105,7 @@ export const deleteTabAndPersist = id => {
 
 export const fetchTabsAndPersist = () => {
   return dispatch => {
-    ipcRenderer.send(ipcActions.LOAD_ALL_TABS, {});
+    ipcRenderer.send(ipcActions.LOAD_ALL_TABS);
     ipcRenderer.once(ipcActions.LOAD_ALL_TABS_SUCCESS, (_, tabs) => {
       dispatch(receiveTabs(tabs));
     });
