@@ -7,36 +7,54 @@
       "content": "Tab 1 text"
     },
     {
-      "id": "Tab2|1590268381291",
-      "index": 2,
-      "name": "Tab222",
-      "content": "And tab 2 text here... still here! But now renamed!"
-    },
-    {
       "id": "Tab3|1590268381291",
-      "index": 4,
+      "index": 3,
       "name": "Tab3",
       "content": "Hey!"
     },
     {
-      "id": "Hello!|1590319877338",
+      "id": "New Tab|1590350086416",
+      "index": 2,
+      "name": "Tab2",
+      "content": ""
+    },
+    {
+      "id": "New Tab|1590350125989",
+      "index": 4,
+      "name": "Tab4",
+      "content": ""
+    },
+    {
+      "id": "New Tab|1590350128538",
       "index": 5,
-      "name": "Hello!",
+      "name": "Tab5",
       "content": ""
     },
     {
-      "id": "NewSongBby|1590321106723",
+      "id": "New Tab|1590350160952",
       "index": 6,
-      "name": "NewSongBby",
+      "name": "Tab6",
       "content": ""
     },
     {
-      "id": "NewSongBby|1590321176608",
-      "index": 3,
-      "name": "NewSongBby",
-      "content": "hee"
+      "id": "New Tab|1590350700024",
+      "index": 7,
+      "name": "New Tab",
+      "content": ""
+    },
+    {
+      "id": "New Tab|1590350703162",
+      "index": 8,
+      "name": "New Tab",
+      "content": ""
+    },
+    {
+      "id": "New Tab|1590350709999",
+      "index": 9,
+      "name": "New Tab",
+      "content": ""
     }
   ],
   "isTabAreaOpen": true,
-  "selectedTab": "Tab2|1590268381291"
+  "selectedTab": "Tab3|1590268381291"
 }

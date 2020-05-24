@@ -1,8 +1,8 @@
 import React from 'react';
 // import BottomPaneContainer from './BottomPane';
-import TabAreaContainer from '../containers/TabAreaContainer';
-import TextAreaContainer from '../containers/TextAreaContainer';
-import '../styles/app.scss';
+import TabAreaContainer from '../../containers/TabAreaContainer';
+import TextAreaContainer from '../../containers/TextAreaContainer';
+import './App.scss';
 
 const App = () => (
   <>

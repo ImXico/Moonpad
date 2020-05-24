@@ -1,0 +1,42 @@
+@import '../../styles/variables.scss';
+
+.TabsPane {
+  display: flex;
+  position: sticky;
+  height: $full-working-height;
+
+  &--open {
+    width: $tab-pane-width;
+    animation-name: TabsAreaOpening;
+    animation-duration: $tab-area-slide-animation-duration;
+    animation-timing-function: $tab-area-slide-animation-func;
+  }
+
+  &--closed {
+    width: 0%;
+    animation-name: TabsAreaClosing;
+    animation-duration: $tab-area-slide-animation-duration;
+    animation-timing-function: $tab-area-slide-animation-func;
+  }
+
+  .TabsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 45px 0px 0px 0px;
+  }
+}
+
+/* Animations */ 
+
+@keyframes TabsAreaOpening {
+  from  { width: 0%; }
+  to    { width: $tab-pane-width; }
+}
+
+@keyframes TabsAreaClosing {
+  from  { width: $tab-pane-width; }
+  to    { width: 0%; }
+}

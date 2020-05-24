@@ -1,0 +1,18 @@
+@import '../../styles/variables.scss';
+
+.__title-bar {
+  width: 100%;
+  height: $draggable-height;
+  -webkit-app-region: drag;
+}
+
+.__working-area-container {
+  display: flex;
+  overflow: hidden;
+
+  .__right-pane-area-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}

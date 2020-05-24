@@ -1,5 +1,6 @@
 import React from 'react';
-import PopupMenu from './framework/PopupMenu/PopupMenu';
+import PopupMenu from '../PopupMenu/PopupMenu';
+import './Tab.scss';
 
 const MENU_OPTION_MOVE_UP = "Move up";
 const MENU_OPTION_MOVE_DOWN = "Move down";

@@ -1,7 +1,7 @@
 import React from 'react';
-import '../styles/app.scss';
-import Tab from './Tab';
-import NewTabButton from './NewTabButton';
+import Tab from '../Tab/Tab';
+import NewTabButton from '../NewTabButton/NewTabButton';
+import './TabArea.scss';
 
 const TabPaneVisibility = {
   Opening: "opening",
@@ -50,11 +50,13 @@ class TabArea extends React.Component {
     }
   }
 
-  handleOnCreateTab(name) {
-    const { tabs, createTab } = this.props;
-    const newTabId = `${name}|${Date.now()}`;
+  handleOnCreateTab() {
+    const { tabs, createTab, selectTab } = this.props;
+    const defaultNewTabName = "New Tab";
+    const newTabId = `${defaultNewTabName}|${Date.now()}`;
     const newTabIndex = tabs.length + 1;
-    createTab(newTabId, newTabIndex, name);
+    createTab(newTabId, newTabIndex, defaultNewTabName);
+    selectTab(newTabId);
   }
 
   handleOnDeleteTab(id) {
@@ -102,7 +104,7 @@ class TabArea extends React.Component {
                 onMoveTabDown={moveTabDown}
               />
           )}
-          <NewTabButton onClick={() => this.handleOnCreateTab("NewSongBby")} />
+          <NewTabButton onClick={this.handleOnCreateTab} />
           <div className="__tab-area-scroll-past" />
         </div>
       </div>

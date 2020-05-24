@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/app.scss';
+import './TextArea.scss';
 
 class TextArea extends React.Component {
 

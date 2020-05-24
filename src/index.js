@@ -8,7 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import * as ipcActions from './data/ipc-actions';
 import * as serviceWorker from './serviceWorker';
 import './styles/reset.scss';
-import App from './components/App'
+import App from './components/App/App';
 
 const { ipcRenderer } = window.require('electron');
 

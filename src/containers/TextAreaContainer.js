@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { updateTabContentAndPersist } from '../actions/tabs';
-import TextArea from '../components/TextArea';
+import TextArea from '../components/TextArea/TextArea';
 
 const mapStateToProps = state => {
   const { tabs, selectedTab } = state;

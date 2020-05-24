@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './styles.scss';
+import './PopupMenu.scss';
 
 export const PopupMenuItemShape = {
   text: PropTypes.string,

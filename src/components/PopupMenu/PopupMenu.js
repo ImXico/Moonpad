@@ -1,7 +1,7 @@
 import React from 'react';
-import PopupMenuItem, { PopupMenuItemShape } from './PopupMenuItem';
 import PropTypes from 'prop-types';
-import './styles.scss';
+import PopupMenuItem, { PopupMenuItemShape } from './PopupMenuItem';
+import './PopupMenu.scss';
 
 const PopupMenu = ({ position, entries }) => {
   const { top, left } = position; 

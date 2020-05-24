@@ -8,7 +8,7 @@ import {
   deleteTabAndPersist,
   updateTabNameAndPersist
 } from '../actions/tabs';
-import TabArea from '../components/TabArea';
+import TabArea from '../components/TabArea/TabArea';
 
 const mapStateToProps = state => {
   return {
