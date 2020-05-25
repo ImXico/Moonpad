@@ -84,8 +84,12 @@ class TabArea extends React.Component {
   handleOnDeleteTab(id) {
     const { tabs, selectTab ,deleteTab } = this.props;
     const indexOfTabToDelete = tabs.find(tab => tab.id === id).index;
-    const previousTab = tabs.find(tab => tab.index === indexOfTabToDelete - 1);
-    selectTab(previousTab ? previousTab.id : null);
+    
+    const nextAndPreviousTabs = tabs
+      .filter(tab => Math.abs(indexOfTabToDelete - tab.index) === 1)
+      .sort((a, b) => b.index - a.index);
+    
+    selectTab(nextAndPreviousTabs.length > 0 ? nextAndPreviousTabs[0].id : null);
     deleteTab(id);
   }
 
