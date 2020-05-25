@@ -17,11 +17,13 @@ class TabArea extends React.Component {
     this.state = {
       visibility: props.isOpen ? TabPaneVisibility.Open : TabPaneVisibility.Closed
     }
+    this.tabsContainerRef = React.createRef();
     this.onAnimationStart = this.onAnimationStart.bind(this);
     this.onAnimationEnd = this.onAnimationEnd.bind(this);
     this.handleOnCreateTab = this.handleOnCreateTab.bind(this);
     this.handleOnDeleteTab = this.handleOnDeleteTab.bind(this);
     this.handleKeydownEvents = this.handleKeydownEvents.bind(this);
+    this.smoothScrollToNewlyCreatedTab = this.smoothScrollToNewlyCreatedTab.bind(this);
   }
 
   componentDidMount() {
@@ -38,8 +40,18 @@ class TabArea extends React.Component {
         this.props.toggleOpenTabArea(!this.props.isOpen);
       } else if (event.key === 'n') {
         this.handleOnCreateTab();
+        this.smoothScrollToNewlyCreatedTab();
       }
     }
+  }
+
+  smoothScrollToNewlyCreatedTab() {
+    const ref = this.tabsContainerRef.current;
+    ref.scroll({
+      top: ref.offsetHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
   onAnimationStart(event) {
@@ -96,7 +108,10 @@ class TabArea extends React.Component {
         onAnimationStart={event => this.onAnimationStart(event)}
         onAnimationEnd={event => this.onAnimationEnd(event)}
       >
-        <div className="TabsContainer">
+        <div
+          className="TabsContainer"
+          ref={this.tabsContainerRef}
+        >
           {tabs
             .sort((a, b) => a.index - b.index)
             .map(tab => 
