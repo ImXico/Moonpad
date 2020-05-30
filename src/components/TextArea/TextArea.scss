@@ -15,4 +15,17 @@
   line-height: 1.5em;
   letter-spacing: 0.02em;
   color: #D8DEE9;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #8FBCBB;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
