@@ -12,11 +12,14 @@ function createWindow() {
     webPreferences: { nodeIntegration: true },
     titleBarStyle: 'hiddenInset',
     frame: false,
+    backgroundColor: '#2E3440',
   });
 
   mainWindow.loadURL(isDev
     ? 'http://localhost:3000'
     : `file://${path.join(__dirname, '../build/index.html')}`);
+
+  // mainWindow.setAlwaysOnTop(true);
 
   app.setAboutPanelOptions({
     applicationName: 'typr',

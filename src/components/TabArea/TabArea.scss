@@ -3,7 +3,7 @@
 .TabsPane {
   display: flex;
   position: sticky;
-  height: $full-working-height;
+  height: 100%;
 
   &--open {
     width: $tab-pane-width;
@@ -25,7 +25,7 @@
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    margin: 45px 0px 0px 0px;
+    margin: 90px 0px 0px 0px;
 
     &::-webkit-scrollbar {
       width: 0px;

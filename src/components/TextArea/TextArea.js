@@ -34,15 +34,13 @@ class TextArea extends React.Component {
   render() {
     const { textContent } = this.state;
     return (
-      <div className="TextEditorPane">
-        <textarea
-          className="TextEditor"
-          value={textContent}
-          ref={this.textAreaRef}
-          onChange={this.onTextChange}
-          onBlur={this.saveUpdatedContent}
-        />
-      </div>
+      <textarea
+        className="TextEditor"
+        value={textContent}
+        ref={this.textAreaRef}
+        onChange={this.onTextChange}
+        onBlur={this.saveUpdatedContent}
+      />
     );
   }
 }
