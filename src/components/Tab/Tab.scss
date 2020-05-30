@@ -3,7 +3,7 @@
 .Tab {
   cursor: pointer;
   border: none;
-  margin-bottom: 15px;
+  margin-bottom: 17px;
   padding: 10px 0;
   font-size: 0.75em;
   user-select: none; // prevents selection highlighting
@@ -15,7 +15,7 @@
 
   &--editing-name {
     text-align: center;
-    color: #A3BE8C;
+    color: #8FBCBB;
   }
 
   &--selected {
