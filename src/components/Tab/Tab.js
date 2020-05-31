@@ -1,5 +1,6 @@
 import React from 'react';
 import PopupMenu from '../PopupMenu/PopupMenu';
+import PropTypes from 'prop-types';
 import './Tab.scss';
 
 const MENU_OPTION_MOVE_UP = 'Move up';
@@ -115,11 +116,10 @@ class Tab extends React.Component {
     const tabsContainerVerticalScroll = ref.parentElement.scrollTop;
     const top = ref.offsetTop - tabsContainerVerticalScroll - TOP_TWEAK_PX;
     const left = ref.clientWidth + LEFT_TWEAK_PX;
-    return { top, left  };
+    return { top, left };
   }
 
   handleTopLevelContextMenuOpen() {
-    // TODO: If we're too close to the vertical bounds of the window, auto-scroll a bit
     const { top, left } = this.calculatePopupElementPosition();
     this.setState({ 
       isPopupMenuOpen: true,
@@ -188,6 +188,20 @@ class Tab extends React.Component {
       </div>
     );
   }
+}
+
+Tab.propTypes = {
+  id: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  visibility: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  canTabBeMovedUp: PropTypes.func.isRequired,
+  canTabBeMovedDown: PropTypes.func.isRequired,
+  onUpdateTabName: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  onMoveTabUp: PropTypes.func.isRequired,
+  onMoveTabDown: PropTypes.func.isRequired
 }
 
 export default Tab;

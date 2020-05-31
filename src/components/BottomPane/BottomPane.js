@@ -1,7 +1,6 @@
 import React from 'react';
 import './BottomPane.scss';
 import ToggableIconButton from '../TogglableIconButton/ToggableIconButton';
-// import PropTypes from 'prop-types';
 
 const BottomPane = () => {
   return (

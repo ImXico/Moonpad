@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './TextArea.scss';
 
 class TextArea extends React.Component {
@@ -43,6 +44,12 @@ class TextArea extends React.Component {
       />
     );
   }
+}
+
+TextArea.propTypes = {
+  currentlyActiveTab: PropTypes.string.isRequired,
+  currentTabContent: PropTypes.string.isRequired,
+  updateTabContent: PropTypes.func.isRequired  
 }
 
 export default TextArea;

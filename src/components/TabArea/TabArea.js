@@ -1,6 +1,7 @@
 import React from 'react';
 import Tab from '../Tab/Tab';
 import NewTabButton from '../NewTabButton/NewTabButton';
+import PropTypes from 'prop-types';
 import './TabArea.scss';
 
 const TabPaneVisibility = {
@@ -139,6 +140,18 @@ class TabArea extends React.Component {
       </div>
     );
   }
+}
+
+TabArea.propTypes = {
+  tabs: PropTypes.array.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  currentlySelectedTab: PropTypes.string.isRequired,
+  selectTab: PropTypes.func.isRequired,
+  updateTabName: PropTypes.func.isRequired,
+  canTabBeMovedUp: PropTypes.func.isRequired,
+  canTabBeMovedDown: PropTypes.func.isRequired,
+  moveTabUp: PropTypes.func.isRequired,
+  moveTabDown: PropTypes.func.isRequired
 }
 
 export default TabArea;

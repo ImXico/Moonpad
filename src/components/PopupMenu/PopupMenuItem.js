@@ -2,11 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './PopupMenu.scss';
 
-export const PopupMenuItemShape = {
-  text: PropTypes.string,
-  onEntrySelected: PropTypes.func
-}
-
 const PopupMenuItem = ({ text, isEnabled, onEntrySelected }) => {
   const style = `PopupMenuItem PopupMenuItem--${isEnabled ? 'enabled' : 'disabled' }`;
   return (
@@ -17,6 +12,11 @@ const PopupMenuItem = ({ text, isEnabled, onEntrySelected }) => {
       {text}
     </button>
   );
+}
+
+export const PopupMenuItemShape = {
+  text: PropTypes.string,
+  onEntrySelected: PropTypes.func
 }
 
 PopupMenuItem.propTypes = {
