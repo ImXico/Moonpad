@@ -10,7 +10,7 @@
       "id": "New Tab|1590442274626",
       "index": 2,
       "name": "Groceries",
-      "content": ""
+      "content": "Hello world!"
     },
     {
       "id": "New Tab|1590442275157",
@@ -39,12 +39,18 @@
     {
       "id": "New Tab|1590875679784",
       "index": 7,
-      "name": "Cool",
+      "name": "Tabb",
       "content": ""
     },
     {
       "id": "New Tab|1590875688337",
       "index": 8,
+      "name": "Lost",
+      "content": ""
+    },
+    {
+      "id": "New Tab|1590947029518",
+      "index": 9,
       "name": "New Tab",
       "content": ""
     }
