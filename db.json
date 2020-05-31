@@ -10,7 +10,7 @@
       "id": "New Tab|1590442274626",
       "index": 2,
       "name": "Groceries",
-      "content": "Hello world!"
+      "content": "Hello world!\n\nWelcome to typr."
     },
     {
       "id": "New Tab|1590442275157",
@@ -56,5 +56,5 @@
     }
   ],
   "isTabAreaOpen": true,
-  "selectedTab": "New Tab|1590442275157"
+  "selectedTab": "New Tab|1590442274626"
 }

@@ -6,7 +6,7 @@
   width: 140px;
   z-index: 1;
   padding: 10px 15px;
-  border-radius: 3px;
+  border-radius: 2px;
   background-color: #3B4252;
   box-shadow: 5px 5px 30px -3px rgba(0,0,0,0.22);
 
@@ -32,9 +32,16 @@
   background-color: #3B4252;
   padding: 10px;
   border: none;
+  border-radius: 2px;
   margin: 2px 0;
   user-select: none; // prevents selection highlighting
   cursor: pointer;
+
+  &--enabled {
+    &:hover {
+      background-color: #434C5E;
+    }
+  }
 
   &--disabled {
     cursor: default;

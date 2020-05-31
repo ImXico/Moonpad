@@ -8,7 +8,7 @@ export const PopupMenuItemShape = {
 }
 
 const PopupMenuItem = ({ text, isEnabled, onEntrySelected }) => {
-  const style = `PopupMenuItem ${!isEnabled && "PopupMenuItem--disabled"}`;
+  const style = `PopupMenuItem PopupMenuItem--${isEnabled ? 'enabled' : 'disabled' }`;
   return (
     <button
       className={style}
