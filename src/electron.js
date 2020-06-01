@@ -1,32 +1,41 @@
-const { app, BrowserWindow } = require('electron');
-const { initDatabaseWithDefaults } = require('./data/db-handler');
+const { app, ipcMain, BrowserWindow } = require('electron');
+const { TOGGLE_ALWAYS_ON_TOP } = require('./data/ipcActions');
+const {
+  initDatabaseWithDefaults,
+  saveIsAlwaysOnTop,
+  loadWindowSettings
+} = require('./data/dbHandler');
 const isDev = require('electron-is-dev');
 const path = require('path');
 
-let mainWindow = null;
+// Initialize local database
+initDatabaseWithDefaults();
+
+let window = null;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({
+  const windowSettings = loadWindowSettings();
+  console.log(windowSettings);
+  window = new BrowserWindow({
     width: 770,
     height: 450,
     webPreferences: { nodeIntegration: true },
+    alwaysOnTop: windowSettings.wasAlwaysOnTop,
     titleBarStyle: 'hiddenInset',
     frame: false,
     backgroundColor: '#2E3440',
   });
 
-  mainWindow.loadURL(isDev
+  window.loadURL(isDev
     ? 'http://localhost:3000'
     : `file://${path.join(__dirname, '../build/index.html')}`);
-
-  // mainWindow.setAlwaysOnTop(true);
 
   app.setAboutPanelOptions({
     applicationName: 'typr',
     applicationVersion: '0.0.1',
   });
 
-  mainWindow.on('closed', () => mainWindow = null);
+  window.on('closed', () => window = null);
 }
 
 app.on('ready', () => {
@@ -40,13 +49,16 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  if (window === null) {
     createWindow();
   }
 });
 
-// Initialize local database
-initDatabaseWithDefaults();
-
 // Setup IPC hooks
-require('./data/ipc-hooks');
+require('./data/ipcHooks');
+
+// Extra IPC hooks that manipulate the window itself
+ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (_, __) => {
+  window.setAlwaysOnTop(!window.isAlwaysOnTop());
+  saveIsAlwaysOnTop();
+});

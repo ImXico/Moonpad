@@ -28,7 +28,7 @@ const tabs = (state = [], action) => {
       const idOfTab2 = state.find(tab => tab.index === indexOfTab2).id;
       return state.map(tab => {
         if (tab.id === action.id) return {...tab, index: indexOfTab2 }
-        if (tab.id === idOfTab2) return {...tab, index: indexOfTab1 }
+        if (tab.id === idOfTab2)  return {...tab, index: indexOfTab1 }
         return tab;
       });
 

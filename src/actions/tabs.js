@@ -1,4 +1,4 @@
-import * as ipcActions from '../data/ipc-actions';
+import * as ipcActions from '../data/ipcActions';
 const { ipcRenderer } = window.require('electron');
 
 export const RECEIVE_UPDATED_TABS = 'RECEIVE_UPDATED_TABS';

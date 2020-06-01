@@ -1,4 +1,4 @@
-import * as ipcActions from '../data/ipc-actions';
+import * as ipcActions from '../data/ipcActions';
 const { ipcRenderer } = window.require('electron');
 
 export const SELECT_TAB = 'SELECT_TAB';

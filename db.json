@@ -35,26 +35,9 @@
       "index": 6,
       "name": "Cool",
       "content": ""
-    },
-    {
-      "id": "New Tab|1590875679784",
-      "index": 7,
-      "name": "Tabb",
-      "content": ""
-    },
-    {
-      "id": "New Tab|1590875688337",
-      "index": 8,
-      "name": "Lost",
-      "content": ""
-    },
-    {
-      "id": "New Tab|1590947029518",
-      "index": 9,
-      "name": "New Tab",
-      "content": ""
     }
   ],
   "isTabAreaOpen": true,
-  "selectedTab": "New Tab|1590442274626"
+  "selectedTab": "New Tab|1590442275157",
+  "isAlwaysOnTop": false
 }

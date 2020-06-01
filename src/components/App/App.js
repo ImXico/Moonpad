@@ -1,7 +1,7 @@
 import React from 'react';
-import BottomPane from '../BottomPane/BottomPane';
 import TabAreaContainer from '../../containers/TabAreaContainer';
 import TextAreaContainer from '../../containers/TextAreaContainer';
+import BottomPaneContainer from '../../containers/BottomPaneContainer';
 import './App.scss';
 
 const App = () => (
@@ -10,7 +10,7 @@ const App = () => (
       <TabAreaContainer />
       <div className="__right-pane-area-container">
         <TextAreaContainer />
-        <BottomPane />
+        <BottomPaneContainer />
       </div>
     </div>
     <div className="__title-bar" />

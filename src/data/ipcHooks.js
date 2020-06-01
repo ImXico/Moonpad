@@ -1,6 +1,6 @@
 const { ipcMain } = require('electron');
-const ipcActions = require('./ipc-actions');
-const dbActions = require('./db-handler');
+const ipcActions = require('./ipcActions');
+const dbActions = require('./dbHandler');
 
 // Tabs
 

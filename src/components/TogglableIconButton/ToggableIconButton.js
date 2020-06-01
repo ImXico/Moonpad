@@ -1,27 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ToggableIconButton = ({ iconName, tooltipText, isActive, onActivating, onDeactivating }) => {
+const ToggableIconButton = ({ iconName, tooltipText, isActive, onClick }) => {
   const iconActive = require(`../../fonts/${iconName}-active.png`);
   const iconInactive = require(`../../fonts/${iconName}-inactive.png`);
 
   const style = {
     background: `url(${isActive ? iconActive : iconInactive}) no-repeat`,
     backgroundPosition: 'center',
-    width: '22px',
-    height: '22px',
+    width: '16px',
+    height: '16px',
     border: 'none',
-    margin: '10px 10px 10px 0px',
-    cursor: 'pointer'
+    margin: '12px 12px 12px 0px',
+    cursor: 'pointer',
+    outline: 'none'
   }
   
   return (
     <button
       style={style}
       title={tooltipText}
-      onClick={isActive ? onDeactivating() : onActivating()}
+      onClick={onClick}
     >
     </button>
   );
+}
+
+ToggableIconButton.propTypes = {
+  iconName: PropTypes.string.isRequired,
+  tooltipText: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default ToggableIconButton;
