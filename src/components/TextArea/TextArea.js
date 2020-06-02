@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getRandomPlaceholderTextVariation } from '../../data/placeholderVariations';
 import './TextArea.scss';
 
 class TextArea extends React.Component {
@@ -10,8 +11,8 @@ class TextArea extends React.Component {
       textContent: this.props.currentTabContent
     }
     this.textAreaRef = React.createRef();
-    this.saveUpdatedContent = this.saveUpdatedContent.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
+    this.saveUpdatedContent = this.saveUpdatedContent.bind(this);
   }
 
   componentDidUpdate(prevProps, _) {
@@ -37,6 +38,7 @@ class TextArea extends React.Component {
     return (
       <textarea
         className="TextEditor"
+        placeholder={textContent === '' ? getRandomPlaceholderTextVariation() : ''}
         value={textContent}
         ref={this.textAreaRef}
         onChange={this.onTextChange}
@@ -47,6 +49,7 @@ class TextArea extends React.Component {
 }
 
 TextArea.propTypes = {
+  isThereOnlyOneTab: PropTypes.bool.isRequired,
   currentlyActiveTab: PropTypes.string.isRequired,
   currentTabContent: PropTypes.string.isRequired,
   updateTabContent: PropTypes.func.isRequired  

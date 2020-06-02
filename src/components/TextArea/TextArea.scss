@@ -16,6 +16,10 @@
   letter-spacing: 0.02em;
   color: #D8DEE9;
 
+  &::placeholder {
+    color: rgba(76,86,106,1);
+  }
+
   &::-webkit-scrollbar {
     width: 3px;
   }
