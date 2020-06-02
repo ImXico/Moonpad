@@ -11,7 +11,12 @@ const db = low(adapter);
  */
 const initDatabaseWithDefaults = () => {
   db.defaults({
-    tabs: [],
+    tabs: [{
+      "id": `New Tab|${Date.now()}`,
+      "index": 1,
+      "name": "New Tab",
+      "content": ""
+    }],
     selectedTab: null,
     isTabAreaOpen: false,
     isAlwaysOnTop: false
@@ -141,6 +146,9 @@ const saveIsAlwaysOnTop = () => {
     .write();
 }
 
+/**
+ * 
+ */
 const loadWindowSettings = () => {
   const wasAlwaysOnTop = db.get('isAlwaysOnTop').value();
   return { wasAlwaysOnTop, };
