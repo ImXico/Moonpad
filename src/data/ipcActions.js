@@ -7,6 +7,7 @@ const SWAP_TABS = 'Swap Tabs';
 const DELETE_TAB = 'Delete Tab';
 const TOGGLE_OPEN_TAB_AREA = 'Toggle Open Tab Area';
 const TOGGLE_ALWAYS_ON_TOP = 'Toggle Always On Top';
+const UPDATE_WINDOW_DIMENSIONS = 'Update Window Dimensions';
 
 module.exports = {
   LOAD_PERSISTED_DATA,
@@ -18,4 +19,5 @@ module.exports = {
   DELETE_TAB,
   TOGGLE_OPEN_TAB_AREA,
   TOGGLE_ALWAYS_ON_TOP,
+  UPDATE_WINDOW_DIMENSIONS,
 }

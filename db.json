@@ -39,5 +39,10 @@
   ],
   "isTabAreaOpen": true,
   "selectedTab": "New Tab|1590442275157",
-  "isAlwaysOnTop": false
+  "isAlwaysOnTop": true,
+  "windowSettings": {
+    "isAlwaysOnTop": false,
+    "width": 708,
+    "height": 446
+  }
 }

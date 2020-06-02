@@ -5,10 +5,9 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 99%; // Leave just a tiny bit for the scrollbar of the TextArea to be fully visibile.
   height: 2.3rem;
   -webkit-app-region: drag;
-  background-color: transparent;
 }
 
 .__working-area-container {

@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import { toggleAlwaysOnTopAndPersist } from '../actions/isAlwaysOnTop';
+import { toggleAlwaysOnTopAndPersist } from '../actions/windowSettings';
 import BottomPane from '../components/BottomPane/BottomPane';
 
 const mapStateToProps = state => {
   return {
-    isAlwaysOnTop: state.isAlwaysOnTop,
+    isAlwaysOnTop: state.windowSettings.isAlwaysOnTop,
   }
 }
 

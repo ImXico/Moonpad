@@ -1,8 +1,10 @@
 const { app, ipcMain, BrowserWindow } = require('electron');
 const { TOGGLE_ALWAYS_ON_TOP } = require('./data/ipcActions');
+const { MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT } = require('./data/defaultSettings');
 const {
   initDatabaseWithDefaults,
   saveIsAlwaysOnTop,
+  saveWindowDimensions,
   loadWindowSettings
 } = require('./data/dbHandler');
 const isDev = require('electron-is-dev');
@@ -15,12 +17,13 @@ let window = null;
 
 function createWindow() {
   const windowSettings = loadWindowSettings();
-  console.log(windowSettings);
   window = new BrowserWindow({
-    width: 770,
-    height: 450,
+    width: windowSettings.width,
+    minWidth: MIN_WINDOW_WIDTH,
+    height: windowSettings.height,
+    minHeight: MIN_WINDOW_HEIGHT,
     webPreferences: { nodeIntegration: true },
-    alwaysOnTop: windowSettings.wasAlwaysOnTop,
+    alwaysOnTop: windowSettings.isAlwaysOnTop,
     titleBarStyle: 'hiddenInset',
     frame: false,
     backgroundColor: '#2E3440',
@@ -36,6 +39,12 @@ function createWindow() {
   });
 
   window.on('closed', () => window = null);
+  window.on('resize', () => {
+    const newDimensions = window.getSize();
+    const newWidth = newDimensions[0];
+    const newHeight = newDimensions[1];
+    saveWindowDimensions(newWidth, newHeight);
+  });
 }
 
 app.on('ready', () => {

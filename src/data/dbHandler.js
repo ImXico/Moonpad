@@ -1,5 +1,6 @@
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
+const defaultSettings = require('./defaultSettings');
 
 const DATABASE_FILE_NAME = 'db.json';
 const adapter = new FileSync(DATABASE_FILE_NAME);
@@ -10,16 +11,22 @@ const db = low(adapter);
  * This is necessary on first use, where the db is empty.
  */
 const initDatabaseWithDefaults = () => {
+  const defaultNewTab = {
+    id: `New Tab|${Date.now()}`,
+    index: 1,
+    name: "New Tab",
+    content: ""
+  }
+
   db.defaults({
-    tabs: [{
-      "id": `New Tab|${Date.now()}`,
-      "index": 1,
-      "name": "New Tab",
-      "content": ""
-    }],
-    selectedTab: null,
-    isTabAreaOpen: false,
-    isAlwaysOnTop: false
+    tabs: [defaultNewTab],
+    selectedTab: defaultNewTab.id,
+    isTabAreaOpen: defaultSettings.IS_TAB_AREA_OPEN,
+    windowSettings: {
+      isAlwaysOnTop: defaultSettings.IS_WINDOW_ALWAYS_ON_TOP,
+      width: defaultSettings.WINDOW_WIDTH,
+      height: defaultSettings.WINDOW_HEIGHT
+    }
   })
   .write();
 }
@@ -141,8 +148,19 @@ const saveIsTabAreaOpen = () => {
  * When the app is closed and loaded again, this will be looked-up and refreshed accordingly.
  */
 const saveIsAlwaysOnTop = () => {
-  const wasAlwaysOnTop = db.get('isAlwaysOnTop').value();
-  db.set('isAlwaysOnTop', !wasAlwaysOnTop)
+  const wasAlwaysOnTop = db.get('windowSettings.isAlwaysOnTop').value();
+  db.set('windowSettings.isAlwaysOnTop', !wasAlwaysOnTop)
+    .write();
+}
+
+/**
+ * 
+ * @param {*} width 
+ * @param {*} height 
+ */
+const saveWindowDimensions = (width, height) => {
+  db.get('windowSettings')
+    .assign({ width, height })
     .write();
 }
 
@@ -150,8 +168,9 @@ const saveIsAlwaysOnTop = () => {
  * 
  */
 const loadWindowSettings = () => {
-  const wasAlwaysOnTop = db.get('isAlwaysOnTop').value();
-  return { wasAlwaysOnTop, };
+  return db
+    .get('windowSettings')
+    .value();
 }
 
 module.exports = {
@@ -165,5 +184,6 @@ module.exports = {
   saveCurrentlySelectedTab,
   saveIsTabAreaOpen,
   saveIsAlwaysOnTop,
-  loadWindowSettings
+  saveWindowDimensions,
+  loadWindowSettings,
 }

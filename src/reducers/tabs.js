@@ -9,7 +9,6 @@ import {
 
 const tabs = (state = [], action) => {
   switch (action.type) {
-
     case RECEIVE_UPDATED_TABS:
       return [...action.tabs];
 
