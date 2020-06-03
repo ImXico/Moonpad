@@ -42,8 +42,6 @@ class TabArea extends React.Component {
       } else if (event.key === 'n') {
         this.handleOnCreateTab();
         this.smoothScrollToNewlyCreatedTab();
-      } else if (event.key === 'd') {
-        this.handleOnDeleteTab(this.props.currentlySelectedTab);
       }
     }
   }
@@ -86,7 +84,6 @@ class TabArea extends React.Component {
 
   handleOnDeleteTab(id) {
     const { tabs, selectTab, deleteTab } = this.props;
-    console.log(tabs[tabs.length-1]);
     const indexOfTabToDelete = tabs.find(tab => tab.id === id).index;
     
     const nextAndPreviousTabs = tabs
