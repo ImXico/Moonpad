@@ -29,20 +29,14 @@
       "index": 5,
       "name": "Heeey!",
       "content": ""
-    },
-    {
-      "id": "New Tab|1590875674010",
-      "index": 6,
-      "name": "Cool",
-      "content": ""
     }
   ],
   "isTabAreaOpen": true,
-  "selectedTab": "New Tab|1590442275157",
+  "selectedTab": "New Tab|1590875668890",
   "isAlwaysOnTop": true,
   "windowSettings": {
     "isAlwaysOnTop": false,
     "width": 769,
-    "height": 455
+    "height": 476
   }
 }
