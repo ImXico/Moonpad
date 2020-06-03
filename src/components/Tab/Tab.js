@@ -22,7 +22,7 @@ class Tab extends React.Component {
     this.tabRef = React.createRef();
     this.closeAndResetPopupMenu = this.closeAndResetPopupMenu.bind(this);
     this.closeAndResetNameEditMode = this.closeAndResetNameEditMode.bind(this);
-    this.calculatePopupElementPosition = this.calculatePopupElementPosition.bind(this);
+    this.calculatePopupElementPosition = this.calculatePopupMenuPosition.bind(this);
     this.handleTopLevelContextMenuOpen = this.handleTopLevelContextMenuOpen.bind(this);
     this.handleDocumentWideClick = this.handleDocumentWideClick.bind(this);
     this.handleTabNameEdit = this.handleTabNameEdit.bind(this);
@@ -109,7 +109,7 @@ class Tab extends React.Component {
     })
   }
 
-  calculatePopupElementPosition() {
+  calculatePopupMenuPosition() {
     const TOP_TWEAK_PX = 17;
     const LEFT_TWEAK_PX = 15;
     const ref = this.tabRef.current;
@@ -120,7 +120,7 @@ class Tab extends React.Component {
   }
 
   handleTopLevelContextMenuOpen() {
-    const { top, left } = this.calculatePopupElementPosition();
+    const { top, left } = this.calculatePopupMenuPosition();
     this.setState({ 
       isPopupMenuOpen: true,
       popupMenuOpeningPosition: { top, left }

@@ -16,7 +16,14 @@
   letter-spacing: 0.02em;
   color: #D8DEE9;
 
+  &::selection {
+    color: #ECEFF4;
+    background: #88C0D0;
+  }
+
   &::placeholder {
+    line-height: 1.7em;
+    letter-spacing: 0.02em;
     color: rgba(76,86,106,1);
   }
 

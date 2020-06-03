@@ -13,8 +13,8 @@ const PopupMenu = ({ position, entries }) => {
 }
 
 PopupMenu.propTypes = {
-  position: PropTypes.objectOf(PropTypes.number),
-  entries: PropTypes.arrayOf(PopupMenuItemShape)
+  position: PropTypes.objectOf(PropTypes.number).isRequired,
+  entries: PropTypes.arrayOf(PopupMenuItemShape).isRequired
 }
 
 export default PopupMenu;
