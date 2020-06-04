@@ -25,7 +25,7 @@ class TextArea extends React.Component {
 
   onTextChange(event) {
     this.setState({
-      textContent: event.target.value,
+      textContent: event.target.value
     });
   }
 

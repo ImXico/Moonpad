@@ -4,13 +4,15 @@
   width: 100%;
   height: $text-area-height;
   padding: 55px;
+  padding-bottom: 0;
   overflow-y: auto;
   outline: none;
   border: none;
   background-color: transparent;
   resize: none;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  white-space: normal;
+  // white-space: pre-wrap;
+  // word-wrap: break-word;
   font-size: 0.85em;
   line-height: 1.7em;
   letter-spacing: 0.02em;
