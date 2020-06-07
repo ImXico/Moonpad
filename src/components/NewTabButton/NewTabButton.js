@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './NewTabButton.scss';
 
-const NewTabButton = ({ onClick }) => (
+const NewTabButton = ({ isVisible, onClick }) => (
   <button 
-    className="NewTabButton"
+    className={`NewTabButton ${isVisible && 'open'}`}
     onClick={onClick}
   >
     +
   </button>
 );
+
 NewTabButton.propTypes = {
   onClick: PropTypes.func.isRequired
 }

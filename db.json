@@ -41,14 +41,20 @@
       "index": 7,
       "name": "New Tab",
       "content": ""
+    },
+    {
+      "id": "New Tab|1591542728151",
+      "index": 8,
+      "name": "Hello!",
+      "content": ""
     }
   ],
   "isTabAreaOpen": true,
-  "selectedTab": "New Tab|1590590263853",
+  "selectedTab": "New Tab|1590442275157",
   "isAlwaysOnTop": true,
   "windowSettings": {
     "isAlwaysOnTop": false,
-    "width": 713,
-    "height": 439
+    "width": 737,
+    "height": 426
   }
 }

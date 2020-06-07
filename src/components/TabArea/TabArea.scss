@@ -6,7 +6,7 @@
   width: 0%;
   height: 100%;
   opacity: 0;
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);  
+  transition: all $tab-area-slide-animation-duration $tab-area-slide-animation-func;  
 
   .TabsContainer {
     display: flex;
@@ -26,4 +26,8 @@
 .TabsPane.open {
   opacity: 1;
   width: $tab-pane-width;
+}
+
+.tab-area-scroll-past {
+  margin-top: 150px;
 }

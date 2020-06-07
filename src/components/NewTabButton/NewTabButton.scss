@@ -1,9 +1,15 @@
+@import '../../styles/variables.scss';
+
 .NewTabButton {
   border: none;
   font-size: medium;
   color: #E5E9F0;
+  width: 0%;
+  opacity: 0;
+  transition: all $tab-area-slide-animation-duration $tab-area-slide-animation-func;  
 }
 
-.__tab-area-scroll-past {
-  margin-top: 150px;
+.NewTabButton.open {
+  width: 100%;
+  opacity: 1;
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import TabAreaContainer from '../../containers/TabAreaContainer';
 import TextAreaContainer from '../../containers/TextAreaContainer';
+import { TOGGLE_ALWAYS_ON_TOP } from '../../data/ipcActions';
 import './App.scss';
 
-// TODO: Handle keydown events for toggle-always-on-top and toggle-theme
+const { ipcRenderer } = window.require('electron');
 
 class App extends React.Component {
   
@@ -22,21 +23,23 @@ class App extends React.Component {
 
   handleKeydownEvents(event) {
     if (event.metaKey) {
-      if (event.key === '?') {}
+      if (event.key === '.') {
+        ipcRenderer.send(TOGGLE_ALWAYS_ON_TOP); 
+      }
     }
   }
 
   render() {
     return (
       <>
-        <div className="__working-area-container">
+        <div className="working-area-container">
           <TabAreaContainer />
-          <div className="__right-pane-area-container">
+          <div className="right-pane-area-container">
             <TextAreaContainer />
-            <div className="__bottom-bar" />
+            <div className="bottom-bar" />
           </div>
         </div>
-      <div className="__title-bar" />
+      <div className="title-bar" />
     </>
     );
   }

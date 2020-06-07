@@ -99,8 +99,11 @@ class TabArea extends React.Component {
                 onMoveTabDown={moveTabDown}
               />
           )}
-          <NewTabButton onClick={this.handleOnCreateTab} />
-          <div className="__tab-area-scroll-past" />
+          <NewTabButton
+            isVisible={isOpen}
+            onClick={this.handleOnCreateTab}
+          />
+          <div className="tab-area-scroll-past" />
         </div>
       </div>
     );
