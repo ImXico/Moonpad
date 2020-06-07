@@ -3,21 +3,10 @@
 .TabsPane {
   display: flex;
   position: sticky;
+  width: 0%;
   height: 100%;
-
-  &--open {
-    width: $tab-pane-width;
-    animation-name: TabsAreaOpening;
-    animation-duration: $tab-area-slide-animation-duration;
-    animation-timing-function: $tab-area-slide-animation-func;
-  }
-
-  &--closed {
-    width: 0%;
-    animation-name: TabsAreaClosing;
-    animation-duration: $tab-area-slide-animation-duration;
-    animation-timing-function: $tab-area-slide-animation-func;
-  }
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);  
 
   .TabsContainer {
     display: flex;
@@ -34,14 +23,7 @@
   }
 }
 
-/* Animations */ 
-
-@keyframes TabsAreaOpening {
-  from  { width: 0%; }
-  to    { width: $tab-pane-width; }
-}
-
-@keyframes TabsAreaClosing {
-  from  { width: $tab-pane-width; }
-  to    { width: 0%; }
+.TabsPane.open {
+  opacity: 1;
+  width: $tab-pane-width;
 }

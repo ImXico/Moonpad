@@ -4,23 +4,11 @@ import NewTabButton from '../NewTabButton/NewTabButton';
 import PropTypes from 'prop-types';
 import './TabArea.scss';
 
-const TabPaneVisibility = {
-  Opening: 'opening',
-  Open: 'open',
-  Closing: 'closing',
-  Closed: 'closed'
-}
-
 class TabArea extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      visibility: props.isOpen ? TabPaneVisibility.Open : TabPaneVisibility.Closed
-    }
     this.tabsContainerRef = React.createRef();
-    this.onAnimationStart = this.onAnimationStart.bind(this);
-    this.onAnimationEnd = this.onAnimationEnd.bind(this);
     this.handleOnCreateTab = this.handleOnCreateTab.bind(this);
     this.handleOnDeleteTab = this.handleOnDeleteTab.bind(this);
     this.handleKeydownEvents = this.handleKeydownEvents.bind(this);
@@ -53,24 +41,6 @@ class TabArea extends React.Component {
       left: 0,
       behavior: 'smooth'
     });
-  }
-
-  onAnimationStart(event) {
-    const animationName = event.animationName;
-    if (animationName === 'TabsAreaOpening') {
-      this.setState({ visibility: TabPaneVisibility.Opening })
-    } else if (animationName === 'TabsAreaClosing') {
-      this.setState({ visibility: TabPaneVisibility.Closing })
-    }
-  }
-
-  onAnimationEnd(event) {
-    const animationName = event.animationName;
-    if (animationName === 'TabsAreaOpening') {
-      this.setState({ visibility: TabPaneVisibility.Open })
-    } else if (animationName === 'TabsAreaClosing') {
-      this.setState({ visibility: TabPaneVisibility.Closed })
-    }
   }
 
   handleOnCreateTab() {
@@ -108,11 +78,7 @@ class TabArea extends React.Component {
     } = this.props;
 
     return (
-      <div
-        className={`TabsPane TabsPane--${isOpen ? 'open' : 'closed'}`}
-        onAnimationStart={event => this.onAnimationStart(event)}
-        onAnimationEnd={event => this.onAnimationEnd(event)}
-      >
+      <div className={`TabsPane ${isOpen && 'open'}`}>
         <div
           className="TabsContainer"
           ref={this.tabsContainerRef}
@@ -123,7 +89,6 @@ class TabArea extends React.Component {
               <Tab
                 {...tab}
                 key={tab.id}
-                visibility={this.state.visibility}
                 isSelected={tab.id === currentlySelectedTab}
                 canTabBeMovedUp={canTabBeMovedUp}
                 canTabBeMovedDown={canTabBeMovedDown}

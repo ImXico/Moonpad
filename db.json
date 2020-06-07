@@ -10,13 +10,13 @@
       "id": "New Tab|1590442274626",
       "index": 2,
       "name": "Groceries",
-      "content": "Hello world!\n\nWelcome to typr."
+      "content": "Hello world!\n\nmdsa\nWelcome to typr."
     },
     {
       "id": "New Tab|1590442275157",
       "index": 3,
       "name": "Notes",
-      "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\n\nIt was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.\n\nMaking it over 2000 years old, Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage."
+      "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\n\nIt was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. Making it over 2000 years old, Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage."
     },
     {
       "id": "New Tab|1590590263853",
@@ -41,20 +41,14 @@
       "index": 7,
       "name": "New Tab",
       "content": ""
-    },
-    {
-      "id": "New Tab|1591269651148",
-      "index": 8,
-      "name": "New Tab",
-      "content": ""
     }
   ],
   "isTabAreaOpen": true,
-  "selectedTab": "New Tab|1590442275157",
+  "selectedTab": "New Tab|1590590263853",
   "isAlwaysOnTop": true,
   "windowSettings": {
     "isAlwaysOnTop": false,
-    "width": 778,
-    "height": 461
+    "width": 713,
+    "height": 439
   }
 }

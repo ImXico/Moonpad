@@ -147,16 +147,13 @@ class Tab extends React.Component {
   }
 
   render() {
-    const { id, name, visibility, isSelected, onSelect } = this.props;
+    const { id, name, isSelected, onSelect } = this.props;
     const {
       isPopupMenuOpen,
       popupMenuOpeningPosition,
       isNameBeingEdited,
       tabNameInEditionValue
     } = this.state;
-
-    const selectedStyle = isSelected ? 'selected' : 'unselected';
-    const className = `Tab Tab--${selectedStyle} Tab--${selectedStyle}--${visibility}`;
 
     return (
       <div ref={this.tabRef}>
@@ -172,7 +169,7 @@ class Tab extends React.Component {
               onKeyDown={event => this.handleTabNameEditFinish(event)}
             />
           : <button
-              className={className}
+              className={`Tab Tab--${isSelected ? 'selected' : 'unselected'}`}
               onClick={() => onSelect(id)}
               onContextMenu={this.handleTopLevelContextMenuOpen}
             >
@@ -193,7 +190,6 @@ class Tab extends React.Component {
 Tab.propTypes = {
   id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  visibility: PropTypes.string.isRequired,
   isSelected: PropTypes.bool.isRequired,
   canTabBeMovedUp: PropTypes.func.isRequired,
   canTabBeMovedDown: PropTypes.func.isRequired,
