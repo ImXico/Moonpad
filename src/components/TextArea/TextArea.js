@@ -13,6 +13,7 @@ class TextArea extends React.Component {
     this.textAreaRef = React.createRef();
     this.onTextChange = this.onTextChange.bind(this);
     this.saveUpdatedContent = this.saveUpdatedContent.bind(this);
+    this.handleTabKeydown = this.handleTabKeydown.bind(this);
   }
 
   componentDidUpdate(prevProps, _) {
@@ -23,10 +24,28 @@ class TextArea extends React.Component {
     }
   }
 
+  handleTabKeydown(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      event.stopPropagation();
+      const initialContent = event.target.value;
+      const selectionStart = this.textAreaRef.current.selectionStart;
+      const selectionEnd = this.textAreaRef.current.selectionEnd;
+
+      const content =
+        initialContent.substring(0, selectionStart) +
+        '  ' +
+        initialContent.substring(selectionEnd);
+
+      this.setState({ textContent: content }, () => {
+        this.textAreaRef.current.selectionStart = selectionEnd + 2;
+        this.textAreaRef.current.selectionEnd = selectionEnd + 2;
+      });
+    }
+  }
+
   onTextChange(event) {
-    this.setState({
-      textContent: event.target.value
-    });
+    this.setState({ textContent: event.target.value });
   }
 
   saveUpdatedContent() {
@@ -42,6 +61,7 @@ class TextArea extends React.Component {
         value={textContent}
         ref={this.textAreaRef}
         onChange={this.onTextChange}
+        onKeyDown={this.handleTabKeydown}
         onBlur={this.saveUpdatedContent}
       />
     );
