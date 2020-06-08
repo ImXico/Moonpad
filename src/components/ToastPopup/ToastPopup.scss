@@ -1,0 +1,30 @@
+@import '../../styles/variables.scss';
+
+.ToastPopup {
+  display: flex;
+  align-items: center;
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 20px;
+  margin-top: 20px;
+  width: 200px;
+  height: 40px;
+  background-color: #3B4252;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.8em;
+  border-radius: 2px;
+  box-shadow: 5px 5px 30px -3px rgba(0,0,0,0.22);
+  color: #D8DEE9;
+  transition: all $toast-animation-func $toast-animation-duration;
+}
+
+.ToastPopup.shown {
+  opacity: 1;
+}
+
+.ToastPopup.hidden {
+  opacity: 0;
+}

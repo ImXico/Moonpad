@@ -1,6 +1,6 @@
 const { app, ipcMain, BrowserWindow } = require('electron');
-const { TOGGLE_ALWAYS_ON_TOP } = require('./data/ipcActions');
 const { MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT } = require('./data/defaultSettings');
+const { TOGGLE_ALWAYS_ON_TOP, TOGGLE_ALWAYS_ON_TOP_RESPONSE } = require('./data/ipcActions');
 const {
   initDatabaseWithDefaults,
   saveIsAlwaysOnTop,
@@ -67,7 +67,13 @@ app.on('activate', () => {
 require('./data/ipcHooks');
 
 // Extra IPC hooks that manipulate the window itself
-ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (_, __) => {
-  window.setAlwaysOnTop(!window.isAlwaysOnTop());
+ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event, __) => {
+  const isNowAlwaysOnTop = !window.isAlwaysOnTop();
+  window.setAlwaysOnTop(isNowAlwaysOnTop);
   saveIsAlwaysOnTop();
+  event.sender.send(TOGGLE_ALWAYS_ON_TOP_RESPONSE, {
+    message: isNowAlwaysOnTop
+      ? 'Always on top on.'
+      : 'Always on top off.'
+  });
 });

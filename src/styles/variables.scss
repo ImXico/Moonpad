@@ -6,3 +6,5 @@ $text-area-height: 100% - $bottom-pane-height;
 /* Misc Variables */
 $tab-area-slide-animation-func: cubic-bezier(0.165, 0.84, 0.44, 1);
 $tab-area-slide-animation-duration: 0.25s;
+$toast-animation-func: ease-in-out;
+$toast-animation-duration: 0.25s;
