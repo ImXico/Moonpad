@@ -31,6 +31,8 @@ class App extends React.Component {
         ipcRenderer.once(TOGGLE_ALWAYS_ON_TOP_RESPONSE, (_, { message }) => {
           this.props.dispatch(showToastPopup(message));
         })
+      } else if (event.key === 's') {
+        this.props.dispatch(showToastPopup('Your content is auto-saved!'));
       }
     }
   }

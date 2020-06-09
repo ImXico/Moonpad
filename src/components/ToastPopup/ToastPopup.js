@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { hideToastPopup } from '../../actions/toastPopup';
 import './ToastPopup.scss';
 
-const TOAST_SPOTLIGHT_DURATION_MS = 2000;
+const TOAST_SPOTLIGHT_DURATION_MS = 1750;
 
 class ToastPopup extends React.Component {
 

@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Tab from '../Tab/Tab';
 import NewTabButton from '../NewTabButton/NewTabButton';
-import PropTypes from 'prop-types';
 import './TabArea.scss';
 
 class TabArea extends React.Component {

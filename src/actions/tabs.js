@@ -1,4 +1,5 @@
 import * as ipcActions from '../data/ipcActions';
+import { showToastPopup } from './toastPopup';
 const { ipcRenderer } = window.require('electron');
 
 export const RECEIVE_UPDATED_TABS = 'RECEIVE_UPDATED_TABS';
@@ -100,6 +101,7 @@ export const deleteTabAndPersist = id => {
   return dispatch => {
     dispatch(deleteTab(id));
     ipcRenderer.send(ipcActions.DELETE_TAB, { id });
+    dispatch(showToastPopup('Tab successfuly deleted.'));
   }
 }
 

@@ -67,13 +67,14 @@ app.on('activate', () => {
 require('./data/ipcHooks');
 
 // Extra IPC hooks that manipulate the window itself
+// Could not figure out how to access this 'window' reference
+// in Node (where all the other ipcMain hooks are defined),
+// so it'll just stay here...
 ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event, __) => {
   const isNowAlwaysOnTop = !window.isAlwaysOnTop();
   window.setAlwaysOnTop(isNowAlwaysOnTop);
   saveIsAlwaysOnTop();
   event.sender.send(TOGGLE_ALWAYS_ON_TOP_RESPONSE, {
-    message: isNowAlwaysOnTop
-      ? 'Always on top on.'
-      : 'Always on top off.'
+    message: isNowAlwaysOnTop ? 'Always on top on.' : 'Always on top off.'
   });
 });
