@@ -1,4 +1,6 @@
-@import '../../styles/variables.scss';
+$tab-pane-width: 20%;
+$tab-area-slide-animation-func: cubic-bezier(0.165, 0.84, 0.44, 1);
+$tab-area-slide-animation-duration: 0.25s;
 
 .TabsPane {
   display: flex;

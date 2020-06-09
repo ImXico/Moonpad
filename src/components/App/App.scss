@@ -1,12 +1,12 @@
-@import '../../styles/variables.scss';
+$title-bar-height: 8%;
 
 .title-bar {
   z-index: 9999;
   position: absolute;
   left: 0;
   top: 0;
-  width: 99%; // Leave just a tiny bit for the scrollbar of the TextArea to be fully visibile.
-  height: 2.3rem;
+  width: 99.5%; // Leave just a tiny bit for the scrollbar of the TextArea to be fully visibile.
+  height: $title-bar-height;
   -webkit-app-region: drag;
 }
 
@@ -19,14 +19,5 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-
-    .bottom-bar {
-      z-index: 9999;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 99%; // Leave just a tiny bit for the scrollbar of the TextArea to be fully visibile.
-      height: 2.3rem;
-    }
   }
 }

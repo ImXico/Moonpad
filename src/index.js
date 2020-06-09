@@ -7,7 +7,7 @@ import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import * as ipcActions from './data/ipcActions';
 import * as serviceWorker from './serviceWorker';
-import './styles/reset.scss';
+import './reset.scss';
 import App from './components/App/App';
 
 const { ipcRenderer } = window.require('electron');

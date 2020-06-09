@@ -44,7 +44,6 @@ class App extends React.Component {
           <TabAreaContainer />
           <div className="right-pane-area-container">
             <TextAreaContainer />
-            <div className="bottom-bar" />
           </div>
         </div>
       <div className="title-bar" />
