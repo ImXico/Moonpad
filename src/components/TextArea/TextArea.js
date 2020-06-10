@@ -9,6 +9,7 @@ class TextArea extends React.Component {
     super(props);
     this.state = {
       textContent: this.props.currentTabContent,
+      placeholder: getRandomPlaceholderTextVariation(),
       numCurrentlySelectedChars: undefined,
       numCurrentlySelectedWords: undefined
     }
@@ -20,10 +21,19 @@ class TextArea extends React.Component {
     this.calculateCharsAndWordsSelected = this.calculateCharsAndWordsSelected.bind(this);
   }
 
+  componentDidMount() {
+    this.textAreaRef.current.focus();
+    this.textAreaRef.current.selectionStart = this.state.textContent.length;
+    this.textAreaRef.current.selectionEnd = this.state.textContent.length;
+  }
+
   componentDidUpdate(prevProps, _) {
     const { currentlyActiveTab } = this.props;
     if (currentlyActiveTab !== prevProps.currentlyActiveTab) {
-      this.setState({ textContent: this.props.currentTabContent });
+      this.setState({
+        textContent: this.props.currentTabContent,
+        placeholder: getRandomPlaceholderTextVariation()
+      });
       this.textAreaRef.current.focus();
     }
   }
@@ -89,7 +99,7 @@ class TextArea extends React.Component {
       <>
         <textarea
           className="TextEditor"
-          placeholder={textContent === '' ? getRandomPlaceholderTextVariation() : ''}
+          placeholder={textContent === '' && this.state.placeholder}
           value={textContent}
           ref={this.textAreaRef}
           onChange={this.onTextChange}
