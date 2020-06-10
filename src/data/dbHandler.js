@@ -1,8 +1,8 @@
+const { app } = require('electron');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const defaultSettings = require('./defaultSettings');
-
-const DATABASE_FILE_NAME = 'db.json';
+const DATABASE_FILE_NAME = app.getPath('userData') + '/data.json';
 const adapter = new FileSync(DATABASE_FILE_NAME);
 const db = low(adapter);
 

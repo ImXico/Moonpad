@@ -26,7 +26,8 @@ function createWindow() {
     alwaysOnTop: windowSettings.isAlwaysOnTop,
     titleBarStyle: 'hiddenInset',
     frame: false,
-    backgroundColor: '#2E3440',
+    backgroundColor: '#FFFFFF',
+    // backgroundColor: isDev ? 'cyan': '#2E3440',
   });
 
   window.loadURL(isDev
@@ -51,9 +52,7 @@ app.on('ready', () => {
 });
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  app.quit();
 });
 
 app.on('activate', () => {

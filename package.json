@@ -2,7 +2,8 @@
   "name": "scribbler",
   "version": "0.1.0",
   "private": true,
-  "main": "src/electron.js",
+  "main": "./src/electron.js",
+  "homepage": "./",
   "dependencies": {
     "electron-is-dev": "^1.1.0",
     "lowdb": "^1.0.0",
