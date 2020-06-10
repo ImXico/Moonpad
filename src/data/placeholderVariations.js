@@ -3,8 +3,9 @@
  * @private
  */
 const PlaceholderTextVariations = [
-  `Did you know Ctrl/Cmd+N opens a new tab?`,
-  `Ctrl/Cmd+E will toggle-open the tab area.`,
+  `Did you know Ctrl/Cmd + N opens a new tab?`,
+  `Ctrl/Cmd + E will toggle-open the tab area.`,
+  `Use Ctrl/Cmd + . to toggle 'always-on-top'!`,
   `FYI: You can move tabs up and down.`,
   `Have cool ideas for the app? Hit me up on GitHub!`,
   `Something not quite working? Open an issue on GitHub! :)`,

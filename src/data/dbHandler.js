@@ -22,6 +22,7 @@ const initDatabaseWithDefaults = () => {
     tabs: [defaultNewTab],
     selectedTab: defaultNewTab.id,
     isTabAreaOpen: defaultSettings.IS_TAB_AREA_OPEN,
+    isDarkTheme: defaultSettings.IS_DARK_THEME,
     windowSettings: {
       isAlwaysOnTop: defaultSettings.IS_WINDOW_ALWAYS_ON_TOP,
       width: defaultSettings.WINDOW_WIDTH,
@@ -155,6 +156,16 @@ const saveIsAlwaysOnTop = () => {
 
 /**
  * 
+ */
+const saveIsDarkTheme = () => {
+  const wasDarkTheme = db.get('isDarkTheme').value();
+  db.set('isDarkTheme', !wasDarkTheme)
+    .write();
+}
+
+
+/**
+ * 
  * @param {*} width 
  * @param {*} height 
  */
@@ -182,6 +193,7 @@ module.exports = {
   swapTabs,
   deleteTab,
   saveCurrentlySelectedTab,
+  saveIsDarkTheme,
   saveIsTabAreaOpen,
   saveIsAlwaysOnTop,
   saveWindowDimensions,

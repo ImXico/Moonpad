@@ -41,8 +41,7 @@ function createWindow() {
   window.on('closed', () => window = null);
   window.on('resize', () => {
     const newDimensions = window.getSize();
-    const newWidth = newDimensions[0];
-    const newHeight = newDimensions[1];
+    const [newWidth, newHeight] = newDimensions;
     saveWindowDimensions(newWidth, newHeight);
   });
 }

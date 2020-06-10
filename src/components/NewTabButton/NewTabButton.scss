@@ -4,10 +4,14 @@ $slide-animation-duration: 0.25s;
 .NewTabButton {
   border: none;
   font-size: medium;
-  color: #E5E9F0;
+  color: var(--text-primary-color);
   width: 0%;
   opacity: 0;
   transition: all $slide-animation-duration $slide-animation-func;  
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .NewTabButton.open {

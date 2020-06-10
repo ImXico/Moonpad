@@ -16,10 +16,11 @@ class Tab extends React.Component {
       isPopupMenuOpen: false,
       popupMenuOpeningPosition: undefined,
       isNameBeingEdited: false,
-      tabNameInEditionValue: ""
+      tabNameInEditionValue: ''
     }
 
     this.tabRef = React.createRef();
+    this.updateContextMenuEntries = this.updateContextMenuEntries.bind(this);
     this.closeAndResetPopupMenu = this.closeAndResetPopupMenu.bind(this);
     this.closeAndResetNameEditMode = this.closeAndResetNameEditMode.bind(this);
     this.calculatePopupElementPosition = this.calculatePopupMenuPosition.bind(this);
@@ -29,8 +30,9 @@ class Tab extends React.Component {
     this.handleTabNameEditFinish = this.handleTabNameEditFinish.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener('mousedown', this.handleDocumentWideClick, false);
+    this.updateContextMenuEntries();
   }
 
   componentWillUnmount() {
@@ -40,8 +42,12 @@ class Tab extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.popupMenuEntries && (prevProps.index === this.props.index)) {
       return;
+    } else {
+      this.updateContextMenuEntries();
     }
-
+  }
+  
+  updateContextMenuEntries() {
     this.popupMenuEntries = [
       {
         text: MENU_OPTION_MOVE_UP,
@@ -71,7 +77,7 @@ class Tab extends React.Component {
         text: MENU_OPTION_DELETE,
         isEnabled: true,
         onEntrySelected: () => {
-          this.props.onDelete(this.props.id);
+          this.props.onDelete(this.props.id, this.props.name);
           this.closeAndResetPopupMenu();
         }
       },
@@ -121,6 +127,7 @@ class Tab extends React.Component {
 
   handleTopLevelContextMenuOpen() {
     const { top, left } = this.calculatePopupMenuPosition();
+    this.props.onSelect(this.props.id);
     this.setState({ 
       isPopupMenuOpen: true,
       popupMenuOpeningPosition: { top, left }
@@ -138,7 +145,7 @@ class Tab extends React.Component {
       const newName = this.state.tabNameInEditionValue;
       this.setState({
         isNameBeingEdited: false,
-        tabNameInEditionValue: ""
+        tabNameInEditionValue: ''
       });
       this.props.onUpdateTabName(this.props.id, newName);
     } else if (event.key === 'Escape') {

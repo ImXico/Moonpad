@@ -52,7 +52,7 @@ class TabArea extends React.Component {
     selectTab(newTabId);
   }
 
-  handleOnDeleteTab(id) {
+  handleOnDeleteTab(id, name) {
     const { tabs, selectTab, deleteTab } = this.props;
     const indexOfTabToDelete = tabs.find(tab => tab.id === id).index;
     
@@ -61,7 +61,7 @@ class TabArea extends React.Component {
       .sort((a, b) => b.index - a.index);
     
     selectTab(nextAndPreviousTabs.length > 0 ? nextAndPreviousTabs[0].id : null);
-    deleteTab(id);
+    deleteTab(id, name);
   }
 
   render() {

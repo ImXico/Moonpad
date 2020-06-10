@@ -97,11 +97,11 @@ export const moveTabDownAndPersist = id => {
   }
 }
 
-export const deleteTabAndPersist = id => {
+export const deleteTabAndPersist = (id, name) => {
   return dispatch => {
     dispatch(deleteTab(id));
     ipcRenderer.send(ipcActions.DELETE_TAB, { id });
-    dispatch(showToastPopup('Tab successfuly deleted.'));
+    dispatch(showToastPopup(`${name} deleted!`));
   }
 }
 

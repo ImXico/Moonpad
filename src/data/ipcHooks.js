@@ -46,3 +46,9 @@ ipcMain.on(ipcActions.SELECT_TAB, (_, payload) => {
   const { tabId } = payload;
   dbActions.saveCurrentlySelectedTab(tabId);
 });
+
+// Color Theme
+
+ipcMain.on(ipcActions.TOGGLE_COLOR_THEME, (_, __) => {
+  dbActions.saveIsDarkTheme();
+});

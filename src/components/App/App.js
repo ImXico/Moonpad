@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { showToastPopup } from '../../actions/toastPopup';
+import PropTypes from 'prop-types';
 import { TOGGLE_ALWAYS_ON_TOP, TOGGLE_ALWAYS_ON_TOP_RESPONSE } from '../../data/ipcActions';
+import ThemeWrapper, { Themes } from '../ThemeWrapper/ThemeWrapper';
 import ToastPopup from '../../components/ToastPopup/ToastPopup';
 import TabAreaContainer from '../../containers/TabAreaContainer';
 import TextAreaContainer from '../../containers/TextAreaContainer';
@@ -28,29 +28,39 @@ class App extends React.Component {
     if (event.metaKey) {
       if (event.key === '.') {
         ipcRenderer.send(TOGGLE_ALWAYS_ON_TOP);
-        ipcRenderer.once(TOGGLE_ALWAYS_ON_TOP_RESPONSE, (_, { message }) => {
-          this.props.dispatch(showToastPopup(message));
-        })
+        ipcRenderer.once(TOGGLE_ALWAYS_ON_TOP_RESPONSE, (_, payload) => {
+          const { message } = payload;
+          this.props.showToast(message);
+        });
       } else if (event.key === 's') {
-        this.props.dispatch(showToastPopup('Your content is auto-saved!'));
+        this.props.showToast('Your content is auto-saved!');
+      } else if (event.key === 't') {
+        // TODO
+        // this.props.toggleColorTheme(!this.props.isDarkTheme)
       }
     }
   }
 
   render() {
     return (
-      <>
+      <ThemeWrapper theme={this.props.isDarkTheme ? Themes.Dark : Themes.Light}>
         <div className="working-area-container">
           <TabAreaContainer />
           <div className="right-pane-area-container">
             <TextAreaContainer />
           </div>
         </div>
-      <div className="title-bar" />
-      <ToastPopup />
-    </>
+        <div className="title-bar" />
+        <ToastPopup />
+      </ThemeWrapper>
     );
   }
 }
 
-export default connect()(App);
+App.propTypes = {
+  isDarkTheme: PropTypes.bool.isRequired,
+  showToast: PropTypes.func.isRequired,
+  toggleColorTheme: PropTypes.func.isRequired
+}
+
+export default App;

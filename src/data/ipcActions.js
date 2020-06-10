@@ -9,6 +9,7 @@ const TOGGLE_OPEN_TAB_AREA = 'Toggle Open Tab Area';
 const TOGGLE_ALWAYS_ON_TOP = 'Toggle Always On Top';
 const TOGGLE_ALWAYS_ON_TOP_RESPONSE = 'Toggle Always On Top Response';
 const UPDATE_WINDOW_DIMENSIONS = 'Update Window Dimensions';
+const TOGGLE_COLOR_THEME = 'Toggle Color Theme';
 
 module.exports = {
   LOAD_PERSISTED_DATA,
@@ -22,4 +23,5 @@ module.exports = {
   TOGGLE_ALWAYS_ON_TOP,
   TOGGLE_ALWAYS_ON_TOP_RESPONSE,
   UPDATE_WINDOW_DIMENSIONS,
+  TOGGLE_COLOR_THEME,
 }

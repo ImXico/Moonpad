@@ -7,7 +7,7 @@
   z-index: 1;
   padding: 10px 15px;
   border-radius: 2px;
-  background-color: #3B4252;
+  background-color: var(--background-secondary-color);
   box-shadow: 5px 5px 30px -3px rgba(0,0,0,0.22);
 
   &:after {
@@ -18,7 +18,7 @@
     width: 0;
     height: 0;
     border: 10px solid transparent;
-    border-right-color: #3B4252;
+    border-right-color: var(--background-secondary-color);
     border-left: 0;
     margin-top: -63px;
     margin-left: -6px;
@@ -27,27 +27,29 @@
 
 .PopupMenuItem {
   text-align: left;
-  color: #D8DEE9;
+  color: var(--text-primary-color);
   font-size: 0.75em;
-  background-color: #3B4252;
+  background-color: var(--background-secondary-color);
   padding: 10px;
   border: none;
   border-radius: 2px;
   margin: 2px 0;
   user-select: none; // prevents selection highlighting
 
+  &:focus {
+    outline: none;
+  }
+
   &--enabled {
+    cursor: pointer;
+
     &:hover {
-      background-color: #434C5E;
+      background-color: var(--background-secondary-muted-color);
     }
   }
 
   &--disabled {
     cursor: default;
-    color: #4C566A;
-
-    &:focus {
-      outline: 0;
-    }
+    color: var(--background-secondary-muted-color);
   }
 }

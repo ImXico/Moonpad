@@ -7,8 +7,8 @@ import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import * as ipcActions from './data/ipcActions';
 import * as serviceWorker from './serviceWorker';
+import AppContainer from './containers/AppContainer';
 import './reset.scss';
-import App from './components/App/App';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -27,7 +27,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppContainer />
   </Provider>,
   document.getElementById('root')
 );

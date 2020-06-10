@@ -8,25 +8,24 @@
   user-select: none; // prevents selection highlighting
 
   &:focus {
-    outline-offset: -2px;
-    outline: 2px solid rgba(67,76,94,1);
+    outline: none;
   }
 
   &--editing-name {
     text-align: center;
-    color: #88C0D0;
+    color: var(--accent-color);
   }
 
   &--selected {
-    color: rgba(229, 233, 240, 1);
-    background-color: rgba(67,76,94,1);
+    color: var(--tab-selected-color);
+    background-color: var(--tab-selected-background-color);
   }
 
   &--unselected {
-    color: rgba(76,86,106,1);
+    color: var(--background-primary-muted-color);
 
     &:hover {
-      color: #D8DEE9;
+      color: var(--text-primary-color);
       transition: color 100ms linear;
     }
   }

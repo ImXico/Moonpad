@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => {
     createTab: (id, index, name) => dispatch(createTabAndPersist(id, index, name)),
     selectTab: id => dispatch(selectTabAndPersist(id)),
     moveTabUp: id => dispatch(moveTabUpAndPersist(id)),
-    deleteTab: id => dispatch(deleteTabAndPersist(id)),
+    deleteTab: (id, name) => dispatch(deleteTabAndPersist(id, name)),
     moveTabDown: id => dispatch(moveTabDownAndPersist(id)),
     updateTabName: (id, newName) => dispatch(updateTabNameAndPersist(id, newName)),
     toggleOpenTabArea: isNowOpen => dispatch(toggleOpenTabAreaAndPersist(isNowOpen)),

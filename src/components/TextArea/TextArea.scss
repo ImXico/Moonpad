@@ -16,17 +16,16 @@ $text-area-height: 100% - $bottom-pane-height;
   font-size: 0.82em;
   line-height: 1.7em;
   letter-spacing: 0.02em;
-  color: #D8DEE9;
+  color: var(--text-primary-color);
 
   &::selection {
-    color: #ECEFF4;
-    background: #88C0D0;
+    background: var(--text-primary-selection-color);
   }
 
   &::placeholder {
     line-height: 1.7em;
     letter-spacing: 0.02em;
-    color: rgba(76,86,106,1);
+    color: var(--background-primary-muted-color);
   }
 
   &::-webkit-scrollbar {
@@ -34,7 +33,7 @@ $text-area-height: 100% - $bottom-pane-height;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #88C0D0;
+    background-color: var(--accent-color);
     border-radius: 20px;
   }
 
@@ -53,7 +52,7 @@ $text-area-height: 100% - $bottom-pane-height;
   height: $bottom-pane-height;
 
   .info {
-    color: rgba(76,86,106,1);
+    color: var(--background-primary-muted-color);
     font-size: 0.75em;
   }
 }
