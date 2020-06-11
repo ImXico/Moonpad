@@ -20,6 +20,7 @@ Inspired by [FromScratch](https://github.com/Kilian/fromscratch) and named after
 ### Keyboard Shortcuts
 
 * `Ctrl/Cmd + e` - Toggle open/close the tabs sidebar
+* `Ctrl/Cmd + n` - Create a new tab
 * `Ctrl/Cmd + .` - Toggle window always-on-top mode
 * `Ctrl/Cmd + s` - ... No need, content is auto-saved
 
