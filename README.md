@@ -15,7 +15,7 @@ Inspired by [FromScratch](https://github.com/Kilian/fromscratch) and named after
 * Window always-on-top toggle
 * Clutter-free mode: show/hide tabs sidebar
 * Character/Word counters on text selection
-* A super clean UI, featuring the great colors from [Nord](https://www.nordtheme.com/)
+* A super clean UI, featuring the great colors from the [Nord](https://www.nordtheme.com/) palette
 
 ### Keyboard Shortcuts
 
