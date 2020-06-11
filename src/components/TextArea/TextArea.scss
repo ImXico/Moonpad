@@ -51,6 +51,8 @@ $bottom-pane-height: 38px;
   height: $bottom-pane-height;
 
   .info {
+    position: absolute;
+    left: 50%;
     color: var(--background-primary-muted-color);
     font-size: 0.75em;
   }
