@@ -3,9 +3,10 @@ import { showToastPopup } from '../actions/toastPopup';
 import { toggleColorThemeAndPersist } from '../actions/colorTheme';
 import App from '../components/App/App';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     isDarkTheme: state.isDarkTheme,
+    hasCustomTitleBar: ownProps.hasCustomTitleBar
   }
 }
 

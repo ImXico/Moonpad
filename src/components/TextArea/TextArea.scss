@@ -1,9 +1,8 @@
-$bottom-pane-height: 8%;
-$text-area-height: 100% - $bottom-pane-height;
+$bottom-pane-height: 38px;
 
 .TextEditor {
   width: 100%;
-  height: $text-area-height;
+  height: 100%;
   padding: 55px;
   padding-bottom: 0;
   overflow-y: auto;

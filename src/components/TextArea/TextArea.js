@@ -79,9 +79,7 @@ class TextArea extends React.Component {
   }
 
   onTextChange(event) {
-    this.setState({
-      textContent: event.target.value
-    });
+    this.setState({ textContent: event.target.value }, this.saveUpdatedContent);
   }
 
   saveUpdatedContent() {
@@ -104,14 +102,13 @@ class TextArea extends React.Component {
           ref={this.textAreaRef}
           onChange={this.onTextChange}
           onKeyDown={this.handleTabKeydown}
-          onBlur={this.saveUpdatedContent}
           onSelect={this.handleOnTextSelected}
         />
         <div className="bottom-bar">
           {numCurrentlySelectedChars !== undefined &&
-            <p className="info">
+            <div className="info">
               {numCurrentlySelectedChars}C / {numCurrentlySelectedWords}W
-            </p>
+            </div>
           }
         </div>
       </>
@@ -120,7 +117,6 @@ class TextArea extends React.Component {
 }
 
 TextArea.propTypes = {
-  isThereOnlyOneTab: PropTypes.bool.isRequired,
   currentlyActiveTab: PropTypes.string.isRequired,
   currentTabContent: PropTypes.string.isRequired,
   updateTabContent: PropTypes.func.isRequired  

@@ -1,21 +1,25 @@
 const { app, ipcMain, BrowserWindow } = require('electron');
 const { MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT } = require('./data/defaultSettings');
-const { TOGGLE_ALWAYS_ON_TOP, TOGGLE_ALWAYS_ON_TOP_RESPONSE } = require('./data/ipcActions');
 const {
+  TOGGLE_ALWAYS_ON_TOP,
+  TOGGLE_ALWAYS_ON_TOP_RESPONSE,
+  MINIMIZE_WINDOW,
+  TOGGLE_MAXIMIZE_WINDOW,
+  CLOSE_WINDOW
+} = require('./data/ipcActions');
+const {
+  setupDatabaseSource,
   initDatabaseWithDefaults,
-  saveIsAlwaysOnTop,
   saveWindowDimensions,
-  loadWindowSettings
+  loadWindowSettings,
+  saveIsAlwaysOnTop
 } = require('./data/dbHandler');
 const isDev = require('electron-is-dev');
 const path = require('path');
 
-// Initialize local database
-initDatabaseWithDefaults();
-
 let window = null;
 
-function createWindow() {
+function createWindow() {  
   const windowSettings = loadWindowSettings();
   window = new BrowserWindow({
     width: windowSettings.width,
@@ -26,18 +30,12 @@ function createWindow() {
     alwaysOnTop: windowSettings.isAlwaysOnTop,
     titleBarStyle: 'hiddenInset',
     frame: false,
-    backgroundColor: '#FFFFFF',
-    // backgroundColor: isDev ? 'cyan': '#2E3440',
+    backgroundColor: '#2E3440'
   });
 
   window.loadURL(isDev
     ? 'http://localhost:3000'
     : `file://${path.join(__dirname, '../build/index.html')}`);
-
-  app.setAboutPanelOptions({
-    applicationName: 'typr',
-    applicationVersion: '0.0.1',
-  });
 
   window.on('closed', () => window = null);
   window.on('resize', () => {
@@ -48,6 +46,8 @@ function createWindow() {
 }
 
 app.on('ready', () => {
+  setupDatabaseSource();
+  initDatabaseWithDefaults();
   createWindow();
 });
 
@@ -65,6 +65,7 @@ app.on('activate', () => {
 require('./data/ipcHooks');
 
 // Extra IPC hooks that manipulate the window itself
+
 // Could not figure out how to access this 'window' reference
 // in Node (where all the other ipcMain hooks are defined),
 // so it'll just stay here...
@@ -76,3 +77,21 @@ ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event, __) => {
     message: isNowAlwaysOnTop ? 'Always on top on.' : 'Always on top off.'
   });
 });
+
+// Window Controls (Non-MacOS only)
+
+ipcMain.on(MINIMIZE_WINDOW, (_, __) => {
+  window.minimize();
+});
+
+ipcMain.on(TOGGLE_MAXIMIZE_WINDOW, (_, __) => {
+  if (window.isMaximized()) {
+    window.unmaximize();
+  } else {
+    window.maximize();
+  }
+});
+
+ipcMain.on(CLOSE_WINDOW, (_, __) => {
+  window.close();
+})

@@ -1,10 +1,20 @@
 const { app } = require('electron');
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
 const defaultSettings = require('./defaultSettings');
-const DATABASE_FILE_NAME = app.getPath('userData') + '/data.json';
-const adapter = new FileSync(DATABASE_FILE_NAME);
-const db = low(adapter);
+
+let db = null;
+
+/**
+ * Point the lowdb adapter to the userData file.
+ * This must be called in a point where the userData file has already
+ * been created for the app.
+ */
+const setupDatabaseSource = () => {
+  const low = require('lowdb');
+  const FileSync = require('lowdb/adapters/FileSync');
+  const DATABASE_FILE_NAME = app.getPath('userData') + '/data.json';
+  const adapter = new FileSync(DATABASE_FILE_NAME);
+  db = low(adapter);
+}
 
 /**
  * Defines the schema and initialize the local JSON database with the default values.
@@ -33,11 +43,14 @@ const initDatabaseWithDefaults = () => {
 }
 
 /**
- * Load eveything that is in the local database.
- * This includes all tabs info and all 'settings'/'preferences'.
+ * Load eveything from the local database that can be mapped to Redux state.
+ * 'windowSettings' will be excluded, as they are not actually part of Redux state.
  */
 const loadPersistedState = () => {
-  return db.getState();
+  const state = db.getState();
+  const stateClone = Object.assign({}, state);
+  delete stateClone.windowSettings;
+  return stateClone;
 }
 
 /**
@@ -155,7 +168,7 @@ const saveIsAlwaysOnTop = () => {
 }
 
 /**
- * 
+ * Save whether or not the currently active color theme is the dark theme.
  */
 const saveIsDarkTheme = () => {
   const wasDarkTheme = db.get('isDarkTheme').value();
@@ -165,9 +178,9 @@ const saveIsDarkTheme = () => {
 
 
 /**
- * 
- * @param {*} width 
- * @param {*} height 
+ * Save the most up-to-date window dimensions so that they can be restored in the next session.
+ * @param {*} width - up-to-date window width.
+ * @param {*} height - up-to-date window height.
  */
 const saveWindowDimensions = (width, height) => {
   db.get('windowSettings')
@@ -176,7 +189,7 @@ const saveWindowDimensions = (width, height) => {
 }
 
 /**
- * 
+ * Load all window settings (to initialize the browser window).
  */
 const loadWindowSettings = () => {
   return db
@@ -185,6 +198,7 @@ const loadWindowSettings = () => {
 }
 
 module.exports = {
+  setupDatabaseSource,
   initDatabaseWithDefaults,
   loadPersistedState,
   createTab,

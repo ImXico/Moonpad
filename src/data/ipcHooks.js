@@ -2,12 +2,19 @@ const { ipcMain } = require('electron');
 const ipcActions = require('./ipcActions');
 const dbActions = require('./dbHandler');
 
-// Tabs
+// On-Load
 
 ipcMain.once(ipcActions.LOAD_PERSISTED_DATA, (event, _) => {
   const persistedState = dbActions.loadPersistedState();
   event.returnValue = persistedState;
 });
+
+ipcMain.once(ipcActions.CHECK_IF_MACOS, (event, _) => {
+  const isMacOS = process.platform === 'darwin';
+  event.returnValue = isMacOS;
+});
+
+// Tabs
 
 ipcMain.on(ipcActions.CREATE_TAB, (_, payload) => {
   const { id, index, name } = payload;

@@ -4,7 +4,6 @@ $toast-animation-duration: 0.25s;
 .ToastPopup {
   display: flex;
   align-items: center;
-  z-index: 99999;
   position: absolute;
   top: 0;
   right: 0;
@@ -24,8 +23,10 @@ $toast-animation-duration: 0.25s;
 
 .ToastPopup.shown {
   opacity: 1;
+  z-index: 99999;
 }
 
 .ToastPopup.hidden {
   opacity: 0;
+  z-index: -1;
 }

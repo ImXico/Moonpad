@@ -1,15 +1,3 @@
-$title-bar-height: 8%;
-
-.title-bar {
-  z-index: 9999;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 99.5%; // Leave just a tiny bit for the scrollbar of the TextArea to be fully visibile.
-  height: $title-bar-height;
-  -webkit-app-region: drag;
-}
-
 .working-area-container {
   display: flex;
   overflow: hidden;

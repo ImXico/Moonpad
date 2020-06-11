@@ -1,35 +1,34 @@
 {
-  "name": "scribbler",
+  "name": "Moonpad",
   "version": "0.1.0",
   "private": true,
   "main": "./src/electron.js",
   "homepage": "./",
   "dependencies": {
     "electron-is-dev": "^1.1.0",
-    "lowdb": "^1.0.0",
-    "node-sass": "^4.13.1",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "react-redux": "^7.2.0",
-    "react-scripts": "3.2.0",
-    "redux": "^4.0.5",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "lowdb": "^1.0.0"
   },
   "devDependencies": {
+    "react-scripts": "3.2.0",
     "concurrently": "^5.0.0",
     "electron": "^6.0.12",
     "electron-packager": "^14.0.6",
     "prop-types": "^15.7.2",
-    "wait-on": "^3.3.0"
+    "wait-on": "^3.3.0",
+    "node-sass": "^4.13.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "prepack-osx": "yarn build",
-    "pack-osx": "electron-packager . --plataform=darwin --out=./dist --overwrite=true --package-manager=yarn"
+    "pack-osx": "yarn build && electron-packager . --plataform=darwin --out=./release-builds/mac --overwrite=true --prune=true --package-manager=yarn"
   },
   "eslintConfig": {
     "extends": "react-app"
