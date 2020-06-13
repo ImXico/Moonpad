@@ -45,7 +45,7 @@ $ yarn install
 $ yarn run electron-dev
 ```
 
-To make a relase-ready build, run:
+To make a release-ready build:
 
 ```bash
 # $targetPlatform is either osx, win or lin
