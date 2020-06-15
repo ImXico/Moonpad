@@ -75,7 +75,7 @@ class Tab extends React.Component {
       },
       {
         text: MENU_OPTION_DELETE,
-        isEnabled: true,
+        isEnabled: this.props.index > 1,
         onEntrySelected: () => {
           this.props.onDelete(this.props.id, this.props.name);
           this.closeAndResetPopupMenu();
