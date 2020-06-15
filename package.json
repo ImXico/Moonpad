@@ -28,7 +28,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "pack-osx": "yarn build && electron-packager . --plataform=darwin --out=./release-builds/macOS --icon=./assets/moonpad.icns --overwrite=true --prune=true --package-manager=yarn"
+    "pack-osx": "yarn build && electron-packager . --plataform=darwin --out=./release-builds/macOS --icon=./assets/moonpad.icns --overwrite=true --prune=true --package-manager=yarn",
+    "pack-win": "yarn build && electron-packager . --platform=win32   --out=./release-builds/win   --icon=./assets/moonpad.ico  --overwrite=true --prune=true --package-manager=yarn",
+    "pack-lin": "yarn build && electron-packager . --platform=linux   --out=./release-builds/lin   --icon=./assets/moonpad.png  --overwrite=true --prune=true --package-manager=yarn"
   },
   "eslintConfig": {
     "extends": "react-app"
