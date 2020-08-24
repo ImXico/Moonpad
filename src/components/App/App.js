@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 
   handleKeydownEvents(event) {
-    if (event.metaKey) {
+    if (event.metaKey || event.ctrlKey) {
       if (event.key === '.') {
         ipcRenderer.send(TOGGLE_ALWAYS_ON_TOP);
         ipcRenderer.once(TOGGLE_ALWAYS_ON_TOP_RESPONSE, (_, payload) => {

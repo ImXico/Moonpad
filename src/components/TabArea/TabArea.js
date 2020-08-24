@@ -24,7 +24,7 @@ class TabArea extends React.Component {
   }
 
   handleKeydownEvents(event) {
-    if (event.metaKey) {
+    if (event.metaKey || event.ctrlKey) {
       if (event.key === 'e') {
         this.props.toggleOpenTabArea(!this.props.isOpen);
       } else if (event.key === 'n') {
