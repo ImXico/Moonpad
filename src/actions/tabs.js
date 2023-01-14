@@ -79,10 +79,3 @@ export const deleteTabAndPersist = (id, name) => (dispatch) => {
   ipcRenderer.send(ipcActions.DELETE_TAB, { id });
   dispatch(showToastPopup(`${name} deleted!`));
 };
-
-export const fetchTabsAndPersist = () => (dispatch) => {
-  ipcRenderer.send(ipcActions.LOAD_ALL_TABS);
-  ipcRenderer.once(ipcActions.LOAD_ALL_TABS_SUCCESS, (_, tabs) => {
-    dispatch(receiveTabs(tabs));
-  });
-};
