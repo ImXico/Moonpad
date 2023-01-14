@@ -1,18 +1,18 @@
-import * as ipcActions from '../data/ipcActions';
-const { ipcRenderer } = window.require('electron');
+import * as ipcActions from "../data/ipcActions";
+const { ipcRenderer } = window.require("electron");
 
-export const SELECT_TAB = 'SELECT_TAB';
+export const SELECT_TAB = "SELECT_TAB";
 
-const selectTab = tabId => {
+const selectTab = (tabId) => {
   return {
     type: SELECT_TAB,
-    tabId
-  }
-}
+    tabId,
+  };
+};
 
-export const selectTabAndPersist = tabId => {
-  return dispatch => {
+export const selectTabAndPersist = (tabId) => {
+  return (dispatch) => {
     dispatch(selectTab(tabId));
     ipcRenderer.send(ipcActions.SELECT_TAB, { tabId });
-  }
-}
+  };
+};
