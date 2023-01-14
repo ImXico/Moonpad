@@ -1,25 +1,32 @@
-const { app, ipcMain, BrowserWindow } = require('electron');
-const { MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT } = require('./data/defaultSettings');
+const { app, ipcMain, BrowserWindow } = require("electron");
+
+const {
+  MIN_WINDOW_WIDTH,
+  MIN_WINDOW_HEIGHT,
+} = require("./data/defaultSettings");
+
 const {
   TOGGLE_ALWAYS_ON_TOP,
   TOGGLE_ALWAYS_ON_TOP_RESPONSE,
   MINIMIZE_WINDOW,
   TOGGLE_MAXIMIZE_WINDOW,
-  CLOSE_WINDOW
-} = require('./data/ipcActions');
+  CLOSE_WINDOW,
+} = require("./data/ipcActions");
+
 const {
   setupDatabaseSource,
   initDatabaseWithDefaults,
   saveWindowDimensions,
   loadWindowSettings,
-  saveIsAlwaysOnTop
-} = require('./data/dbHandler');
-const isDev = require('electron-is-dev');
-const path = require('path');
+  saveIsAlwaysOnTop,
+} = require("./data/dbHandler");
+
+const isDev = require("electron-is-dev");
+const path = require("path");
 
 let window = null;
 
-function createWindow() {  
+function createWindow() {
   const windowSettings = loadWindowSettings();
   window = new BrowserWindow({
     width: windowSettings.width,
@@ -28,41 +35,43 @@ function createWindow() {
     minHeight: MIN_WINDOW_HEIGHT,
     webPreferences: { nodeIntegration: true },
     alwaysOnTop: windowSettings.isAlwaysOnTop,
-    titleBarStyle: 'hiddenInset',
+    titleBarStyle: "hiddenInset",
     frame: false,
-    backgroundColor: '#2E3440'
+    backgroundColor: "#2E3440",
   });
 
-  window.loadURL(isDev
-    ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, '../build/index.html')}`);
+  window.loadURL(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "../build/index.html")}`
+  );
 
-  window.on('closed', () => window = null);
-  window.on('resize', () => {
+  window.on("closed", () => (window = null));
+  window.on("resize", () => {
     const newDimensions = window.getSize();
     const [newWidth, newHeight] = newDimensions;
     saveWindowDimensions(newWidth, newHeight);
   });
 }
 
-app.on('ready', () => {
+app.on("ready", () => {
   setupDatabaseSource();
   initDatabaseWithDefaults();
   createWindow();
 });
 
-app.on('window-all-closed', () => {
+app.on("window-all-closed", () => {
   app.quit();
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (window === null) {
     createWindow();
   }
 });
 
 // Setup IPC hooks
-require('./data/ipcHooks');
+require("./data/ipcHooks");
 
 // Extra IPC hooks that manipulate the window itself
 
@@ -74,7 +83,7 @@ ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event, __) => {
   window.setAlwaysOnTop(isNowAlwaysOnTop);
   saveIsAlwaysOnTop();
   event.sender.send(TOGGLE_ALWAYS_ON_TOP_RESPONSE, {
-    message: isNowAlwaysOnTop ? 'Always on top on.' : 'Always on top off.'
+    message: isNowAlwaysOnTop ? "Always on top on." : "Always on top off.",
   });
 });
 
@@ -94,4 +103,4 @@ ipcMain.on(TOGGLE_MAXIMIZE_WINDOW, (_, __) => {
 
 ipcMain.on(CLOSE_WINDOW, (_, __) => {
   window.close();
-})
+});
