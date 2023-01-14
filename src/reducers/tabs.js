@@ -25,7 +25,7 @@ const tabs = (state = [], action) => {
         tab.id === action.id ? { ...tab, content: action.newContent } : tab
       );
 
-    case SWAP_TABS:
+    case SWAP_TABS: {
       const indexOfTab1 = state.find((tab) => tab.id === action.id).index;
       const indexOfTab2 = action.isMovingUp ? indexOfTab1 - 1 : indexOfTab1 + 1;
       const idOfTab2 = state.find((tab) => tab.index === indexOfTab2).id;
@@ -34,14 +34,16 @@ const tabs = (state = [], action) => {
         if (tab.id === idOfTab2) return { ...tab, index: indexOfTab1 };
         return tab;
       });
+    }
 
-    case DELETE_TAB:
+    case DELETE_TAB: {
       const indexOfDeletedTab = state.find((tab) => tab.id === action.id).index;
       return state
         .filter((tab) => tab.id !== action.id)
         .map((tab) =>
           tab.index > indexOfDeletedTab ? { ...tab, index: tab.index - 1 } : tab
         );
+    }
 
     default:
       return state;
