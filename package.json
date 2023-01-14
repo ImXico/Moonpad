@@ -20,6 +20,7 @@
     "electron": "^7.2.4",
     "electron-packager": "^14.0.6",
     "node-sass": "^4.13.1",
+    "prettier": "2.8.3",
     "prop-types": "^15.7.2",
     "wait-on": "^3.3.0"
   },
