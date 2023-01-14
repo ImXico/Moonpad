@@ -21,5 +21,7 @@ const PlaceholderTextVariations = [
  * @returns string entry.
  */
 export const getRandomPlaceholderTextVariation = () => {
-  return PlaceholderTextVariations[Math.floor(Math.random() * PlaceholderTextVariations.length)];
-}
+  return PlaceholderTextVariations[
+    Math.floor(Math.random() * PlaceholderTextVariations.length)
+  ];
+};

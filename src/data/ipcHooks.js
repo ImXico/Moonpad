@@ -1,6 +1,6 @@
-const { ipcMain } = require('electron');
-const ipcActions = require('./ipcActions');
-const dbActions = require('./dbHandler');
+const { ipcMain } = require("electron");
+const ipcActions = require("./ipcActions");
+const dbActions = require("./dbHandler");
 
 // On-Load
 
@@ -10,7 +10,7 @@ ipcMain.once(ipcActions.LOAD_PERSISTED_DATA, (event, _) => {
 });
 
 ipcMain.once(ipcActions.CHECK_IF_MACOS, (event, _) => {
-  const isMacOS = process.platform === 'darwin';
+  const isMacOS = process.platform === "darwin";
   event.returnValue = isMacOS;
 });
 
@@ -39,13 +39,13 @@ ipcMain.on(ipcActions.SWAP_TABS, (_, payload) => {
 ipcMain.on(ipcActions.DELETE_TAB, (_, payload) => {
   const { id } = payload;
   dbActions.deleteTab(id);
-})
+});
 
 // Tab Area Open
 
 ipcMain.on(ipcActions.TOGGLE_OPEN_TAB_AREA, (_, __) => {
   dbActions.saveIsTabAreaOpen();
-})
+});
 
 // Select Tab
 
