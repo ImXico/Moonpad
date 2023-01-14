@@ -78,7 +78,7 @@ require("./data/ipcHooks");
 // Could not figure out how to access this 'window' reference
 // in Node (where all the other ipcMain hooks are defined),
 // so it'll just stay here...
-ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event, __) => {
+ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event, _) => {
   const isNowAlwaysOnTop = !window.isAlwaysOnTop();
   window.setAlwaysOnTop(isNowAlwaysOnTop);
   saveIsAlwaysOnTop();
@@ -89,11 +89,11 @@ ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event, __) => {
 
 // Window Controls (Non-MacOS only)
 
-ipcMain.on(MINIMIZE_WINDOW, (_, __) => {
+ipcMain.on(MINIMIZE_WINDOW, () => {
   window.minimize();
 });
 
-ipcMain.on(TOGGLE_MAXIMIZE_WINDOW, (_, __) => {
+ipcMain.on(TOGGLE_MAXIMIZE_WINDOW, () => {
   if (window.isMaximized()) {
     window.unmaximize();
   } else {
@@ -101,6 +101,6 @@ ipcMain.on(TOGGLE_MAXIMIZE_WINDOW, (_, __) => {
   }
 });
 
-ipcMain.on(CLOSE_WINDOW, (_, __) => {
+ipcMain.on(CLOSE_WINDOW, () => {
   window.close();
 });
