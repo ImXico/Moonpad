@@ -1,5 +1,9 @@
 const { app } = require("electron");
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
 const defaultSettings = require("./defaultSettings");
+
+const DATABASE_FILE_NAME = `${app.getPath("userData")}/data.json`;
 
 let db = null;
 
@@ -9,9 +13,6 @@ let db = null;
  * been created for the app.
  */
 const setupDatabaseSource = () => {
-  const low = require("lowdb");
-  const FileSync = require("lowdb/adapters/FileSync");
-  const DATABASE_FILE_NAME = app.getPath("userData") + "/data.json";
   const adapter = new FileSync(DATABASE_FILE_NAME);
   db = low(adapter);
 };
@@ -47,7 +48,7 @@ const initDatabaseWithDefaults = () => {
  */
 const loadPersistedState = () => {
   const state = db.getState();
-  const stateClone = Object.assign({}, state);
+  const stateClone = { ...state };
   delete stateClone.windowSettings;
   return stateClone;
 };
@@ -115,6 +116,7 @@ const deleteTab = (id) => {
   db.get("tabs")
     .filter((tab) => tab.index > indexOfTabToDelete)
     .each((tab) => {
+      // eslint-disable-next-line operator-assignment, no-param-reassign
       tab.index = tab.index - 1;
     })
     .write();
@@ -167,9 +169,7 @@ const saveWindowDimensions = (width, height) => {
 /**
  * Load all window settings (to initialize the browser window).
  */
-const loadWindowSettings = () => {
-  return db.get("windowSettings").value();
-};
+const loadWindowSettings = () => db.get("windowSettings").value();
 
 module.exports = {
   setupDatabaseSource,

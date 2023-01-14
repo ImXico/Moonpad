@@ -4,13 +4,15 @@ const dbActions = require("./dbHandler");
 
 // On-Load
 
-ipcMain.once(ipcActions.LOAD_PERSISTED_DATA, (event, _) => {
+ipcMain.once(ipcActions.LOAD_PERSISTED_DATA, (event) => {
   const persistedState = dbActions.loadPersistedState();
+  // eslint-disable-next-line no-param-reassign
   event.returnValue = persistedState;
 });
 
-ipcMain.once(ipcActions.CHECK_IF_MACOS, (event, _) => {
+ipcMain.once(ipcActions.CHECK_IF_MACOS, (event) => {
   const isMacOS = process.platform === "darwin";
+  // eslint-disable-next-line no-param-reassign
   event.returnValue = isMacOS;
 });
 
@@ -43,7 +45,7 @@ ipcMain.on(ipcActions.DELETE_TAB, (_, payload) => {
 
 // Tab Area Open
 
-ipcMain.on(ipcActions.TOGGLE_OPEN_TAB_AREA, (_, __) => {
+ipcMain.on(ipcActions.TOGGLE_OPEN_TAB_AREA, () => {
   dbActions.saveIsTabAreaOpen();
 });
 
@@ -56,6 +58,6 @@ ipcMain.on(ipcActions.SELECT_TAB, (_, payload) => {
 
 // Color Theme
 
-ipcMain.on(ipcActions.TOGGLE_COLOR_THEME, (_, __) => {
+ipcMain.on(ipcActions.TOGGLE_COLOR_THEME, () => {
   dbActions.saveIsDarkTheme();
 });
