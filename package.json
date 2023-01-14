@@ -8,6 +8,7 @@
     "electron": "^7.2.4",
     "electron-is-dev": "^1.1.0",
     "lowdb": "^1.0.0",
+    "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -28,7 +29,6 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "node-sass": "^4.13.1",
     "prettier": "2.8.3",
-    "prop-types": "^15.7.2",
     "wait-on": "^3.3.0"
   },
   "scripts": {
