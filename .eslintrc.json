@@ -12,5 +12,7 @@
   },
   "ignorePatterns": ["serviceWorker.js"],
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "default-param-last": "off"
+  }
 }
