@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import thunk from "redux-thunk";
-import rootReducer from "./reducers";
 import { Provider } from "react-redux";
 import { createLogger } from "redux-logger";
 import { createStore, applyMiddleware } from "redux";
+import rootReducer from "./reducers";
 import * as ipcActions from "./data/ipcActions";
 import * as serviceWorker from "./serviceWorker";
 import AppContainer from "./containers/AppContainer";
@@ -35,6 +35,7 @@ const store = createStore(
 );
 
 ReactDOM.render(
+  // eslint-disable-next-line react/jsx-filename-extension
   <Provider store={store}>
     <AppContainer hasCustomTitleBar={!isMacOS} />
   </Provider>,

@@ -14,11 +14,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateTabContent: (id, newContent) =>
-      dispatch(updateTabContentAndPersist(id, newContent)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  updateTabContent: (id, newContent) =>
+    dispatch(updateTabContentAndPersist(id, newContent)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TextArea);

@@ -1,5 +1,7 @@
 const { app, ipcMain, BrowserWindow } = require("electron");
 
+const isDev = require("electron-is-dev");
+const path = require("path");
 const {
   MIN_WINDOW_WIDTH,
   MIN_WINDOW_HEIGHT,
@@ -20,9 +22,6 @@ const {
   loadWindowSettings,
   saveIsAlwaysOnTop,
 } = require("./data/dbHandler");
-
-const isDev = require("electron-is-dev");
-const path = require("path");
 
 let window = null;
 
@@ -46,7 +45,10 @@ function createWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
-  window.on("closed", () => (window = null));
+  window.on("closed", () => {
+    window = null;
+  });
+
   window.on("resize", () => {
     const newDimensions = window.getSize();
     const [newWidth, newHeight] = newDimensions;
@@ -78,7 +80,7 @@ require("./data/ipcHooks");
 // Could not figure out how to access this 'window' reference
 // in Node (where all the other ipcMain hooks are defined),
 // so it'll just stay here...
-ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event, _) => {
+ipcMain.on(TOGGLE_ALWAYS_ON_TOP, (event) => {
   const isNowAlwaysOnTop = !window.isAlwaysOnTop();
   window.setAlwaysOnTop(isNowAlwaysOnTop);
   saveIsAlwaysOnTop();
