@@ -44,11 +44,6 @@ const deleteTab = (id) => ({
   id,
 });
 
-const receiveTabs = (tabs) => ({
-  type: RECEIVE_UPDATED_TABS,
-  tabs,
-});
-
 export const createTabAndPersist = (id, index, name) => (dispatch) => {
   dispatch(createTab(id, index, name));
   ipcRenderer.send(ipcActions.CREATE_TAB, { id, index, name });
