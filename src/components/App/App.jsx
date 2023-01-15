@@ -73,7 +73,6 @@ App.propTypes = {
   isDarkTheme: PropTypes.bool.isRequired,
   hasCustomTitleBar: PropTypes.bool.isRequired,
   showToast: PropTypes.func.isRequired,
-  toggleColorTheme: PropTypes.func.isRequired,
 };
 
 export default App;
