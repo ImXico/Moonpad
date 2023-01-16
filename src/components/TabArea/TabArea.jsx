@@ -81,6 +81,7 @@ function TabArea({
               id={tab.id}
               index={tab.index}
               isSelected={tab.id === currentlySelectedTab}
+              name={tab.name}
               canTabBeMovedUp={canTabBeMovedUp}
               canTabBeMovedDown={canTabBeMovedDown}
               onUpdateTabName={updateTabName}
