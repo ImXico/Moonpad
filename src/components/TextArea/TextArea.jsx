@@ -55,7 +55,10 @@ function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
       refValue.selectionEnd
     );
 
-    setNumSelectedChars(numSelectedChars !== 0 ? numSelectedChars : undefined);
+    setNumSelectedChars(
+      selectedText.length !== 0 ? selectedText.length : undefined
+    );
+
     setNumSelectedWords(
       selectedText.trim() === "" ? 0 : selectedText.split(" ").length
     );
