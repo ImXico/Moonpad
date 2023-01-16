@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { hideToastPopup } from "../../actions/toastPopup";
@@ -8,23 +8,25 @@ import "./ToastPopup.scss";
 const TOAST_SPOTLIGHT_DURATION_MS = 1750;
 
 function ToastPopup({ toastShowing, toastMessage, hideToast }) {
-  const [timeoutReference, setTimeoutReference] = useState(undefined);
+  const timerRef = useRef(undefined);
   const previousProps = usePrevious({ toastShowing, toastMessage });
 
   useEffect(() => {
-    if (!toastShowing) {
-      return;
+    if (toastShowing) {
+      if (!previousProps.toastShowing) {
+        // Toast just got triggered (and it wasn't there before)
+        timerRef.current = setTimeout(hideToast, TOAST_SPOTLIGHT_DURATION_MS);
+      } else if (previousProps.toastMessage !== toastMessage) {
+        // Toast was already there, but the message changed;
+        // in that case, clear the old timeout and restart it
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(hideToast, TOAST_SPOTLIGHT_DURATION_MS);
+      }
     }
 
-    if (!previousProps.toastShowing) {
-      // Toast just got triggered (and it wasn't there before)
-      setTimeoutReference(setTimeout(hideToast, TOAST_SPOTLIGHT_DURATION_MS));
-    } else if (previousProps.toastMessage !== toastMessage) {
-      // Toast was already there, but the message changed; in that case,
-      // clear the old timeout and restart it
-      clearTimeout(timeoutReference);
-      setTimeoutReference(setTimeout(hideToast, TOAST_SPOTLIGHT_DURATION_MS));
-    }
+    return () => {
+      clearTimeout(timerRef.current);
+    };
   }, [toastShowing, toastMessage]);
 
   return (
