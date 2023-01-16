@@ -9,7 +9,7 @@ const SPACES_PER_TAB = 2;
 function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
   const [textContent, setTextContent] = useState(currentTabContent);
   const [placeholder, setPlaceholder] = useState(getRandomPlaceholderText());
-  const [numSelectedChars, setNumSelectedChars] = useState(0);
+  const [numSelectedChars, setNumSelectedChars] = useState(undefined);
   const [numSelectedWords, setNumSelectedWords] = useState(0);
 
   const textAreaNodeRef = useRef(null);
@@ -55,7 +55,7 @@ function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
       refValue.selectionEnd
     );
 
-    setNumSelectedChars(selectedText.length);
+    setNumSelectedChars(numSelectedChars !== 0 ? numSelectedChars : undefined);
     setNumSelectedWords(
       selectedText.trim() === "" ? 0 : selectedText.split(" ").length
     );
