@@ -54,7 +54,7 @@ function TabArea({
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [isOpen]);
 
   const handleDeleteTab = (id, name) => {
     const indexOfTabToDelete = tabs.find((tab) => tab.id === id).index;
