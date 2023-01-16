@@ -3,16 +3,21 @@ import PropTypes from "prop-types";
 import PopupMenuItem, { PopupMenuItemShape } from "./PopupMenuItem";
 import "./PopupMenu.scss";
 
-const PopupMenu = ({ position, entries }) => {
+function PopupMenu({ position, entries }) {
   const { top, left } = position;
+
   return (
     <div className="PopupMenu" style={{ left: `${left}px`, top: `${top}px` }}>
       {entries.map((entry) => (
-        <PopupMenuItem {...entry} />
+        <PopupMenuItem
+          text={entry.text}
+          isEnabled={entry.isEnabled}
+          onEntrySelected={entry.onEntrySelected}
+        />
       ))}
     </div>
   );
-};
+}
 
 PopupMenu.propTypes = {
   position: PropTypes.objectOf(PropTypes.number).isRequired,
