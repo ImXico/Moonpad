@@ -20,7 +20,7 @@ const PlaceholderTextVariations = [
  * Gets a pseudo-random entry from the PlaceholderTextVariations array.
  * @returns string entry.
  */
-export const getRandomPlaceholderTextVariation = () =>
+export const getRandomPlaceholderText = () =>
   PlaceholderTextVariations[
     Math.floor(Math.random() * PlaceholderTextVariations.length)
   ];
