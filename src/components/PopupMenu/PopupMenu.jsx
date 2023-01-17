@@ -10,6 +10,7 @@ function PopupMenu({ position, entries }) {
     <div className="PopupMenu" style={{ left: `${left}px`, top: `${top}px` }}>
       {entries.map((entry) => (
         <PopupMenuItem
+          key={entry.id}
           text={entry.text}
           isEnabled={entry.isEnabled}
           onEntrySelected={entry.onEntrySelected}
