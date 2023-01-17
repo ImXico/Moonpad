@@ -74,7 +74,7 @@ function TabArea({
   };
 
   return (
-    <div className={`TabsPane ${isOpen && "open"}`}>
+    <div className={`TabsPane ${isOpen ? "open" : ""}`}>
       <div className="TabsContainer" ref={tabsContainerRef}>
         {tabs
           .sort((a, b) => a.index - b.index)
