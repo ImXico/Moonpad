@@ -14,4 +14,4 @@ module.exports = {
   WINDOW_HEIGHT,
   MIN_WINDOW_WIDTH,
   MIN_WINDOW_HEIGHT,
-}
+};

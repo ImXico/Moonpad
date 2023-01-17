@@ -1,23 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import thunk from 'redux-thunk';
-import rootReducer from './reducers';
-import { Provider } from 'react-redux';
-import { createLogger } from 'redux-logger';
-import { createStore, applyMiddleware } from 'redux';
-import * as ipcActions from './data/ipcActions';
-import * as serviceWorker from './serviceWorker';
-import AppContainer from './containers/AppContainer';
-import './reset.scss';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import { createLogger } from "redux-logger";
+import { createStore, applyMiddleware } from "redux";
+import rootReducer from "./reducers";
+import * as ipcActions from "./data/ipcActions";
+import * as serviceWorker from "./serviceWorker";
+import AppContainer from "./containers/AppContainer";
 
-const { ipcRenderer } = window.require('electron');
+import "./reset.scss";
+
+const { ipcRenderer } = window.require("electron");
 
 /**
  * Set the initial state based on what we have on our local database.
  * This request needs to be done synchronously, and the ipcMain will
  * only listen to it once (and unregister after that).
  */
-const persistedInitialState = ipcRenderer.sendSync(ipcActions.LOAD_PERSISTED_DATA);
+const persistedInitialState = ipcRenderer.sendSync(
+  ipcActions.LOAD_PERSISTED_DATA
+);
 
 /**
  * Check if the app is running in macOS.
@@ -32,11 +35,11 @@ const store = createStore(
   applyMiddleware(thunk, createLogger())
 );
 
-ReactDOM.render(
+createRoot(document.getElementById("root")).render(
+  // eslint-disable-next-line react/jsx-filename-extension
   <Provider store={store}>
-    <AppContainer hasCustomTitleBar={!isMacOS}/>
-  </Provider>,
-  document.getElementById('root')
+    <AppContainer hasCustomTitleBar={!isMacOS} />
+  </Provider>
 );
 
 serviceWorker.unregister();

@@ -5,23 +5,31 @@
   "main": "./src/electron.js",
   "homepage": "./",
   "dependencies": {
-    "electron-is-dev": "^1.1.0",
-    "lowdb": "^1.0.0"
-  },
-  "devDependencies": {
-    "react-scripts": "3.2.0",
-    "concurrently": "^5.0.0",
     "electron": "^7.2.4",
-    "electron-packager": "^14.0.6",
+    "electron-is-dev": "^1.1.0",
+    "lowdb": "^1.0.0",
     "prop-types": "^15.7.2",
-    "wait-on": "^3.3.0",
-    "node-sass": "^4.13.1",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "react-redux": "^7.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-scripts": "^5.0.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "electron-packager": "^14.0.6",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "node-sass": "^4.13.1",
+    "prettier": "2.8.3",
+    "wait-on": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
