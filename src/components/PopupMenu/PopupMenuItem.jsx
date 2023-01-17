@@ -18,11 +18,12 @@ function PopupMenuItem({ text, isEnabled, onEntrySelected }) {
   );
 }
 
-export const PopupMenuItemShape = {
+export const PopupMenuItemShape = PropTypes.shape({
+  id: PropTypes.number,
   text: PropTypes.string,
   isEnabled: PropTypes.bool.isRequired,
   onEntrySelected: PropTypes.func,
-};
+});
 
 PopupMenuItem.propTypes = {
   text: PropTypes.string.isRequired,
