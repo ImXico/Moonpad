@@ -13,7 +13,6 @@ function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
   const [numSelectedWords, setNumSelectedWords] = useState(0);
 
   const textAreaNodeRef = useRef(null);
-  const previouslyActiveTab = useRef(currentlyActiveTab);
 
   useEffect(() => {
     textAreaNodeRef.current.focus();
@@ -22,11 +21,9 @@ function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
   }, []);
 
   useEffect(() => {
-    if (currentlyActiveTab !== previouslyActiveTab) {
-      setTextContent(currentTabContent);
-      setPlaceholder(getRandomPlaceholderText());
-      textAreaNodeRef.current.focus();
-    }
+    setTextContent(currentTabContent);
+    setPlaceholder(getRandomPlaceholderText());
+    textAreaNodeRef.current.focus();
   }, [currentlyActiveTab]);
 
   const handleTabKeydown = (event) => {
