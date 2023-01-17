@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { createLogger } from "redux-logger";
@@ -8,6 +8,7 @@ import rootReducer from "./reducers";
 import * as ipcActions from "./data/ipcActions";
 import * as serviceWorker from "./serviceWorker";
 import AppContainer from "./containers/AppContainer";
+
 import "./reset.scss";
 
 const { ipcRenderer } = window.require("electron");
@@ -34,12 +35,11 @@ const store = createStore(
   applyMiddleware(thunk, createLogger())
 );
 
-ReactDOM.render(
+createRoot(document.getElementById("root")).render(
   // eslint-disable-next-line react/jsx-filename-extension
   <Provider store={store}>
     <AppContainer hasCustomTitleBar={!isMacOS} />
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );
 
 serviceWorker.unregister();
