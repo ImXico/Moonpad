@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Tab from "../Tab/Tab";
 import NewTabButton from "../NewTabButton/NewTabButton";
@@ -38,23 +38,26 @@ function TabArea({
     });
   };
 
-  const handleKeyDown = (event) => {
-    if (event.metaKey || event.ctrlKey) {
-      if (event.key === "e") {
-        toggleOpenTabArea(!isOpen);
-      } else if (event.key === "n") {
-        handleCreateTab();
-        smoothScrollToNewlyCreatedTab();
+  const handleKeyDown = useCallback(
+    (event) => {
+      if (event.metaKey || event.ctrlKey) {
+        if (event.key === "e") {
+          toggleOpenTabArea(!isOpen);
+        } else if (event.key === "n") {
+          handleCreateTab();
+          smoothScrollToNewlyCreatedTab();
+        }
       }
-    }
-  };
+    },
+    [isOpen]
+  );
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen]);
+  }, [handleKeyDown]);
 
   const handleDeleteTab = (id, name) => {
     const indexOfTabToDelete = tabs.find((tab) => tab.id === id).index;
