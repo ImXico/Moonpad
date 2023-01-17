@@ -6,7 +6,7 @@ function NewTabButton({ isVisible, onClick }) {
   return (
     <button
       type="button"
-      className={`NewTabButton ${isVisible && "open"}`}
+      className={`NewTabButton ${isVisible ? "open" : ""}`}
       onClick={onClick}
     >
       +
