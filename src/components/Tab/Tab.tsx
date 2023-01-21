@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import PopupMenu from "../PopupMenu/PopupMenu";
 import "./Tab.scss";
 
@@ -11,7 +10,32 @@ const MENU_OPTION_DELETE = "Delete";
 const POPUP_TOP_TWEAK_PX = 17;
 const POPUP_LEFT_TWEAK_PX = 15;
 
-function Tab({
+const MIN_NAME_LENGTH = 1;
+const MAX_NAME_LENGTH = 12;
+
+type Props = {
+  id: string;
+  index: number;
+  isSelected: boolean;
+  name: string;
+  // TODO probably doesn't make much sense to still need to pass the id at this level
+  canTabBeMovedUp: (index: number) => boolean;
+  canTabBeMovedDown: (index: number) => boolean;
+  onUpdateTabName: (id: string, newName: string) => void;
+  onDelete: (id: string, name: string) => void;
+  onSelect: (id: string) => void;
+  onMoveTabUp: (id: string) => void;
+  onMoveTabDown: (id: string) => void;
+};
+
+type PopupMenuItem = {
+  id: number;
+  text: string;
+  isEnabled: boolean;
+  onEntrySelected: () => void;
+};
+
+export function Tab({
   id,
   index,
   isSelected,
@@ -23,18 +47,21 @@ function Tab({
   onSelect,
   onMoveTabUp,
   onMoveTabDown,
-}) {
+}: Props) {
   const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
   const [isNameBeingEdited, setIsNameBeingEdited] = useState(false);
   const [tabNameInEdition, setTabNameInEdition] = useState("");
-  const [popupMenuPosition, setPopupMenuPosition] = useState(undefined);
+  const [popupMenuPosition, setPopupMenuPosition] = useState<{
+    top: number | null;
+    left: number | null;
+  }>({ top: null, left: null });
 
-  const tabRef = useRef(null);
-  const popupMenuEntries = useRef([]);
+  const tabRef = useRef<HTMLDivElement>(null);
+  const popupMenuEntries = useRef<PopupMenuItem[]>([]);
 
   const closeAndResetPopupMenu = () => {
     setIsPopupMenuOpen(false);
-    setPopupMenuPosition(undefined);
+    setPopupMenuPosition({ top: null, left: null });
   };
 
   const closeAndResetNameEditMode = () => {
@@ -43,8 +70,8 @@ function Tab({
   };
 
   const handleDocumentWideClick = useCallback(
-    (event) => {
-      if (!tabRef.current.contains(event.target)) {
+    (event: MouseEvent) => {
+      if (tabRef.current && !tabRef.current.contains(event.target as Node)) {
         if (isPopupMenuOpen) {
           closeAndResetPopupMenu();
         }
@@ -105,25 +132,27 @@ function Tab({
     ];
   }, [index]);
 
-  const calculatePopupMenuPosition = () => {
-    const ref = tabRef.current;
-    const tabsContainerScrollTop = ref.parentElement.scrollTop;
-    const top = ref.offsetTop - tabsContainerScrollTop - POPUP_TOP_TWEAK_PX;
-    const left = ref.clientWidth + POPUP_LEFT_TWEAK_PX;
-    return { top, left };
-  };
-
   const handleTopLevelContextMenuOpen = () => {
+    const ref = tabRef.current;
+    if (!ref) {
+      return;
+    }
     onSelect(id);
     setIsPopupMenuOpen(true);
-    setPopupMenuPosition(calculatePopupMenuPosition());
+
+    const tabsContainerScrollTop = ref.parentElement!.scrollTop;
+    const top = ref.offsetTop - tabsContainerScrollTop - POPUP_TOP_TWEAK_PX;
+    const left = ref.clientWidth + POPUP_LEFT_TWEAK_PX;
+    setPopupMenuPosition({ top, left });
   };
 
-  const handleTabNameEdit = (event) => {
+  const handleTabNameEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTabNameInEdition(event.target.value);
   };
 
-  const handleTabNameEditFinish = (event) => {
+  const handleTabNameEditFinish = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (event.key === "Enter") {
       const newName = tabNameInEdition;
       setIsNameBeingEdited(false);
@@ -142,8 +171,8 @@ function Tab({
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
           type="text"
-          minLength={1}
-          maxLength={12}
+          minLength={MIN_NAME_LENGTH}
+          maxLength={MAX_NAME_LENGTH}
           value={tabNameInEdition}
           onChange={(event) => handleTabNameEdit(event)}
           onKeyDown={(event) => handleTabNameEditFinish(event)}
@@ -167,19 +196,3 @@ function Tab({
     </div>
   );
 }
-
-Tab.propTypes = {
-  id: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  canTabBeMovedUp: PropTypes.func.isRequired,
-  canTabBeMovedDown: PropTypes.func.isRequired,
-  onUpdateTabName: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired,
-  onMoveTabUp: PropTypes.func.isRequired,
-  onMoveTabDown: PropTypes.func.isRequired,
-};
-
-export default Tab;
