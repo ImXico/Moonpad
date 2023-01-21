@@ -4,22 +4,19 @@ import {
   ShowToastPopupAction,
 } from "../actions/toastPopup";
 
-type ToastPopupState = {
+type State = {
   showing: boolean;
   message: string;
 };
 
-type ToastPopupAction = ShowToastPopupAction | HideToastPopupAction;
+type Action = ShowToastPopupAction | HideToastPopupAction;
 
-const defaultState: ToastPopupState = {
+const defaultState: State = {
   showing: false,
   message: "",
 };
 
-const toastPopup = (
-  state: ToastPopupState = defaultState,
-  action: ToastPopupAction
-) => {
+const toastPopup = (state: State = defaultState, action: Action) => {
   switch (action.type) {
     case Actions.ShowToastPopup:
       return { showing: true, message: action.message };
