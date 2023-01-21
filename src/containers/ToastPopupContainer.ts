@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { hideToastPopup, HideToastPopupAction } from "../actions/toastPopup";
-import ToastPopup from "../components/ToastPopup/ToastPopup";
+import { ToastPopup } from "../components/ToastPopup/ToastPopup";
 import { State } from "../reducers";
 
 export type ConnectedProps = {
