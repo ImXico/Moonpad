@@ -5,7 +5,7 @@ import {
   TOGGLE_ALWAYS_ON_TOP_RESPONSE,
 } from "../../data/ipcActions";
 import ThemeWrapper, { Themes } from "../ThemeWrapper/ThemeWrapper";
-import TitleBar, { TitleBarStyles } from "../TitleBar/TitleBar";
+import { TitleBar, TitleBarStyles } from "../TitleBar/TitleBar";
 import ToastPopup from "../ToastPopup/ToastPopup";
 import TabAreaContainer from "../../containers/TabAreaContainer";
 import TextAreaContainer from "../../containers/TextAreaContainer";

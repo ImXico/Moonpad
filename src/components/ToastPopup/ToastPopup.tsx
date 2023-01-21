@@ -1,14 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { hideToastPopup } from "../../actions/toastPopup";
 import { usePrevious } from "../../hooks/usePrevious";
+import {
+  ConnectedProps,
+  DispatchProps,
+} from "../../containers/ToastPopupContainer";
 import "./ToastPopup.scss";
 
 const TOAST_SPOTLIGHT_DURATION_MS = 1750;
 
-function ToastPopup({ toastShowing, toastMessage, hideToast }) {
-  const timerRef = useRef(undefined);
+type Props = ConnectedProps & DispatchProps;
+
+export function ToastPopup({ toastShowing, toastMessage, hideToast }: Props) {
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const previousProps = usePrevious({ toastShowing, toastMessage });
 
   useEffect(() => {
@@ -19,13 +22,13 @@ function ToastPopup({ toastShowing, toastMessage, hideToast }) {
       } else if (previousProps.toastMessage !== toastMessage) {
         // Toast was already there, but the message changed;
         // in that case, clear the old timeout and restart it
-        clearTimeout(timerRef.current);
+        clearTimeout(timerRef.current!);
         timerRef.current = setTimeout(hideToast, TOAST_SPOTLIGHT_DURATION_MS);
       }
     }
 
     return () => {
-      clearTimeout(timerRef.current);
+      clearTimeout(timerRef.current!);
     };
   }, [toastShowing, toastMessage]);
 
@@ -35,20 +38,3 @@ function ToastPopup({ toastShowing, toastMessage, hideToast }) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => ({
-  toastShowing: state.toastPopup.showing,
-  toastMessage: state.toastPopup.message,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  hideToast: () => dispatch(hideToastPopup()),
-});
-
-ToastPopup.propTypes = {
-  toastShowing: PropTypes.bool.isRequired,
-  toastMessage: PropTypes.string.isRequired,
-  hideToast: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ToastPopup);
