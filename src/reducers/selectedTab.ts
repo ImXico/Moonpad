@@ -7,7 +7,7 @@ type State = {
 
 type Action = SelectTabAction;
 
-const defaultState = {
+const defaultState: State = {
   selectedTabId: null,
 };
 

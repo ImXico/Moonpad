@@ -4,7 +4,7 @@ import { IpcActions } from "../data/ipcActions";
 
 const { ipcRenderer } = window.require("electron");
 
-type ToggleOpenTabAreaAction = {
+export type ToggleOpenTabAreaAction = {
   type: Actions.ToggleOpenTabArea;
   isNowOpen: boolean;
 };
