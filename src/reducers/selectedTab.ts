@@ -13,7 +13,7 @@ const selectedTab = (
 ) => {
   switch (action.type) {
     case Actions.SelectTab:
-      return { selectedTabId: action.tabId };
+      return action.tabId;
     default:
       return state;
   }
