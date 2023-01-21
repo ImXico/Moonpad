@@ -1,9 +1,23 @@
 import React from "react";
-import PropTypes from "prop-types";
-import PopupMenuItem, { PopupMenuItemShape } from "./PopupMenuItem";
 import "./PopupMenu.scss";
+import { PopupMenuItem } from "./PopupMenuItem";
 
-function PopupMenu({ position, entries }) {
+export type PopupMenuItemEntry = {
+  id: number;
+  text: string;
+  isEnabled: boolean;
+  onEntrySelected: () => void;
+};
+
+type Props = {
+  entries: PopupMenuItemEntry[];
+  position: {
+    top: number;
+    left: number;
+  };
+};
+
+export function PopupMenu({ position, entries }: Props) {
   const { top, left } = position;
 
   return (
@@ -19,10 +33,3 @@ function PopupMenu({ position, entries }) {
     </div>
   );
 }
-
-PopupMenu.propTypes = {
-  position: PropTypes.objectOf(PropTypes.number).isRequired,
-  entries: PropTypes.arrayOf(PopupMenuItemShape).isRequired,
-};
-
-export default PopupMenu;
