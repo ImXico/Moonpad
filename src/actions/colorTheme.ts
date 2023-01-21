@@ -4,7 +4,7 @@ import { IpcActions } from "../data/ipcActions";
 
 const { ipcRenderer } = window.require("electron");
 
-type ToggleColorThemeAction = {
+export type ToggleColorThemeAction = {
   type: Actions.ToggleTheme;
   isNowDarkTheme: boolean;
 };
