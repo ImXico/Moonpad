@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import PopupMenu from "../PopupMenu/PopupMenu";
+import { PopupMenu, PopupMenuItemEntry } from "../PopupMenu/PopupMenu";
 import "./Tab.scss";
 
 const MENU_OPTION_MOVE_UP = "Move up";
@@ -28,13 +28,6 @@ type Props = {
   onMoveTabDown: (id: string) => void;
 };
 
-type PopupMenuItem = {
-  id: number;
-  text: string;
-  isEnabled: boolean;
-  onEntrySelected: () => void;
-};
-
 export function Tab({
   id,
   index,
@@ -57,7 +50,7 @@ export function Tab({
   }>({ top: null, left: null });
 
   const tabRef = useRef<HTMLDivElement>(null);
-  const popupMenuEntries = useRef<PopupMenuItem[]>([]);
+  const popupMenuEntries = useRef<PopupMenuItemEntry[]>([]);
 
   const closeAndResetPopupMenu = () => {
     setIsPopupMenuOpen(false);
