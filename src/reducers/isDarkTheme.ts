@@ -1,7 +1,8 @@
 import { Actions } from "../actions";
 import { ToggleColorThemeAction } from "../actions/colorTheme";
 
-type ThemeState = boolean;
+export type ThemeState = boolean;
+
 type ThemeAction = ToggleColorThemeAction;
 
 const defaultState: ThemeState = true;

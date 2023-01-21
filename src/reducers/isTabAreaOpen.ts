@@ -1,7 +1,8 @@
 import { Actions } from "../actions";
 import { ToggleOpenTabAreaAction } from "../actions/isTabAreaOpen";
 
-type TabAreaOpenState = boolean;
+export type TabAreaOpenState = boolean;
+
 type TabAreaOpenAction = ToggleOpenTabAreaAction;
 
 const defaultState: TabAreaOpenState = true;

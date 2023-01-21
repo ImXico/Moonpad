@@ -4,7 +4,7 @@ import {
   ShowToastPopupAction,
 } from "../actions/toastPopup";
 
-type ToastPopupState = {
+export type ToastPopupState = {
   showing: boolean;
   message: string;
 };

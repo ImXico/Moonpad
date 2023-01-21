@@ -14,7 +14,7 @@ type Tab = {
   content: string;
 };
 
-type TabsState = Tab[];
+export type TabsState = Tab[];
 
 type TabsAction =
   | CreateTabAction

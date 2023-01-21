@@ -1,21 +1,22 @@
-import { Dispatch } from "redux";
+import { Action, ActionCreator, Dispatch } from "redux";
 import { Actions } from ".";
 import { IpcActions } from "../data/ipcActions";
 
 const { ipcRenderer } = window.require("electron");
 
-export type ToggleOpenTabAreaAction = {
-  type: Actions.ToggleOpenTabArea;
+export type ToggleOpenTabAreaAction = Action<Actions.ToggleOpenTabArea> & {
   isNowOpen: boolean;
 };
 
-const toggleOpenTabArea = (isNowOpen: boolean): ToggleOpenTabAreaAction => ({
+const toggleOpenTabArea: ActionCreator<ToggleOpenTabAreaAction> = (
+  isNowOpen: boolean
+): ToggleOpenTabAreaAction => ({
   type: Actions.ToggleOpenTabArea,
   isNowOpen,
 });
 
 export const toggleOpenTabAreaAndPersist =
-  (isNowOpen: boolean) => (dispatch: Dispatch) => {
+  (isNowOpen: boolean) => (dispatch: Dispatch<ToggleOpenTabAreaAction>) => {
     dispatch(toggleOpenTabArea(isNowOpen));
     ipcRenderer.send(IpcActions.ToggleOpenTabArea);
   };
