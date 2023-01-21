@@ -1,17 +1,15 @@
 import { Actions } from "../actions";
 import { ToggleOpenTabAreaAction } from "../actions/isTabAreaOpen";
 
-type State = {
-  isNowOpen: boolean;
-};
+type TabAreaOpenState = boolean;
+type TabAreaOpenAction = ToggleOpenTabAreaAction;
 
-type Action = ToggleOpenTabAreaAction;
+const defaultState: TabAreaOpenState = true;
 
-const defaultState: State = {
-  isNowOpen: true,
-};
-
-const isTabAreaOpen = (state: State = defaultState, action: Action) => {
+const isTabAreaOpen = (
+  state: TabAreaOpenState = defaultState,
+  action: TabAreaOpenAction
+) => {
   switch (action.type) {
     case Actions.ToggleOpenTabArea:
       return action.isNowOpen;

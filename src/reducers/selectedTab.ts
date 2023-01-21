@@ -1,17 +1,15 @@
 import { Actions } from "../actions";
 import { SelectTabAction } from "../actions/selectedTab";
 
-type State = {
-  selectedTabId: string | null;
-};
+type SelectedTabState = string | null;
+type SelectedTabAction = SelectTabAction;
 
-type Action = SelectTabAction;
+const defaultState: SelectedTabState = null;
 
-const defaultState: State = {
-  selectedTabId: null,
-};
-
-const selectedTab = (state: State = defaultState, action: Action) => {
+const selectedTab = (
+  state: SelectedTabState = defaultState,
+  action: SelectedTabAction
+) => {
   switch (action.type) {
     case Actions.SelectTab:
       return action.tabId;

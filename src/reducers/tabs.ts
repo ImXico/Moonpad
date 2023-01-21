@@ -14,18 +14,18 @@ type Tab = {
   content: string;
 };
 
-type State = Tab[];
+type TabsState = Tab[];
 
-type Action =
+type TabsAction =
   | CreateTabAction
   | UpdateTabNameAction
   | UpdateTabContentAction
   | SwapTabsAction
   | DeleteTabAction;
 
-const defaultState: State = [];
+const defaultState: TabsState = [];
 
-const tabs = (state: State = defaultState, action: Action) => {
+const tabs = (state: TabsState = defaultState, action: TabsAction) => {
   switch (action.type) {
     case Actions.CreateTab:
       return [...state, { ...action.newTab }];

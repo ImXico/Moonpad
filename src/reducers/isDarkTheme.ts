@@ -1,17 +1,12 @@
 import { Actions } from "../actions";
 import { ToggleColorThemeAction } from "../actions/colorTheme";
 
-type State = {
-  isNowDarkTheme: boolean;
-};
+type ThemeState = boolean;
+type ThemeAction = ToggleColorThemeAction;
 
-type Action = ToggleColorThemeAction;
+const defaultState: ThemeState = true;
 
-const defaultState: State = {
-  isNowDarkTheme: true,
-};
-
-const isDarkTheme = (state: State = defaultState, action: Action) => {
+const isDarkTheme = (state: ThemeState = defaultState, action: ThemeAction) => {
   switch (action.type) {
     case Actions.ToggleTheme:
       return action.isNowDarkTheme;
