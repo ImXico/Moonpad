@@ -10,11 +10,11 @@ export const enum TitleBarStyles {
   WindowsOrLinux,
 }
 
-type TitleBarProps = {
+type Props = {
   style: TitleBarStyles;
 };
 
-export function TitleBar({ style }: TitleBarProps) {
+export function TitleBar({ style }: Props) {
   if (style === TitleBarStyles.MacOs) {
     return <div className="title-bar title-bar-mac" />;
   }
