@@ -1,6 +1,5 @@
 const { app, ipcMain, BrowserWindow } = require("electron");
 
-const isDev = require("electron-is-dev");
 const path = require("path");
 const {
   MIN_WINDOW_WIDTH,
@@ -40,9 +39,9 @@ function createWindow() {
   });
 
   window.loadURL(
-    isDev
-      ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../build/index.html")}`
+    app.isPackaged
+      ? `file://${path.join(__dirname, "../build/index.html")}`
+      : "http://localhost:3000"
   );
 
   window.on("closed", () => {
