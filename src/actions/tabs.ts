@@ -5,7 +5,7 @@ import { showToastPopup } from "./toastPopup";
 
 const { ipcRenderer } = window.require("electron");
 
-type CreateTabAction = {
+export type CreateTabAction = {
   type: Actions.CreateTab;
   newTab: {
     id: string;
@@ -15,25 +15,25 @@ type CreateTabAction = {
   };
 };
 
-type UpdateTabNameAction = {
+export type UpdateTabNameAction = {
   type: Actions.UpdateTabName;
   id: string;
   newName: string;
 };
 
-type UpdateTabContentAction = {
+export type UpdateTabContentAction = {
   type: Actions.UpdateTabContent;
   id: string;
   newContent: string;
 };
 
-type SwapTabsAction = {
+export type SwapTabsAction = {
   type: Actions.SwapTabs;
   id: string;
   isMovingUp: boolean;
 };
 
-type DeleteTabAction = {
+export type DeleteTabAction = {
   type: Actions.DeleteTab;
   id: string;
 };
