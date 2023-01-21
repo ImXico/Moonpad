@@ -1,0 +1,18 @@
+export const enum IpcActions {
+  LoadPersistedData,
+  CheckIfMacOs,
+  MinimizeWindow,
+  ToggleMaximizeWindow,
+  CloseWindow,
+  CreateTab,
+  UpdateTabName,
+  UpdateTabContent,
+  SelectTab,
+  SwapTabs,
+  DeleteTab,
+  ToggleOpenTabArea,
+  ToggleAlwaysOnTopRequest,
+  ToggleAlwaysOnTopResponse,
+  UpdateWindowDimensions,
+  ToggleColorTheme,
+}
