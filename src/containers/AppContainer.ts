@@ -1,9 +1,12 @@
 import { connect } from "react-redux";
-import { showToastPopup } from "../actions/toastPopup";
-import { toggleColorThemeAndPersist } from "../actions/colorTheme";
+import { showToastPopup, ShowToastPopupAction } from "../actions/toastPopup";
+import {
+  ToggleColorThemeAction,
+  toggleColorThemeAndPersist,
+} from "../actions/colorTheme";
 import App from "../components/App/App";
 import { State } from "../reducers";
-import { Dispatch } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 
 export type ConnectedProps = {
   isDarkTheme: boolean;
@@ -18,7 +21,13 @@ const mapStateToProps = (state: State): ConnectedProps => ({
   isDarkTheme: state.isDarkTheme,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<
+    State,
+    {},
+    ShowToastPopupAction | ToggleColorThemeAction
+  >
+): DispatchProps => ({
   showToast: (message) => dispatch(showToastPopup(message)),
   toggleColorTheme: (isNowLightMode) =>
     dispatch(toggleColorThemeAndPersist(isNowLightMode)),
