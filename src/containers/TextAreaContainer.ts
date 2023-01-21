@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { Action } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { updateTabContentAndPersist } from "../actions/tabs";
-import TextArea from "../components/TextArea/TextArea";
+import { TextArea } from "../components/TextArea/TextArea";
 import { State } from "../reducers";
 import { SelectedTabState } from "../reducers/selectedTab";
 
