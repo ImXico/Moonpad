@@ -1,37 +1,54 @@
 import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import { getRandomPlaceholderText } from "../../data/placeholderVariations";
+import {
+  ConnectedProps,
+  DispatchProps,
+} from "../../containers/TextAreaContainer";
 import "./TextArea.scss";
 
 const SPACES = "  ";
 const SPACES_PER_TAB = 2;
 
-function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
+type Props = ConnectedProps & DispatchProps;
+
+export function TextArea({
+  currentlyActiveTab,
+  currentTabContent,
+  updateTabContent,
+}: Props) {
   const [textContent, setTextContent] = useState(currentTabContent);
   const [placeholder, setPlaceholder] = useState(getRandomPlaceholderText());
-  const [numSelectedChars, setNumSelectedChars] = useState(undefined);
+  const [numSelectedChars, setNumSelectedChars] = useState(0);
   const [numSelectedWords, setNumSelectedWords] = useState(0);
 
-  const textAreaNodeRef = useRef(null);
+  const textAreaNodeRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    textAreaNodeRef.current.focus();
-    textAreaNodeRef.selectionStart = textContent.length;
-    textAreaNodeRef.selectionEnd = textContent.length;
+    if (textAreaNodeRef.current) {
+      textAreaNodeRef.current.focus();
+      textAreaNodeRef.current.selectionStart = textContent.length;
+      textAreaNodeRef.current.selectionEnd = textContent.length;
+    }
   }, []);
 
   useEffect(() => {
     setTextContent(currentTabContent);
     setPlaceholder(getRandomPlaceholderText());
-    textAreaNodeRef.current.focus();
+    textAreaNodeRef.current?.focus();
   }, [currentlyActiveTab]);
 
-  const handleTabKeydown = (event) => {
+  const handleTabKeydown = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
     if (event.key === "Tab") {
       event.preventDefault();
       event.stopPropagation();
 
-      const initialContent = event.target.value;
+      if (!textAreaNodeRef.current) {
+        return;
+      }
+
+      const initialContent = (event.target as HTMLTextAreaElement).value;
       const { selectionStart, selectionEnd } = textAreaNodeRef.current;
 
       textAreaNodeRef.current.selectionStart = selectionEnd + SPACES_PER_TAB;
@@ -46,25 +63,22 @@ function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
   };
 
   const handleOnTextSelected = () => {
-    const refValue = textAreaNodeRef.current;
+    const refValue = textAreaNodeRef.current!;
     const selectedText = refValue.value.slice(
       refValue.selectionStart,
       refValue.selectionEnd
     );
 
-    setNumSelectedChars(
-      selectedText.length !== 0 ? selectedText.length : undefined
-    );
-
+    setNumSelectedChars(selectedText.length);
     setNumSelectedWords(
       selectedText.trim() === "" ? 0 : selectedText.split(" ").length
     );
   };
 
-  const onTextChange = (event) => {
+  const onTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updatedText = event.target.value;
     setTextContent(updatedText);
-    updateTabContent(currentlyActiveTab, updatedText);
+    updateTabContent(currentlyActiveTab!, updatedText);
   };
 
   return (
@@ -79,7 +93,7 @@ function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
         onSelect={handleOnTextSelected}
       />
       <div className="bottom-bar">
-        {numSelectedChars !== undefined && (
+        {numSelectedChars && (
           <div className="info">
             {numSelectedChars}C / {numSelectedWords}W
           </div>
@@ -88,11 +102,3 @@ function TextArea({ currentlyActiveTab, currentTabContent, updateTabContent }) {
     </>
   );
 }
-
-TextArea.propTypes = {
-  currentlyActiveTab: PropTypes.string.isRequired,
-  currentTabContent: PropTypes.string.isRequired,
-  updateTabContent: PropTypes.func.isRequired,
-};
-
-export default TextArea;
