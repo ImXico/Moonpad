@@ -1,11 +1,11 @@
 import { Actions } from ".";
 
-type ShowToastPopupAction = {
+export type ShowToastPopupAction = {
   type: Actions.ShowToastPopup;
   message: string;
 };
 
-type HideToastPopup = {
+export type HideToastPopupAction = {
   type: Actions.HideToastPopup;
 };
 
@@ -14,6 +14,6 @@ export const showToastPopup = (message: string): ShowToastPopupAction => ({
   message,
 });
 
-export const hideToastPopup = (): HideToastPopup => ({
+export const hideToastPopup = (): HideToastPopupAction => ({
   type: Actions.HideToastPopup,
 });
