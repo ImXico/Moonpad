@@ -1,14 +1,13 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
+import * as React from "react";
+import ReactDOM from "react-dom/client";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { createLogger } from "redux-logger";
 import { createStore, applyMiddleware } from "redux";
-import rootReducer from "./reducers";
-import * as ipcActions from "./data/ipcActions";
+import { reducer as rootReducer } from "./reducers/index";
 import * as serviceWorker from "./serviceWorker";
 import AppContainer from "./containers/AppContainer";
-
+import { IpcActions } from "./data/ipcActions";
 import "./reset.scss";
 
 const { ipcRenderer } = window.require("electron");
@@ -19,7 +18,7 @@ const { ipcRenderer } = window.require("electron");
  * only listen to it once (and unregister after that).
  */
 const persistedInitialState = ipcRenderer.sendSync(
-  ipcActions.LOAD_PERSISTED_DATA
+  IpcActions.LoadPersistedData
 );
 
 /**
@@ -27,7 +26,7 @@ const persistedInitialState = ipcRenderer.sendSync(
  * This is necessary to determine whether or not we need to render a custom
  * titlebar (that is, if *not* on macOS).
  */
-const isMacOS = ipcRenderer.sendSync(ipcActions.CHECK_IF_MACOS);
+const isMacOS = ipcRenderer.sendSync(IpcActions.CheckIfMacOs);
 
 const store = createStore(
   rootReducer,
@@ -35,8 +34,14 @@ const store = createStore(
   applyMiddleware(thunk, createLogger())
 );
 
-createRoot(document.getElementById("root")).render(
-  // eslint-disable-next-line react/jsx-filename-extension
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error("Failed to find the root element");
+}
+
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
   <Provider store={store}>
     <AppContainer hasCustomTitleBar={!isMacOS} />
   </Provider>
