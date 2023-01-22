@@ -15,20 +15,25 @@ export function ToastPopup({ toastShowing, toastMessage, hideToast }: Props) {
   const previousProps = usePrevious({ toastShowing, toastMessage });
 
   useEffect(() => {
-    if (toastShowing) {
+    if (toastShowing && previousProps) {
       if (!previousProps.toastShowing) {
         // Toast just got triggered (and it wasn't there before)
         timerRef.current = setTimeout(hideToast, TOAST_SPOTLIGHT_DURATION_MS);
       } else if (previousProps.toastMessage !== toastMessage) {
         // Toast was already there, but the message changed;
         // in that case, clear the old timeout and restart it
-        clearTimeout(timerRef.current!);
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+
         timerRef.current = setTimeout(hideToast, TOAST_SPOTLIGHT_DURATION_MS);
       }
     }
 
     return () => {
-      clearTimeout(timerRef.current!);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
     };
   }, [toastShowing, toastMessage]);
 

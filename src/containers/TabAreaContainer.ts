@@ -1,3 +1,5 @@
+import { Action } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import { connect } from "react-redux";
 import { selectTabAndPersist } from "../actions/selectedTab";
 import { toggleOpenTabAreaAndPersist } from "../actions/isTabAreaOpen";
@@ -13,8 +15,6 @@ import { TabsState } from "../reducers/tabs";
 import { TabAreaOpenState } from "../reducers/isTabAreaOpen";
 import { SelectedTabState } from "../reducers/selectedTab";
 import { State } from "../reducers";
-import { ThunkDispatch } from "redux-thunk";
-import { Action } from "redux";
 
 export type ConnectedProps = {
   tabs: TabsState;
@@ -43,7 +43,7 @@ const mapStateToProps = (state: State): ConnectedProps => ({
 });
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<State, {}, Action>
+  dispatch: ThunkDispatch<State, unknown, Action>
 ): DispatchProps => ({
   createTab: (id: string, index: number, name: string) =>
     dispatch(createTabAndPersist(id, index, name)),

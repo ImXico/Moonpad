@@ -15,19 +15,14 @@ type Props = ConnectedProps &
     hasCustomTitleBar: boolean;
   };
 
-export function App({
-  hasCustomTitleBar,
-  isDarkTheme,
-  showToast,
-  toggleColorTheme,
-}: Props) {
+export function App({ hasCustomTitleBar, isDarkTheme, showToast }: Props) {
   const handleKeydownEvents = React.useCallback((event: KeyboardEvent) => {
     if (event.metaKey || event.ctrlKey) {
       if (event.key === ".") {
         ipcRenderer.send(IpcActions.ToggleAlwaysOnTopRequest);
         ipcRenderer.once(
           IpcActions.ToggleAlwaysOnTopResponse,
-          (_, payload: { message: string }) => {
+          (_: unknown, payload: { message: string }) => {
             showToast(payload.message);
           }
         );
@@ -66,5 +61,3 @@ export function App({
     </ThemeWrapper>
   );
 }
-
-export default App;

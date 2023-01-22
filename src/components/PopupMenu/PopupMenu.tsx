@@ -12,8 +12,8 @@ export type PopupMenuItemEntry = {
 type Props = {
   entries: PopupMenuItemEntry[];
   position: {
-    top: number;
-    left: number;
+    top: number | null;
+    left: number | null;
   };
 };
 
