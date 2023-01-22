@@ -63,21 +63,25 @@ export function TextArea({
   };
 
   const handleOnTextSelected = () => {
-    const refValue = textAreaNodeRef.current!;
-    const selectedText = refValue.value.slice(
-      refValue.selectionStart,
-      refValue.selectionEnd
-    );
+    const refValue = textAreaNodeRef.current;
 
-    setNumSelectedChars(selectedText.length);
-    setNumSelectedWords(
-      selectedText.trim() === "" ? 0 : selectedText.split(" ").length
-    );
+    if (refValue) {
+      const selectedText = refValue.value.slice(
+        refValue.selectionStart,
+        refValue.selectionEnd
+      );
+
+      setNumSelectedChars(selectedText.length);
+      setNumSelectedWords(
+        selectedText.trim() === "" ? 0 : selectedText.split(" ").length
+      );
+    }
   };
 
   const onTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updatedText = event.target.value;
     setTextContent(updatedText);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     updateTabContent(currentlyActiveTab!, updatedText);
   };
 
