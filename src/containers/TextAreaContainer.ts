@@ -22,13 +22,14 @@ const mapStateToProps = (state: State): ConnectedProps => {
     currentlyActiveTab: selectedTab,
     currentTabContent:
       selectedTab !== null
-        ? tabs.find((tab) => tab.id === selectedTab)!.content
+        ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          tabs.find((tab) => tab.id === selectedTab)!.content
         : "",
   };
 };
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<State, {}, Action>
+  dispatch: ThunkDispatch<State, unknown, Action>
 ): DispatchProps => ({
   updateTabContent: (id: string, newContent: string) =>
     dispatch(updateTabContentAndPersist(id, newContent)),

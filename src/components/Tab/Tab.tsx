@@ -127,13 +127,14 @@ export function Tab({
 
   const handleTopLevelContextMenuOpen = () => {
     const ref = tabRef.current;
-    if (!ref) {
+    if (!ref || !ref.parentElement) {
       return;
     }
+
     onSelect(id);
     setIsPopupMenuOpen(true);
 
-    const tabsContainerScrollTop = ref.parentElement!.scrollTop;
+    const tabsContainerScrollTop = ref.parentElement.scrollTop;
     const top = ref.offsetTop - tabsContainerScrollTop - POPUP_TOP_TWEAK_PX;
     const left = ref.clientWidth + POPUP_LEFT_TWEAK_PX;
     setPopupMenuPosition({ top, left });

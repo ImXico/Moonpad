@@ -67,6 +67,7 @@ export function TabArea({
   }, [handleKeyDown]);
 
   const handleDeleteTab = (id: string, name: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const indexOfTabToDelete = tabs.find((tab) => tab.id === id)!.index;
 
     const nextAndPreviousTabs = tabs
