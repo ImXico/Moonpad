@@ -1,12 +1,17 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import Tab from "../Tab/Tab";
-import NewTabButton from "../NewTabButton/NewTabButton";
+import { Tab } from "../Tab/Tab";
+import { NewTabButton } from "../NewTabButton/NewTabButton";
 import "./TabArea.scss";
+import {
+  ConnectedProps,
+  DispatchProps,
+} from "../../containers/TabAreaContainer";
 
 const DEFAULT_NEW_TAB_NAME = "New Tab";
 
-function TabArea({
+type Props = ConnectedProps & DispatchProps;
+
+export function TabArea({
   tabs,
   isOpen,
   currentlySelectedTab,
@@ -19,8 +24,8 @@ function TabArea({
   toggleOpenTabArea,
   createTab,
   deleteTab,
-}) {
-  const tabsContainerRef = useRef(null);
+}: Props) {
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
 
   const handleCreateTab = () => {
     const newTabId = `${DEFAULT_NEW_TAB_NAME}|${Date.now()}`;
@@ -31,15 +36,17 @@ function TabArea({
 
   const smoothScrollToNewlyCreatedTab = () => {
     const refCurrent = tabsContainerRef.current;
-    refCurrent.scroll({
-      top: refCurrent.offsetHeight,
-      left: 0,
-      behavior: "smooth",
-    });
+    if (refCurrent) {
+      refCurrent.scroll({
+        top: refCurrent.offsetHeight,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   const handleKeyDown = useCallback(
-    (event) => {
+    (event: KeyboardEvent) => {
       if (event.metaKey || event.ctrlKey) {
         if (event.key === "e") {
           toggleOpenTabArea(!isOpen);
@@ -59,8 +66,8 @@ function TabArea({
     };
   }, [handleKeyDown]);
 
-  const handleDeleteTab = (id, name) => {
-    const indexOfTabToDelete = tabs.find((tab) => tab.id === id).index;
+  const handleDeleteTab = (id: string, name: string) => {
+    const indexOfTabToDelete = tabs.find((tab) => tab.id === id)!.index;
 
     const nextAndPreviousTabs = tabs
       .filter((tab) => Math.abs(indexOfTabToDelete - tab.index) === 1)
@@ -100,21 +107,3 @@ function TabArea({
     </div>
   );
 }
-
-TabArea.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  tabs: PropTypes.array.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  currentlySelectedTab: PropTypes.string.isRequired,
-  selectTab: PropTypes.func.isRequired,
-  updateTabName: PropTypes.func.isRequired,
-  canTabBeMovedUp: PropTypes.func.isRequired,
-  canTabBeMovedDown: PropTypes.func.isRequired,
-  moveTabUp: PropTypes.func.isRequired,
-  moveTabDown: PropTypes.func.isRequired,
-  toggleOpenTabArea: PropTypes.func.isRequired,
-  createTab: PropTypes.func.isRequired,
-  deleteTab: PropTypes.func.isRequired,
-};
-
-export default TabArea;

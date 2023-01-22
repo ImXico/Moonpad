@@ -8,13 +8,12 @@ import {
   deleteTabAndPersist,
   updateTabNameAndPersist,
 } from "../actions/tabs";
-import TabArea from "../components/TabArea/TabArea";
+import { TabArea } from "../components/TabArea/TabArea";
 import { TabsState } from "../reducers/tabs";
 import { TabAreaOpenState } from "../reducers/isTabAreaOpen";
 import { SelectedTabState } from "../reducers/selectedTab";
 import { State } from "../reducers";
 import { ThunkDispatch } from "redux-thunk";
-import { ShowToastPopupAction } from "../actions/toastPopup";
 import { Action } from "redux";
 
 export type ConnectedProps = {
@@ -27,7 +26,7 @@ export type ConnectedProps = {
 
 export type DispatchProps = {
   createTab: (id: string, index: number, name: string) => void;
-  selectTab: (id: string) => void;
+  selectTab: (id: string | null) => void;
   moveTabUp: (id: string) => void;
   deleteTab: (id: string, name: string) => void;
   moveTabDown: (id: string) => void;
@@ -48,7 +47,7 @@ const mapDispatchToProps = (
 ): DispatchProps => ({
   createTab: (id: string, index: number, name: string) =>
     dispatch(createTabAndPersist(id, index, name)),
-  selectTab: (id: string) => dispatch(selectTabAndPersist(id)),
+  selectTab: (id: string | null) => dispatch(selectTabAndPersist(id)),
   moveTabUp: (id: string) => dispatch(moveTabUpAndPersist(id)),
   deleteTab: (id: string, name: string) =>
     dispatch(deleteTabAndPersist(id, name)),
