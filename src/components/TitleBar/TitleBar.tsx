@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { IpcActions } from "../../data/ipcActions";
 import "./TitleBar.scss";
 
@@ -11,11 +10,11 @@ export const enum TitleBarStyles {
 }
 
 type Props = {
-  style: TitleBarStyles;
+  barStyle: TitleBarStyles;
 };
 
-export function TitleBar({ style }: Props) {
-  if (style === TitleBarStyles.MacOs) {
+export function TitleBar({ barStyle }: Props) {
+  if (barStyle === TitleBarStyles.MacOs) {
     return <div className="title-bar title-bar-mac" />;
   }
 

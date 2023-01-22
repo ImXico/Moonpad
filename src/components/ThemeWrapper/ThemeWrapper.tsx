@@ -10,7 +10,7 @@ export const enum Themes {
 
 type Props = {
   theme: Themes;
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
 export function ThemeWrapper({ theme, children }: Props) {
