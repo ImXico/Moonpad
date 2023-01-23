@@ -97,7 +97,7 @@ export function TextArea({
         onSelect={handleOnTextSelected}
       />
       <div className="bottom-bar">
-        {numSelectedChars && (
+        {numSelectedChars !== 0 && (
           <div className="info">
             {numSelectedChars}C / {numSelectedWords}W
           </div>
