@@ -26,30 +26,28 @@ Inspired by [FromScratch](https://github.com/Kilian/fromscratch) and named after
 
 ### Content Storage
 
-Both preferences/last window settings _and_ actual tabs/content are saved in a single json file, `data.json`:
+Both window preferences and tabs/content are saved in a single json file, `data.json`:
 
 * On Windows: `%APPDATA%/Moonpad/data.json`
 * On MacOS: `~/Library/Application Support/Moonpad/data.json`
 * On Linux: `~/.config/Moonpad/data.json`
 
-For the time being, this location is _not_ configurable.
+For the time being, this location is not configurable.
 
 ### Development & Building
 
-To clone and run this repository you'll need Git and Yarn. From your command line:
+To clone and run this repository you'll need Git and Yarn. From the command line:
 
 ```bash
-$ git clone https://github.com/ImXico/MoonPad
-$ cd Moonpad
+$ git clone https://github.com/ImXico/Moonpad && cd Moonpad
 $ yarn install
-$ yarn run electron-dev
+$ yarn run electron:dev
 ```
 
-To make a release-ready build:
+To make a release-ready build (will go to `/dist`):
 
 ```bash
-# $targetPlatform is either osx, win or lin
-$ yarn run pack-$targetPlatform
+$ yarn run electron:build
 ```
 
 ### License
