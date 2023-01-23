@@ -2,7 +2,7 @@
   "name": "moonpad",
   "version": "0.1.0",
   "private": true,
-  "main": "build/electron/main.js",
+  "main": "build/electron/index.js",
   "homepage": "./",
   "dependencies": {
     "@types/jest": "^29.2.6",

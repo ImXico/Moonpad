@@ -1,5 +1,5 @@
 import React from "react";
-import { IpcActions } from "../../data/ipcActions";
+import { IpcActions } from "../../shared/ipcActions";
 import "./TitleBar.scss";
 
 const { ipcRenderer } = window.require("electron");
