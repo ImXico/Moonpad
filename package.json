@@ -1,12 +1,16 @@
 {
-  "name": "Moonpad",
+  "name": "moonpad",
   "version": "0.1.0",
   "private": true,
-  "main": "./src/electron.js",
+  "main": "build/electron/main.js",
   "homepage": "./",
   "dependencies": {
+    "@types/jest": "^29.2.6",
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/redux-logger": "^3.0.9",
     "electron": "^7.2.4",
-    "electron-is-dev": "^1.1.0",
     "lowdb": "^1.0.0",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
@@ -15,30 +19,44 @@
     "react-scripts": "^5.0.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typescript": "^4.9.4"
   },
   "devDependencies": {
+    "@types/lowdb": "^1.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
     "concurrently": "^5.0.0",
-    "electron-packager": "^14.0.6",
-    "eslint": "^7.32.0 || ^8.2.0",
+    "cross-env": "^7.0.3",
+    "electron-builder": "^23.6.0",
+    "eslint": "^8.32.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "node-sass": "^4.13.1",
     "prettier": "2.8.3",
+    "sass": "^1.57.1",
     "wait-on": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "pack-osx": "yarn build && electron-packager . --plataform=darwin --out=./release-builds/macOS --icon=./assets/moonpad.icns --overwrite=true --prune=true --package-manager=yarn",
-    "pack-win": "yarn build && electron-packager . --platform=win32   --out=./release-builds/win   --icon=./assets/moonpad.ico  --overwrite=true --prune=true --package-manager=yarn",
-    "pack-lin": "yarn build && electron-packager . --platform=linux   --out=./release-builds/lin   --icon=./assets/moonpad.png  --overwrite=true --prune=true --package-manager=yarn"
+    "postinstall": "electron-builder install-app-deps",
+    "electron:dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://127.0.0.1:3000 && tsc -p electron -w\" \"wait-on http://127.0.0.1:3000 && tsc -p electron && electron .\"",
+    "electron:build": "yarn build && tsc -p electron && electron-builder",
+    "eject": "react-scripts eject"
+  },
+  "build": {
+    "extends": null,
+    "files": [
+      "build/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
