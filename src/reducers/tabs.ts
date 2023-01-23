@@ -41,8 +41,10 @@ const tabs = (state: TabsState = defaultState, action: TabsAction) => {
       );
 
     case Actions.SwapTabs: {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const indexOfTab1 = state.find((tab) => tab.id === action.id)!.index;
       const indexOfTab2 = action.isMovingUp ? indexOfTab1 - 1 : indexOfTab1 + 1;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const idOfTab2 = state.find((tab) => tab.index === indexOfTab2)!.id;
       return state.map((tab) => {
         if (tab.id === action.id) return { ...tab, index: indexOfTab2 };
@@ -52,6 +54,7 @@ const tabs = (state: TabsState = defaultState, action: TabsAction) => {
     }
 
     case Actions.DeleteTab: {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const indexOfDeletedTab = state.find(
         (tab) => tab.id === action.id
       )!.index;
