@@ -1,7 +1,7 @@
 import { Action, ActionCreator, Dispatch } from "redux";
 import { Actions } from ".";
-import { IpcActions } from "../data/ipcActions";
 import { showToastPopup, ShowToastPopupAction } from "./toastPopup";
+import { IpcActions } from "../shared/ipcActions";
 
 const { ipcRenderer } = window.require("electron");
 

@@ -7,7 +7,7 @@ import { createStore, applyMiddleware } from "redux";
 import { reducer as rootReducer } from "./reducers/index";
 import * as serviceWorker from "./serviceWorker";
 import AppContainer from "./containers/AppContainer";
-import { IpcActions } from "./data/ipcActions";
+import { IpcActions } from "./shared/ipcActions";
 import "./reset.scss";
 
 const { ipcRenderer } = window.require("electron");

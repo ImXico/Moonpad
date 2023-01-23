@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getRandomPlaceholderText } from "../../data/placeholderVariations";
 import {
   ConnectedProps,
   DispatchProps,
 } from "../../containers/TextAreaContainer";
+import { getRandomPlaceholderText } from "../../util/placeholders";
 import "./TextArea.scss";
 
 const SPACES = "  ";

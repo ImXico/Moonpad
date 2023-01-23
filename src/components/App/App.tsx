@@ -5,7 +5,7 @@ import TabAreaContainer from "../../containers/TabAreaContainer";
 import TextAreaContainer from "../../containers/TextAreaContainer";
 import ToastPopupContainer from "../../containers/ToastPopupContainer";
 import { ConnectedProps, DispatchProps } from "../../containers/AppContainer";
-import { IpcActions } from "../../data/ipcActions";
+import { IpcActions } from "../../shared/ipcActions";
 import "./App.scss";
 
 const { ipcRenderer } = window.require("electron");
