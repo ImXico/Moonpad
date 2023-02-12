@@ -8,7 +8,7 @@ import { reducer as rootReducer } from "./reducers/index";
 import * as serviceWorker from "./serviceWorker";
 import AppContainer from "./containers/AppContainer";
 import { IpcActions } from "./shared/ipcActions";
-import "./reset.scss";
+import "./reset.css";
 
 const { ipcRenderer } = window.require("electron");
 

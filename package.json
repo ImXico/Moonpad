@@ -38,7 +38,6 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "2.8.3",
-    "sass": "^1.57.1",
     "wait-on": "^3.3.0"
   },
   "scripts": {
