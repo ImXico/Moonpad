@@ -10,7 +10,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/redux-logger": "^3.0.9",
-    "electron": "^7.2.4",
+    "electron": "^18.3.7",
     "lowdb": "^1.0.0",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
