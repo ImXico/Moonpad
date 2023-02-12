@@ -8,6 +8,8 @@
 
 Inspired by [FromScratch](https://github.com/Kilian/fromscratch) and named after the great John Maus [song](https://open.spotify.com/track/2NJGAT43AvS7BQvn2017yS?si=9_zcPXJJT1Wdjg-ip5-1sw), Moonpad is a simple scratchpad intented for you to quickly type down your notes, thoughts, to-dos... anything, really.
 
+It is an Electron app built with React/Redux/TypeScript and uses `styled-components` for styling.
+
 ### Features
 
 * Content auto-saving
