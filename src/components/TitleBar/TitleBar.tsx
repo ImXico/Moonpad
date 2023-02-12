@@ -1,48 +1,49 @@
 import React from "react";
 import { IpcActions } from "../../shared/ipcActions";
-import "./TitleBar.scss";
+import {
+  TitleBarLinuxWindowsWrapper,
+  TitleBarMacOS,
+  WindowButton,
+  WindowButtonsContainer,
+} from "./styled";
 
 const { ipcRenderer } = window.require("electron");
 
-export const enum TitleBarStyles {
-  MacOs,
-  WindowsOrLinux,
-}
+const MINIMIZE_WINDOW_BUTTON_SYMBOL = "-";
+const MAXIMIZE_WINDOW_BUTTON_SYMBOL = "□";
+const CLOSE_WINDOW_BUTTON_SYMBOL = "×";
 
 type Props = {
-  barStyle: TitleBarStyles;
+  isMacOs: boolean;
 };
 
-export function TitleBar({ barStyle }: Props) {
-  if (barStyle === TitleBarStyles.MacOs) {
-    return <div className="title-bar title-bar-mac" />;
+export function TitleBar({ isMacOs }: Props) {
+  if (isMacOs) {
+    return <TitleBarMacOS />;
   }
 
   return (
-    <div className="title-bar title-bar-non-mac">
-      <div className="window-buttons-container">
-        <button
+    <TitleBarLinuxWindowsWrapper>
+      <WindowButtonsContainer>
+        <WindowButton
           type="button"
-          className="window-button"
           onClick={() => ipcRenderer.send(IpcActions.MinimizeWindow)}
         >
-          -
-        </button>
-        <button
+          {MINIMIZE_WINDOW_BUTTON_SYMBOL}
+        </WindowButton>
+        <WindowButton
           type="button"
-          className="window-button"
           onClick={() => ipcRenderer.send(IpcActions.ToggleMaximizeWindow)}
         >
-          □
-        </button>
-        <button
+          {MAXIMIZE_WINDOW_BUTTON_SYMBOL}
+        </WindowButton>
+        <WindowButton
           type="button"
-          className="window-button"
           onClick={() => ipcRenderer.send(IpcActions.CloseWindow)}
         >
-          ×
-        </button>
-      </div>
-    </div>
+          {CLOSE_WINDOW_BUTTON_SYMBOL}
+        </WindowButton>
+      </WindowButtonsContainer>
+    </TitleBarLinuxWindowsWrapper>
   );
 }
