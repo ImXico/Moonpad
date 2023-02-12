@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
-import { ThemeWrapper, Themes } from "../ThemeWrapper/ThemeWrapper";
-import { TitleBar, TitleBarStyles } from "../TitleBar/TitleBar";
+import { ThemeProvider } from "styled-components";
+import { TitleBar } from "../TitleBar/TitleBar";
 import TabAreaContainer from "../../containers/TabAreaContainer";
 import TextAreaContainer from "../../containers/TextAreaContainer";
 import ToastPopupContainer from "../../containers/ToastPopupContainer";
 import { ConnectedProps, DispatchProps } from "../../containers/AppContainer";
 import { IpcActions } from "../../shared/ipcActions";
-import "./App.scss";
+import { RightPaneWrapper, WorkingAreaWrapper } from "./styled";
+import { DarkTheme, LightTheme } from "../../themes";
 
 const { ipcRenderer } = window.require("electron");
 
 type Props = ConnectedProps &
   DispatchProps & {
-    hasCustomTitleBar: boolean;
+    isMacOs: boolean;
   };
 
-export function App({ hasCustomTitleBar, isDarkTheme, showToast }: Props) {
+export function App({ isMacOs, isDarkTheme, showToast }: Props) {
   const handleKeydownEvents = React.useCallback((event: KeyboardEvent) => {
     if (event.metaKey || event.ctrlKey) {
       if (event.key === ".") {
@@ -43,21 +44,15 @@ export function App({ hasCustomTitleBar, isDarkTheme, showToast }: Props) {
   }, []);
 
   return (
-    <ThemeWrapper theme={isDarkTheme ? Themes.Dark : Themes.Light}>
-      <div className="working-area-container">
+    <ThemeProvider theme={isDarkTheme ? DarkTheme : LightTheme}>
+      <WorkingAreaWrapper>
         <TabAreaContainer />
-        <div className="right-pane-area-container">
+        <RightPaneWrapper>
           <TextAreaContainer />
-        </div>
-      </div>
+        </RightPaneWrapper>
+      </WorkingAreaWrapper>
       <ToastPopupContainer />
-      <TitleBar
-        barStyle={
-          hasCustomTitleBar
-            ? TitleBarStyles.WindowsOrLinux
-            : TitleBarStyles.MacOs
-        }
-      />
-    </ThemeWrapper>
+      <TitleBar isMacOs={isMacOs} />
+    </ThemeProvider>
   );
 }
