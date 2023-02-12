@@ -7,6 +7,7 @@ const BaseTab = styled.button`
   padding: 10px 0;
   font-size: 0.75em;
   width: 100%;
+  background-color: ${(props) => props.theme.backgroundPrimaryColor};
   user-select: none; // prevents selection highlighting
 
   &:focus {
