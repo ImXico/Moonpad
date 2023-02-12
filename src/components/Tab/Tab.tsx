@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { PopupMenu, PopupMenuItemEntry } from "../PopupMenu/PopupMenu";
-import "./Tab.scss";
+import { StyledTab, StyledTabInEditMode } from "./styled";
 
 const MENU_OPTION_MOVE_UP = "Move up";
 const MENU_OPTION_MOVE_DOWN = "Move down";
@@ -160,11 +160,10 @@ export function Tab({
   return (
     <div ref={tabRef}>
       {isNameBeingEdited ? (
-        <input
-          className="Tab Tab--editing-name"
-          // eslint-disable-next-line jsx-a11y/no-autofocus
-          autoFocus
+        <StyledTabInEditMode
+          as="input"
           type="text"
+          autoFocus // eslint-disable-line jsx-a11y/no-autofocus
           minLength={MIN_NAME_LENGTH}
           maxLength={MAX_NAME_LENGTH}
           value={tabNameInEdition}
@@ -172,14 +171,14 @@ export function Tab({
           onKeyDown={(event) => handleTabNameEditFinish(event)}
         />
       ) : (
-        <button
+        <StyledTab
+          isSelected={isSelected}
           type="button"
-          className={`Tab Tab--${isSelected ? "selected" : "unselected"}`}
           onClick={() => onSelect(id)}
           onContextMenu={handleTopLevelContextMenuOpen}
         >
           {name}
-        </button>
+        </StyledTab>
       )}
       {isPopupMenuOpen && (
         <PopupMenu

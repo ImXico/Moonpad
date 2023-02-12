@@ -8,7 +8,7 @@ import { reducer as rootReducer } from "./reducers/index";
 import * as serviceWorker from "./serviceWorker";
 import AppContainer from "./containers/AppContainer";
 import { IpcActions } from "./shared/ipcActions";
-import "./reset.scss";
+import "./reset.css";
 
 const { ipcRenderer } = window.require("electron");
 
@@ -26,7 +26,7 @@ const persistedInitialState = ipcRenderer.sendSync(
  * This is necessary to determine whether or not we need to render a custom
  * titlebar (that is, if *not* on macOS).
  */
-const isMacOS = ipcRenderer.sendSync(IpcActions.CheckIfMacOs);
+const isMacOs = ipcRenderer.sendSync(IpcActions.CheckIfMacOs);
 
 const store = createStore(
   rootReducer,
@@ -43,7 +43,7 @@ const root = ReactDOM.createRoot(rootElement);
 
 root.render(
   <Provider store={store}>
-    <AppContainer hasCustomTitleBar={!isMacOS} />
+    <AppContainer isMacOs={isMacOs} />
   </Provider>
 );
 

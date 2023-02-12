@@ -4,7 +4,7 @@ import {
   DispatchProps,
 } from "../../containers/TextAreaContainer";
 import { getRandomPlaceholderText } from "../../util/placeholders";
-import "./TextArea.scss";
+import { StyledTextArea, BottomBar, BottomBarInfo } from "./styled";
 
 const SPACES = "  ";
 const SPACES_PER_TAB = 2;
@@ -87,8 +87,7 @@ export function TextArea({
 
   return (
     <>
-      <textarea
-        className="TextEditor"
+      <StyledTextArea
         placeholder={textContent ? placeholder : undefined}
         value={textContent}
         ref={textAreaNodeRef}
@@ -96,13 +95,13 @@ export function TextArea({
         onKeyDown={handleTabKeydown}
         onSelect={handleOnTextSelected}
       />
-      <div className="bottom-bar">
+      <BottomBar>
         {numSelectedChars !== 0 && (
-          <div className="info">
+          <BottomBarInfo>
             {numSelectedChars}C / {numSelectedWords}W
-          </div>
+          </BottomBarInfo>
         )}
-      </div>
+      </BottomBar>
     </>
   );
 }

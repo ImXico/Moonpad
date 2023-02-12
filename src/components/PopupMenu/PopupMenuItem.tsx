@@ -1,5 +1,5 @@
 import React from "react";
-import "./PopupMenu.scss";
+import { StyledPopupMenuItem } from "./styled";
 
 type Props = {
   text: string;
@@ -8,17 +8,13 @@ type Props = {
 };
 
 export function PopupMenuItem({ text, isEnabled, onEntrySelected }: Props) {
-  const className = `PopupMenuItem PopupMenuItem--${
-    isEnabled ? "enabled" : "disabled"
-  }`;
-
   return (
-    <button
+    <StyledPopupMenuItem
       type="button"
-      className={className}
+      isEnabled={isEnabled}
       onClick={() => isEnabled && onEntrySelected()}
     >
       {text}
-    </button>
+    </StyledPopupMenuItem>
   );
 }

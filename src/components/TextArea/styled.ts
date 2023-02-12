@@ -1,6 +1,6 @@
-$bottom-pane-height: 38px;
+import styled from "styled-components";
 
-.TextEditor {
+export const StyledTextArea = styled.textarea`
   width: 100%;
   height: 100%;
   padding: 55px;
@@ -15,16 +15,16 @@ $bottom-pane-height: 38px;
   font-size: 0.82em;
   line-height: 1.7em;
   letter-spacing: 0.02em;
-  color: var(--text-primary-color);
+  color: ${(props) => props.theme.textPrimaryColor};
 
   &::selection {
-    background: var(--text-primary-selection-color);
+    background-color: ${(props) => props.theme.textPrimarySelectionColor};
   }
 
   &::placeholder {
     line-height: 1.7em;
     letter-spacing: 0.02em;
-    color: var(--background-primary-muted-color);
+    color: ${(props) => props.theme.backgroundPrimaryColorMuted};
   }
 
   &::-webkit-scrollbar {
@@ -32,28 +32,28 @@ $bottom-pane-height: 38px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--accent-color);
+    background-color: ${(props) => props.theme.accentColor};
     border-radius: 20px;
   }
 
   &::-webkit-scrollbar-track {
     background: transparent;
   }
-}
+`;
 
-.bottom-bar {
+export const BottomBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: $bottom-pane-height;
+  height: 38px;
+`;
 
-  .info {
-    position: absolute;
-    left: 50%;
-    color: var(--background-primary-muted-color);
-    font-size: 0.75em;
-  }
-}
+export const BottomBarInfo = styled.div`
+  position: absolute;
+  left: 50%;
+  color: ${(props) => props.theme.backgroundPrimaryColorMuted};
+  font-size: 0.75em;
+`;

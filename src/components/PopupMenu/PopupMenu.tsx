@@ -1,6 +1,6 @@
 import React from "react";
-import "./PopupMenu.scss";
 import { PopupMenuItem } from "./PopupMenuItem";
+import { StyledPopupMenu } from "./styled";
 
 export type PopupMenuItemEntry = {
   id: number;
@@ -21,7 +21,7 @@ export function PopupMenu({ position, entries }: Props) {
   const { top, left } = position;
 
   return (
-    <div className="PopupMenu" style={{ left: `${left}px`, top: `${top}px` }}>
+    <StyledPopupMenu style={{ left: `${left}px`, top: `${top}px` }}>
       {entries.map((entry) => (
         <PopupMenuItem
           key={entry.id}
@@ -30,6 +30,6 @@ export function PopupMenu({ position, entries }: Props) {
           onEntrySelected={entry.onEntrySelected}
         />
       ))}
-    </div>
+    </StyledPopupMenu>
   );
 }
