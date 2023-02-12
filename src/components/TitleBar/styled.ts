@@ -30,7 +30,7 @@ export const WindowButtonsContainer = styled.div`
 `;
 
 export const WindowButton = styled.button`
-  color: #4c536a; // TODO backgroundPrimaryColorMuted
+  color: ${(props) => props.theme.backgroundPrimaryColorMuted};
   font-size: 1.3em;
   width: 100%;
   user-select: none; // prevents selection highlighting
@@ -41,7 +41,7 @@ export const WindowButton = styled.button`
   }
 
   &:hover {
-    color: #4c536a; // TODO textPrimaryColor
+    color: ${(props) => props.theme.textPrimaryColor};
     transition: color 50ms linear;
   }
 `;

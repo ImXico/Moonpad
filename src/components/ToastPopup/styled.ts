@@ -12,8 +12,8 @@ export const StyledToastPopup = styled.div<{
   margin-top: 20px;
   width: 230px;
   height: 40px;
-  color: #d8dee9; // TODO textPrimaryColor
-  background-color: #242933; // TODO backgroundSecondaryColor
+  color: ${(props) => props.theme.textPrimaryColor};
+  background-color: ${(props) => props.theme.backgroundSecondaryColor};
   text-align: center;
   padding: 15px;
   font-size: 0.7em;

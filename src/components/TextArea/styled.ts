@@ -15,16 +15,16 @@ export const StyledTextArea = styled.textarea`
   font-size: 0.82em;
   line-height: 1.7em;
   letter-spacing: 0.02em;
-  color: #d8dee9; // TODO textPrimaryColor
+  color: ${(props) => props.theme.textPrimaryColor};
 
   &::selection {
-    background-color: #9fccd9; // TODO textPrimarySelectionColor
+    background-color: ${(props) => props.theme.textPrimarySelectionColor};
   }
 
   &::placeholder {
     line-height: 1.7em;
     letter-spacing: 0.02em;
-    color: #4c536a; // TODO backgroundPrimaryColorMuted
+    color: ${(props) => props.theme.backgroundPrimaryColorMuted};
   }
 
   &::-webkit-scrollbar {
@@ -32,7 +32,7 @@ export const StyledTextArea = styled.textarea`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #88c0d0; // TODO accentColor
+    background-color: ${(props) => props.theme.accentColor};
     border-radius: 20px;
   }
 
@@ -54,6 +54,6 @@ export const BottomBar = styled.div`
 export const BottomBarInfo = styled.div`
   position: absolute;
   left: 50%;
-  color: #4c536a; // TODO backgroundPrimaryColorMuted
+  color: ${(props) => props.theme.backgroundPrimaryColorMuted};
   font-size: 0.75em;
 `;

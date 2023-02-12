@@ -16,7 +16,7 @@ const BaseTab = styled.button`
 
 export const StyledTabInEditMode = styled(BaseTab)`
   text-align: center;
-  color: #88c0d0; // TODO accentColor
+  color: ${(props) => props.theme.accentColor};
 `;
 
 export const StyledTab = styled(BaseTab)<{
@@ -25,14 +25,12 @@ export const StyledTab = styled(BaseTab)<{
   ${(props) =>
     props.isSelected
       ? css`
-          color: #e5e9f0; // TODO selectedTabColor
-          background-color: #434c5e; // TODO selectedTabSecondaryColor
+          color: ${(p) => p.theme.selectedTabColor};
+          background-color: ${(p) => p.theme.selectedTabSecondaryColor};
         `
       : css`
-          color: #4c536a; // TODO backgroundPrimaryColorMuted
-
+          color: ${(p) => p.theme.backgroundPrimaryColorMuted};
           &:hover {
-            color: #d8dee9; // TODO textPrimaryColor
             color: ${(p) => p.theme.textPrimaryColor};
             transition: color 100ms linear;
           }

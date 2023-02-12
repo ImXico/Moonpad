@@ -9,7 +9,7 @@ export const StyledPopupMenu = styled.div`
   z-index: 1;
   padding: 10px 15px;
   border-radius: 2px;
-  background-color: #242933; // TODO backgroundSecondaryColor
+  background-color: ${(props) => props.theme.backgroundSecondaryColor};
   box-shadow: 5px 5px 30px -3px rgba(0, 0, 0, 0.22);
 
   &:after {
@@ -20,7 +20,7 @@ export const StyledPopupMenu = styled.div`
     width: 0;
     height: 0;
     border: 10px solid transparent;
-    border-right-color: #242933; // TODO backgroundSecondaryColor
+    border-right-color: ${(props) => props.theme.backgroundSecondaryColor};
     border-left: 0;
     margin-top: -63px;
     margin-left: -6px;
@@ -30,7 +30,7 @@ export const StyledPopupMenu = styled.div`
 export const StyledPopupMenuItem = styled.button<{
   isEnabled: boolean;
 }>`
-  background-color: #242933; // TODO backgroundSecondaryColor
+  background-color: ${(props) => props.theme.backgroundSecondaryColor};
   border-radius: 2px;
   border: none;
   font-size: 0.75em;
@@ -47,13 +47,13 @@ export const StyledPopupMenuItem = styled.button<{
     props.isEnabled
       ? css`
           cursor: pointer;
-          color: #d8dee9; // TODO textPrimaryColor
+          color: ${(p) => p.theme.textPrimaryColor};
           &:hover {
-            background-color: #2e3440; // TODO backgroundSecondaryColorMuted
+            background-color: ${(p) => p.theme.backgroundSecondaryColorMuted};
           }
         `
       : css`
           cursor: default;
-          color: #2e3440; // TODO backgroundSecondaryColorMuted
+          color: ${(p) => p.theme.backgroundSecondaryColorMuted};
         `}
 `;
