@@ -4,7 +4,7 @@ import {
   ConnectedProps,
   DispatchProps,
 } from "../../containers/ToastPopupContainer";
-import "./ToastPopup.scss";
+import { StyledToastPopup } from "./styled";
 
 const TOAST_SPOTLIGHT_DURATION_MS = 1750;
 
@@ -38,8 +38,6 @@ export function ToastPopup({ toastShowing, toastMessage, hideToast }: Props) {
   }, [toastShowing, toastMessage]);
 
   return (
-    <div className={`ToastPopup ${toastShowing ? "shown" : "hidden"}`}>
-      {toastMessage}
-    </div>
+    <StyledToastPopup isShowing={toastShowing}>{toastMessage}</StyledToastPopup>
   );
 }
