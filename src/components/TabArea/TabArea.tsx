@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { Tab } from "../Tab/Tab";
 import { NewTabButton } from "../NewTabButton/NewTabButton";
-import "./TabArea.scss";
 import {
   ConnectedProps,
   DispatchProps,
 } from "../../containers/TabAreaContainer";
+import { ScrollPast, TabAreaWrapper, TabsWrapper } from "./styled";
 
 const DEFAULT_NEW_TAB_NAME = "New Tab";
 
@@ -25,7 +25,7 @@ export function TabArea({
   createTab,
   deleteTab,
 }: Props) {
-  const tabsContainerRef = useRef<HTMLDivElement>(null);
+  const tabsWrapperRef = useRef<HTMLDivElement>(null);
 
   const handleCreateTab = () => {
     const newTabId = `${DEFAULT_NEW_TAB_NAME}|${Date.now()}`;
@@ -35,7 +35,7 @@ export function TabArea({
   };
 
   const smoothScrollToNewlyCreatedTab = () => {
-    const refCurrent = tabsContainerRef.current;
+    const refCurrent = tabsWrapperRef.current;
     if (refCurrent) {
       refCurrent.scroll({
         top: refCurrent.offsetHeight,
@@ -82,8 +82,8 @@ export function TabArea({
   };
 
   return (
-    <div className={`TabsPane ${isOpen ? "open" : ""}`}>
-      <div className="TabsContainer" ref={tabsContainerRef}>
+    <TabAreaWrapper isTabAreaOpen={isOpen}>
+      <TabsWrapper ref={tabsWrapperRef}>
         {tabs
           .sort((a, b) => a.index - b.index)
           .map((tab) => (
@@ -103,8 +103,8 @@ export function TabArea({
             />
           ))}
         <NewTabButton isVisible={isOpen} onClick={handleCreateTab} />
-        <div className="tab-area-scroll-past" />
-      </div>
-    </div>
+        <ScrollPast />
+      </TabsWrapper>
+    </TabAreaWrapper>
   );
 }
